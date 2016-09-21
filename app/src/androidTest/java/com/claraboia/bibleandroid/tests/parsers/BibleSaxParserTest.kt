@@ -1,18 +1,23 @@
 package com.claraboia.bibleandroid.tests.parsers
 
-import android.test.AndroidTestCase
+import android.support.test.InstrumentationRegistry
+import android.support.test.filters.SmallTest
+import android.support.test.runner.AndroidJUnit4
 import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.models.parsers.BibleSaxParser
-import junit.framework.Assert
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
 
-/**
- * Created by lucas.batagliao on 12/07/2016.
- */
-class BibleSaxParserTest : AndroidTestCase() {
+@RunWith(AndroidJUnit4::class)
+@SmallTest
+class BibleSaxParserTest  {
 
+    @Test
     fun testParse() {
 
-        val assets = this.context.assets
+        val context = InstrumentationRegistry.getTargetContext()
+        val assets = context.assets
         val stream = assets.open("acf.bib")
         var bible : Bible? = null
         stream.use {
