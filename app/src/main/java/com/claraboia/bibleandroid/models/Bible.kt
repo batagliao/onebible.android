@@ -18,9 +18,9 @@ class Bible() {
 
     companion object {
         fun load(name: String): Bible {
-            var filename = "$BIB_FOLDER/$name$BIB_FILE_EXTENSION"
+            var filename = "$name$BIB_FILE_EXTENSION"
 
-            val stream = getBibleStream(name)
+            val stream = getBibleStream(filename)
             stream.use {
                 return BibleSaxParser().parse(it)
             }

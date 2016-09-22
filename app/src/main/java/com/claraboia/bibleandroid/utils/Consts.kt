@@ -27,7 +27,7 @@ fun getBibleDir(): String {
 }
 
 fun getBibleStream(name: String): FileInputStream {
-    val path = "${getBibleDir()}/$name$BIB_FILE_EXTENSION"
+    val path = "${getBibleDir()}/$name"
     val file = File(path)
 
     return FileInputStream(file)
