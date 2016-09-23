@@ -23,7 +23,7 @@ class BibleSaxParser {
             reader.contentHandler = contentHandler
 
             val isource = InputSource(inputStream)
-            isource.encoding = "UTF8"
+            //isource.encoding = "UTF8"
 
             parser.parse(isource, contentHandler)
             b = contentHandler.Bible
