@@ -1,7 +1,7 @@
 package com.claraboia.bibleandroid.tests
 
-import com.claraboia.bibleandroid.utils.BIB_FILE_EXTENSION
-import com.claraboia.bibleandroid.utils.getBibleDir
+import com.claraboia.bibleandroid.BIB_FILE_EXTENSION
+import com.claraboia.bibleandroid.getBibleDir
 import java.io.*
 import java.net.URL
 import java.nio.charset.Charset

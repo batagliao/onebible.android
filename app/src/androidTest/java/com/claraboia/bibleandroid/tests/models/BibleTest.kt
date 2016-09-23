@@ -4,8 +4,8 @@ import android.support.test.filters.SmallTest
 import android.support.test.runner.AndroidJUnit4
 import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.tests.downloadBibleFile
-import com.claraboia.bibleandroid.utils.BIB_FILE_EXTENSION
-import com.claraboia.bibleandroid.utils.getBibleDir
+import com.claraboia.bibleandroid.BIB_FILE_EXTENSION
+import com.claraboia.bibleandroid.getBibleDir
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -35,6 +35,6 @@ class BibleTest {
         val bible = Bible.load("acf")
 
         Assert.assertNotNull(bible)
-        Assert.assertEquals(66, bible.Books.size)
+        Assert.assertEquals(66, bible.books.size)
     }
 }

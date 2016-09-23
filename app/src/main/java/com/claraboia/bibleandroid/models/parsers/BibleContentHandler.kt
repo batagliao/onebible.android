@@ -33,20 +33,20 @@ class BibleContentHandler : DefaultHandler() {
         if (localName.equals("b", true)) { //book
             currentBook = Book()
             val order = Integer.parseInt(atts!!.getValue("o")) //order
-            currentBook!!.BookOrder = order
+            currentBook!!.bookOrder = order
         }
 
         if (localName.equals("c", true)) { //chapter
             currentChapter = Chapter()
             val number = Integer.parseInt(atts!!.getValue("n")) //number
-            currentChapter!!.ChapterOrder = number
+            currentChapter!!.chapterOrder = number
         }
 
         if (localName.equals("v", true)) { //verse
             elementOn = true
             currentVerse = Verse()
             val number = Integer.parseInt(atts!!.getValue("n")) //number
-            currentVerse!!.VerseOrder = number
+            currentVerse!!.verseOrder = number
         }
     }
 
@@ -62,22 +62,22 @@ class BibleContentHandler : DefaultHandler() {
         elementOn = false
 
         if (localName.equals("title", true)) {
-            this.Bible.Title = tempVal
+            this.Bible.title = tempVal
         }
 
         if (localName.equals("b", true)) { //book
-            this.Bible.Books.add(currentBook!!)
+            this.Bible.books.add(currentBook!!)
             currentBook = null
         }
 
         if(localName.equals("c", true)) { //chapter
-            currentBook!!.Chapters.add(currentChapter!!)
+            currentBook!!.chapters.add(currentChapter!!)
             currentChapter = null
         }
 
         if(localName.equals("v", true)) { //verse
-            currentChapter!!.Verses.add(currentVerse!!)
-            currentVerse!!.Text = tempVal;
+            currentChapter!!.verses.add(currentVerse!!)
+            currentVerse!!.text = tempVal;
             currentVerse = null
         }
     }

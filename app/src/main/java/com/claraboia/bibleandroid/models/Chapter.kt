@@ -7,7 +7,7 @@ import java.util.*
  */
 
 class Chapter(){
-    var ChapterOrder : Int = 0
+    var chapterOrder: Int = 0
 
-    var Verses : MutableList<Verse> = ArrayList()
+    var verses: MutableList<Verse> = ArrayList()
 }

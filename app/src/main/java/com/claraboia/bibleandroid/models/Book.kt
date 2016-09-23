@@ -8,8 +8,8 @@ import java.util.*
  */
  class Book(){
 
-    var BookOrder: Int= 0
+    var bookOrder: Int= 0
 
-    var Chapters: MutableList<Chapter> = ArrayList()
+    var chapters: MutableList<Chapter> = ArrayList()
 
 }

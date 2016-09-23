@@ -1,21 +1,16 @@
-package com.claraboia.bibleandroid.utils
+package com.claraboia.bibleandroid
 
 import com.claraboia.bibleandroid.BuildConfig
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 
-val SELECTED_TRANSLATION_KEY: String
-    get() = "selectedTranslation"
 
-val LAST_ACCESSED_ADDRESS_KEY: String
-    get() = "lastAccessedAddress"
 
-val BIB_FILE_EXTENSION: String
-    get() = ".bib"
+// storage consts
+const val BIB_FILE_EXTENSION: String = ".bib"
 
-val BIB_FOLDER: String
-    get() = "bibs"
+const val BIB_FOLDER: String = "bibs"
 
 
 fun getBibleDir(): String {

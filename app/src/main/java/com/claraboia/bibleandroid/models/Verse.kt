@@ -5,9 +5,9 @@ package com.claraboia.bibleandroid.models
  */
 
 class Verse(){
-    var Text: String = ""
+    var text: String = ""
 
-    var VerseOrder: Int = 0
+    var verseOrder: Int = 0
 
 }
 
