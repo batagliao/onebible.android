@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 24
@@ -26,20 +27,21 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Optional -- Hamcrest library
+    // Optional -- UI testing with Espresso
+    // Optional -- UI testing with UI Automator
+    //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support:support-annotations:24.2.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
-    // Optional -- Hamcrest library
     androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
-    // Optional -- UI testing with Espresso
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    // Optional -- UI testing with UI Automator
-    //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
-    compile 'com.google.code.gson:gson:2.4'
 }
 repositories {
     mavenCentral()
