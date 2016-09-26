@@ -16,7 +16,9 @@ import android.widget.TextView
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.helpers.getAddressText
 import kotlinx.android.synthetic.main.content_read.*
+
 
 class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,10 +42,9 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
 
-        val text = this.bibleApplication.currentBible.books[0].chapters[0].verses[0].text
+        val text = bibleApplication.currentBible.getAddressText(bibleApplication.preferences.lastAccessedAddress)
         txtview.text = text
 
-       // txtView.text =
     }
 
     override fun onBackPressed() {
