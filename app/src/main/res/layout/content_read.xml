@@ -9,7 +9,7 @@
     tools:context="com.claraboia.bibleandroid.activities.ReadActivity"
     tools:showIn="@layout/app_bar_read">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
@@ -21,6 +21,6 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>
