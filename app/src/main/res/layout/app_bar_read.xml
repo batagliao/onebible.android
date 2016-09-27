@@ -41,19 +41,19 @@
                 android:layout_margin="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:src="@android:drawable/stat_notify_sync_noanim"
+                app:srcCompat="@drawable/ic_menu_24dp"
 
                  />
             <ImageButton
                 android:id="@+id/btnBooks"
                 style="@style/Widget.AppCompat.ActionButton"
-                android:layout_toRightOf="@id/btnOpenMenu"
+                android:layout_toEndOf="@id/btnOpenMenu"
                 android:padding="0dp"
                 android:layout_margin="0dp"
                 android:minWidth="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:src="@android:drawable/stat_notify_sync_noanim"
+                app:srcCompat="@drawable/ic_book_open_24dp"
                  />
 
             <TextView
@@ -72,7 +72,7 @@
                     android:minWidth="0dp"
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
-                    android:src="@android:drawable/stat_notify_sync_noanim" />
+                    app:srcCompat="@drawable/ic_translate_24dp" />
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
