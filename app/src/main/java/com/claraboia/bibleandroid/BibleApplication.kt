@@ -16,6 +16,9 @@ class BibleApplication : Application() {
     lateinit var preferences: Preferences
     lateinit var currentBible: Bible
 
+    var currentBook = 0
+    var currentChapter = 0
+
     override fun onCreate() {
         super.onCreate()
 
