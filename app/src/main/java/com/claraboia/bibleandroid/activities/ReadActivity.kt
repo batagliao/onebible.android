@@ -37,7 +37,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         //val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
+        //fab.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
 
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         //val toggle = ActionBarDrawerToggle(
@@ -64,7 +64,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.read, menu)
+        //menuInflater.inflate(R.menu.read, menu)
         return true
     }
 

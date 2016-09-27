@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="com.claraboia.bibleandroid.activities.ReadActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -17,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="?attr/actionBarSize"
-            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             >
@@ -31,32 +29,52 @@
             android:background="?attr/colorPrimary"
             app:layout_collapseMode="none"
             app:popupTheme="@style/AppTheme.PopupOverlay">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageButton
+                android:id="@+id/btnOpenMenu"
                 style="@style/Widget.AppCompat.ActionButton"
                 android:minWidth="0dp"
                 android:padding="0dp"
                 android:layout_margin="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:src="@android:drawable/ic_menu_today"
+                android:src="@android:drawable/stat_notify_sync_noanim"
 
                  />
             <ImageButton
+                android:id="@+id/btnBooks"
                 style="@style/Widget.AppCompat.ActionButton"
+                android:layout_toRightOf="@id/btnOpenMenu"
                 android:padding="0dp"
                 android:layout_margin="0dp"
                 android:minWidth="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:src="@android:drawable/ic_menu_today"
+                android:src="@android:drawable/stat_notify_sync_noanim"
                  />
 
             <TextView
+                android:gravity="center"
+                android:layout_centerVertical="true"
                 android:text="Gn 50"
-                android:textAlignment="textStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+                <ImageButton
+                    android:id="@+id/btnTranslations"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_alignParentEnd="true"
+                    android:padding="0dp"
+                    android:layout_margin="0dp"
+                    android:minWidth="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    android:src="@android:drawable/stat_notify_sync_noanim" />
+
+            </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -65,12 +83,12 @@
     <include layout="@layout/content_read" />
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </android.support.design.widget.CoordinatorLayout>
