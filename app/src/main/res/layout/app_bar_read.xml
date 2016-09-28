@@ -60,6 +60,7 @@
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:text="Gn 50"
+                style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
