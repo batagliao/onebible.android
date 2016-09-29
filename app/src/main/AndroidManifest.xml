@@ -13,15 +13,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.ReadActivity"
-
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activities.SelectBooksActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activities.ReadActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

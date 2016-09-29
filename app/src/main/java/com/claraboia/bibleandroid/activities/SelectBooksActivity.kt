@@ -17,7 +17,7 @@ class SelectBooksActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
-        //supportActionBar?.setDisplayShowCustomEnabled(false)
+        supportActionBar?.setDisplayShowCustomEnabled(false)
 
         // Calculate ActionBar height
         val tv = TypedValue()
@@ -28,17 +28,9 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
+        //set tooltips
+
+
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-                super.onBackPressed()
-                return true
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 }

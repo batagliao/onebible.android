@@ -17,66 +17,67 @@
             android:layout_height="match_parent"
             android:minHeight="?attr/actionBarSize"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            >
+            app:layout_scrollFlags="scroll|enterAlways">
 
-        <android.support.v7.widget.Toolbar
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_collapseMode="none"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <RelativeLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/btnOpenMenu"
-                style="@style/Widget.AppCompat.ActionButton"
-                android:minWidth="0dp"
-                android:padding="0dp"
-                android:layout_margin="0dp"
-                android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                app:srcCompat="@drawable/ic_menu_24dp"
+                android:background="?attr/colorPrimary"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="none"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                 />
-            <ImageButton
-                android:id="@+id/btnBooks"
-                style="@style/Widget.AppCompat.ActionButton"
-                android:layout_toEndOf="@id/btnOpenMenu"
-                android:padding="0dp"
-                android:layout_margin="0dp"
-                android:minWidth="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                app:srcCompat="@drawable/ic_book_open_24dp"
-                 />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:gravity="center"
-                android:layout_centerVertical="true"
-                android:text="Gn 50"
-                style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <ImageButton
+                        android:id="@+id/btnOpenMenu"
+                        style="@style/Widget.AppCompat.ActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_margin="0dp"
+                        android:contentDescription="@string/main_btnmenu"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        app:srcCompat="@drawable/ic_menu_24dp" />
 
-                <ImageButton
-                    android:id="@+id/btnTranslations"
-                    style="@style/Widget.AppCompat.ActionButton"
-                    android:layout_alignParentEnd="true"
-                    android:padding="0dp"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="?attr/actionBarSize"
-                    app:srcCompat="@drawable/ic_translate_24dp" />
+                    <ImageButton
+                        android:id="@+id/btnBooks"
+                        style="@style/Widget.AppCompat.ActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_margin="0dp"
+                        android:layout_toEndOf="@id/btnOpenMenu"
+                        android:contentDescription="@string/main_btnbooks"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        app:srcCompat="@drawable/ic_book_open_24dp" />
 
-            </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+                    <TextView
+                        style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="Gn 50" />
+
+                    <ImageButton
+                        android:id="@+id/btnTranslations"
+                        style="@style/Widget.AppCompat.ActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="0dp"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        android:contentDescription="@string/main_btntranslations"
+                        app:srcCompat="@drawable/ic_translate_24dp" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -85,11 +86,11 @@
 
 
     <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </android.support.design.widget.CoordinatorLayout>

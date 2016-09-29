@@ -18,6 +18,7 @@ import android.widget.TextView
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.helpers.getAddressText
 import kotlinx.android.synthetic.main.activity_read.*
 import kotlinx.android.synthetic.main.app_bar_read.*
@@ -56,6 +57,12 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val openBooksIntent = Intent(this, SelectBooksActivity::class.java)
         btnBooks.setOnClickListener { startActivity(openBooksIntent) }
+
+        //set tooltips
+        CheatSheet.setup(btnOpenMenu)
+        CheatSheet.setup(btnBooks)
+        CheatSheet.setup(btnTranslations)
+
 
         val text = bibleApplication.currentBible.getAddressText(bibleApplication.preferences.lastAccessedAddress)
         txtview.text = text
