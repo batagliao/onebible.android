@@ -71,18 +71,63 @@
                 app:layout_collapseMode="pin">
 
                 <ImageButton
+                    android:id="@+id/btnViewAsGrid"
                     style="@style/Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/btnBack"
+                    android:contentDescription="@string/selectbook_btnGrid"
                     app:srcCompat="@drawable/ic_view_grid_24dp" />
 
                 <ImageButton
+                    android:id="@+id/btnViewAsList"
                     style="@style/Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/btnBack"
+                    android:contentDescription="@string/selectbook_btnList"
                     app:srcCompat="@drawable/ic_view_list_24dp" />
+
+                <ImageButton
+                    android:id="@+id/btnSortAlpha"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/selectbook_btnSortAlpha"
+                    app:srcCompat="@drawable/ic_sort_alpha"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btnSortNormal"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/selectbook_btnSortNormal"
+                    app:srcCompat="@drawable/ic_sort_normal"
+                    />
+                <ImageButton
+                    android:id="@+id/btnSortOrder"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/selectbook_btnSort_ascending"
+                    app:srcCompat="@drawable/ic_sort_ascending"
+                    />
+
+                <!--<ImageButton-->
+                    <!--android:id="@+id/btnAT"-->
+                    <!--style="@style/Widget.AppCompat.ActionButton"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:contentDescription="@string/selectbook_btnSortNormal"-->
+                    <!--app:srcCompat="@drawable/ic_sort_normal"-->
+                    <!--/>-->
+                <!--<ImageButton-->
+                    <!--android:id="@+id/btnNT"-->
+                    <!--style="@style/Widget.AppCompat.ActionButton"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:contentDescription="@string/selectbook_btnSortNormal"-->
+                    <!--app:srcCompat="@drawable/ic_sort_normal"-->
+                    <!--/>-->
             </LinearLayout>
 
 

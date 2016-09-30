@@ -9,6 +9,13 @@
     <string name="main_btnbooks">Select book</string>
     <string name="main_btntranslations">Select bible translation</string>
 
+    <string name="selectbook_btnGrid">View as grid</string>
+    <string name="selectbook_btnList">View as list</string>
+    <string name="selectbook_btnSortAlpha">Sort alphabetically</string>
+    <string name="selectbook_btnSortNormal">Sort in book order</string>
+    <string name="selectbook_btnSort_ascending">Sort ascending</string>
+    <string name="selectbook_btnSort_descending">Sort descending</string>
+
     <string name="btnBack">Back</string>
 
     <string name="books">Books</string>

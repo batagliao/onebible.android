@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.MenuItem
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.helpers.CheatSheet
 import kotlinx.android.synthetic.main.activity_select_books.*
 
 class SelectBooksActivity : AppCompatActivity() {
@@ -29,7 +30,12 @@ class SelectBooksActivity : AppCompatActivity() {
         }
 
         //set tooltips
-
+        CheatSheet.setup(btnViewAsGrid)
+        CheatSheet.setup(btnViewAsList)
+        CheatSheet.setup(btnSortAlpha)
+        CheatSheet.setup(btnSortNormal)
+        CheatSheet.setup(btnSortOrder)
+        
 
     }
 
