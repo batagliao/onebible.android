@@ -2,7 +2,10 @@ package com.claraboia.bibleandroid.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
 import android.util.TypedValue
+import android.view.Menu
 import android.view.MenuItem
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.helpers.CheatSheet
@@ -29,9 +32,16 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
-
-        
-
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+        // Associate searchable configuration with the SearchView
+        // SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        val searchView = MenuItemCompat.getActionView(menu?.findItem(R.id.action_search)) as SearchView
+        // searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        //searchView.setOnQueryTextListener(this)
+        return super.onCreateOptionsMenu(menu)
+    }
 }
