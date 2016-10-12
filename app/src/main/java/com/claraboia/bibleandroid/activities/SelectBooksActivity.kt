@@ -29,12 +29,7 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
-        //set tooltips
-        CheatSheet.setup(btnViewAsGrid)
-        CheatSheet.setup(btnViewAsList)
-        CheatSheet.setup(btnSortAlpha)
-        CheatSheet.setup(btnSortNormal)
-        CheatSheet.setup(btnSortOrder)
+
         
 
     }

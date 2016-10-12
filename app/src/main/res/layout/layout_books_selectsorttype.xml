@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnSortNormal"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/selectbook_btnSortNormal"
+        app:srcCompat="@drawable/ic_sort_normal_selector"
+        />
+
+    <ImageButton
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnSortAlpha"
+        android:layout_toEndOf="@id/btnSortNormal"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/selectbook_btnSortAlpha"
+        app:srcCompat="@drawable/ic_sort_alpha_selector"
+        />
+</merge>
