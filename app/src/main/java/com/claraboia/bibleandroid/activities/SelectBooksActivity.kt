@@ -3,11 +3,14 @@ package com.claraboia.bibleandroid.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.SearchView
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
+import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
 import kotlinx.android.synthetic.main.activity_select_books.*
 
@@ -31,6 +34,11 @@ class SelectBooksActivity : AppCompatActivity() {
             params.height = actionBarHeight * 2 - 44
             barBellowToolbar.layoutParams = params
         }
+
+        //set recyclerview's things
+        bookList.setHasFixedSize(true)
+        bookList.layoutManager = GridLayoutManager(this, 2)
+        bookList.adapter = BookSelectionAdapter(bibleApplication.currentBible.books)
 
     }
 

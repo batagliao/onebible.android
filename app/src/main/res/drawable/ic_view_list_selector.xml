@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:constantSize="false"
+    android:exitFadeDuration="@android:integer/config_shortAnimTime">
     <item android:state_selected="true" android:drawable="@drawable/ic_view_list_24dp_selected"/>
     <item android:drawable="@drawable/ic_view_list_24dp_unselected" />
 </selector>

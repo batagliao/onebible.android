@@ -12,6 +12,9 @@ val Context.bibleApplication: BibleApplication
 
 
 class BibleApplication : Application() {
+    init {
+        instance = this
+    }
 
     lateinit var preferences: Preferences
     lateinit var currentBible: Bible
@@ -27,5 +30,9 @@ class BibleApplication : Application() {
         //TODO: treat exception
         currentBible = Bible.load(preferences.selectedTranslation)
 
+    }
+
+    companion object{
+        lateinit var instance : BibleApplication
     }
 }
