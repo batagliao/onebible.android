@@ -11,6 +11,7 @@ import com.claraboia.bibleandroid.helpers.getBookName
 import com.claraboia.bibleandroid.helpers.getBookType
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.models.BookTypeEnum
+import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import kotlinx.android.synthetic.main.layout_books_grid_item.*
 import kotlinx.android.synthetic.main.layout_books_grid_item.view.*
 
@@ -28,10 +29,10 @@ class BookSelectionAdapter(val books: MutableList<Book>) : RecyclerView.Adapter<
             itemView.item_bookAbbrev.text = book.getBookAbbrev()
             itemView.item_book_frame.background =  book.getBookType().color()
         }
-
-
-
     }
+
+    var displayType : BooksSelectDisplay.BookLayoutDisplayType = BooksSelectDisplay.BookLayoutDisplayType.GRID
+
 
     override fun getItemCount(): Int {
         return books.size
@@ -39,7 +40,13 @@ class BookSelectionAdapter(val books: MutableList<Book>) : RecyclerView.Adapter<
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookSelectionViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
-        val view = inflater.inflate(R.layout.layout_books_grid_item, parent, false)
+
+        val view: View
+        if(displayType == BooksSelectDisplay.BookLayoutDisplayType.GRID) {
+            view = inflater.inflate(R.layout.layout_books_grid_item, parent, false)
+        }else{
+            view = inflater.inflate(R.layout.layout_books_list_item, parent, false)
+        }
         val holder = BookSelectionViewHolder(view)
         return holder
     }
@@ -47,6 +54,18 @@ class BookSelectionAdapter(val books: MutableList<Book>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: BookSelectionViewHolder?, position: Int) {
         val book = books[position]
         holder?.bind(book)
+    }
+
+    fun notifyRemoveEach() {
+        for (i in 0..books.size - 1) {
+            notifyItemRemoved(i)
+        }
+    }
+
+    fun notifyAddEach() {
+        for (i in 0..books.size - 1) {
+            notifyItemInserted(i)
+        }
     }
 
 }

@@ -1,24 +1,20 @@
 package com.claraboia.bibleandroid.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.SearchView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.*
 import android.util.TypedValue
 import android.view.Menu
-import android.view.MenuItem
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
-import com.claraboia.bibleandroid.views.BooksSelectSortOrder
-import com.claraboia.bibleandroid.views.BooksSelectSortType
 import kotlinx.android.synthetic.main.activity_select_books.*
 
 class SelectBooksActivity : AppCompatActivity() {
+
+    lateinit var bookAdapter: BookSelectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,30 +35,25 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
+        bookAdapter = BookSelectionAdapter(bibleApplication.currentBible.books)
+
+        bookList.setHasFixedSize(true)
+        bookList.itemAnimator = DefaultItemAnimator()
+        bookList.adapter = bookAdapter
+        setRecyclerView()
+
         groupSelectDisplayType.onChangeDisplayType += {
-            when(it.displayType){
-                BooksSelectDisplay.BookLayoutDisplayType.GRID -> TODO()
-                BooksSelectDisplay.BookLayoutDisplayType.LIST -> TODO()
-            }
+            setRecyclerView()
         }
 
         groupSelectSortType.onChangeSortType += {
-            when(it.sortType){
-                BooksSelectSortType.BookSortType.NORMAL -> TODO()
-                BooksSelectSortType.BookSortType.ALPHA -> TODO()
-            }
+            setRecyclerView()
         }
 
         groupSelectSortOrder.onChangeSortOrder += {
-            when(it.sortOrder){
-                BooksSelectSortOrder.BookSortOrder.ASC -> TODO()
-                BooksSelectSortOrder.BookSortOrder.DESC -> TODO()
-            }
+            setRecyclerView()
         }
 
-        //set recyclerview's things
-        bookList.setHasFixedSize(true)
-        setRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,8 +67,27 @@ class SelectBooksActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun setRecyclerView(){
-        bookList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        bookList.adapter = BookSelectionAdapter(bibleApplication.currentBible.books)
+    private fun setRecyclerView() {
+
+        if (groupSelectDisplayType.currentDisplayType == BooksSelectDisplay.BookLayoutDisplayType.GRID) {
+            bookAdapter.notifyRemoveEach()
+            bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.GRID
+            bookList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            bookAdapter.notifyAddEach()
+
+            //TODO: maybe force adapter to not generate wrong sizes
+            bookList.adapter = bookAdapter
+        } else {
+            bookAdapter.notifyRemoveEach()
+            bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.LIST
+            bookList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            bookAdapter.notifyAddEach()
+
+            //TODO: maybe force adapter to not generate wrong sizes
+            bookList.adapter = bookAdapter
+        }
+
+        //is it really needed to set adapter again everytime?
+        //bookList.adapter = bookAdapter
     }
 }
