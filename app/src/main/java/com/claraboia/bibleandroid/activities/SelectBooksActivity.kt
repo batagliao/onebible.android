@@ -13,6 +13,9 @@ import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
+import com.claraboia.bibleandroid.views.BooksSelectDisplay
+import com.claraboia.bibleandroid.views.BooksSelectSortOrder
+import com.claraboia.bibleandroid.views.BooksSelectSortType
 import kotlinx.android.synthetic.main.activity_select_books.*
 
 class SelectBooksActivity : AppCompatActivity() {
@@ -36,12 +39,30 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
+        groupSelectDisplayType.onChangeDisplayType += {
+            when(it.displayType){
+                BooksSelectDisplay.BookLayoutDisplayType.GRID -> TODO()
+                BooksSelectDisplay.BookLayoutDisplayType.LIST -> TODO()
+            }
+        }
+
+        groupSelectSortType.onChangeSortType += {
+            when(it.sortType){
+                BooksSelectSortType.BookSortType.NORMAL -> TODO()
+                BooksSelectSortType.BookSortType.ALPHA -> TODO()
+            }
+        }
+
+        groupSelectSortOrder.onChangeSortOrder += {
+            when(it.sortOrder){
+                BooksSelectSortOrder.BookSortOrder.ASC -> TODO()
+                BooksSelectSortOrder.BookSortOrder.DESC -> TODO()
+            }
+        }
+
         //set recyclerview's things
         bookList.setHasFixedSize(true)
-        //bookList.layoutManager = GridLayoutManager(this, 2)
-        bookList.layoutManager = StaggeredGridLayoutManager(2, 1)
-        bookList.adapter = BookSelectionAdapter(bibleApplication.currentBible.books)
-
+        setRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,5 +74,10 @@ class SelectBooksActivity : AppCompatActivity() {
         // searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         //searchView.setOnQueryTextListener(this)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    fun setRecyclerView(){
+        bookList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        bookList.adapter = BookSelectionAdapter(bibleApplication.currentBible.books)
     }
 }

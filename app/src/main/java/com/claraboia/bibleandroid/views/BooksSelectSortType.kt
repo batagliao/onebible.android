@@ -7,13 +7,27 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.helpers.CheatSheet
-import kotlinx.android.synthetic.main.layout_books_selectsorttype.view.*
+    import com.claraboia.bibleandroid.infrastructure.Event
+    import com.claraboia.bibleandroid.infrastructure.EventArg
+    import kotlinx.android.synthetic.main.layout_books_selectsorttype.view.*
 
 /**
  * Created by lucasbatagliao on 12/10/16.
  */
 class BooksSelectSortType : RelativeLayout, View.OnClickListener {
 
+    enum class BookSortType{
+        NORMAL,
+        ALPHA
+    }
+
+    class ChangeSortTypeEventArgs(val sortType: BookSortType) : EventArg(){
+
+    }
+
+    val onChangeSortType : Event<ChangeSortTypeEventArgs> = Event()
+
+    var currentSortType : BookSortType = BookSortType.NORMAL
 
     constructor(context: Context?) : super(context) {
         initLayout(context)
@@ -56,7 +70,8 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
         when(v?.id){
             R.id.btnSortNormal -> {
                 if(!btnSortNormal.isSelected) {
-                    //TODO: set layout as grid
+                    currentSortType = BookSortType.NORMAL
+                    onChangeSortType.invoke(ChangeSortTypeEventArgs(currentSortType))
                     btnSortNormal.isSelected = true
                     btnSortAlpha.isSelected = false
                     return
@@ -65,7 +80,8 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
             }
             R.id.btnSortAlpha -> {
                 if(!btnSortAlpha.isSelected) {
-                    //TODO: set layout as list
+                    currentSortType = BookSortType.ALPHA
+                    onChangeSortType.invoke(ChangeSortTypeEventArgs(currentSortType))
                     btnSortNormal.isSelected = false
                     btnSortAlpha.isSelected = true
                     return

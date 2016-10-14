@@ -49,12 +49,14 @@
                 android:baselineAligned="false">
 
                 <com.claraboia.bibleandroid.views.BooksSelectDisplay
+                    android:id="@+id/groupSelectDisplayType"
                     android:layout_gravity="start"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content" />
 
                 <com.claraboia.bibleandroid.views.BooksSelectSortType
+                    android:id="@+id/groupSelectSortType"
                     android:layout_gravity="end"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -62,6 +64,7 @@
                     />
 
                 <com.claraboia.bibleandroid.views.BooksSelectSortOrder
+                    android:id="@+id/groupSelectSortOrder"
                     android:layout_gravity="end"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -80,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        tools:ignore="RtlSymmetry">
 
     </android.support.v7.widget.RecyclerView>
 

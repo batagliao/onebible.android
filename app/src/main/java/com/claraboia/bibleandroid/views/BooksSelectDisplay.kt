@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.helpers.CheatSheet
+import com.claraboia.bibleandroid.infrastructure.Event
+import com.claraboia.bibleandroid.infrastructure.EventArg
 import kotlinx.android.synthetic.main.layout_books_selectdisplay.view.*
 
 /**
@@ -15,6 +17,18 @@ import kotlinx.android.synthetic.main.layout_books_selectdisplay.view.*
  */
 class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
 
+    enum class BookLayoutDisplayType{
+        GRID,
+        LIST
+    }
+
+    class ChangeDisplayTypeEventArgs(val displayType : BookLayoutDisplayType) : EventArg(){
+
+    }
+
+    val onChangeDisplayType : Event<ChangeDisplayTypeEventArgs> = Event()
+
+    var currentDisplayType : BookLayoutDisplayType = BookLayoutDisplayType.GRID
 
     constructor(context: Context?) : super(context) {
         initLayout(context)
@@ -57,7 +71,8 @@ class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
         when(v?.id){
             R.id.btnViewAsGrid -> {
                 if(!btnViewAsGrid.isSelected) {
-                    //TODO: set layout as grid
+                    currentDisplayType = BookLayoutDisplayType.GRID
+                    onChangeDisplayType.invoke(ChangeDisplayTypeEventArgs(currentDisplayType))
                     btnViewAsGrid.isSelected = true
                     btnViewAsList.isSelected = false
                     return
@@ -66,7 +81,8 @@ class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
             }
             R.id.btnViewAsList -> {
                 if(!btnViewAsList.isSelected) {
-                    //TODO: set layout as list
+                    currentDisplayType = BookLayoutDisplayType.LIST
+                    onChangeDisplayType.invoke(ChangeDisplayTypeEventArgs(currentDisplayType))
                     btnViewAsGrid.isSelected = false
                     btnViewAsList.isSelected = true
                     return

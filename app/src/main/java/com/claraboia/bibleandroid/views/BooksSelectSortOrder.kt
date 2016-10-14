@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.helpers.CheatSheet
+import com.claraboia.bibleandroid.infrastructure.Event
+import com.claraboia.bibleandroid.infrastructure.EventArg
 import kotlinx.android.synthetic.main.layout_books_selectsortorder.view.*
 
 /**
@@ -14,6 +16,18 @@ import kotlinx.android.synthetic.main.layout_books_selectsortorder.view.*
  */
 class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
 
+    enum class BookSortOrder{
+        ASC,
+        DESC
+    }
+
+    class ChangeSortOrderEventArgs(val sortOrder: BookSortOrder) : EventArg(){
+
+    }
+
+    val onChangeSortOrder : Event<ChangeSortOrderEventArgs> = Event()
+
+    var currentSortOrder : BookSortOrder = BookSortOrder.ASC
 
     constructor(context: Context?) : super(context) {
         initLayout(context)
@@ -56,7 +70,8 @@ class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
         when(v?.id){
             R.id.btnSortOrderAsc -> {
                 if(!btnSortOrderAsc.isSelected) {
-                    //TODO: set layout as grid
+                    currentSortOrder = BookSortOrder.ASC
+                    onChangeSortOrder.invoke(ChangeSortOrderEventArgs(currentSortOrder))
                     btnSortOrderAsc.isSelected = true
                     btnSortOrderDesc.isSelected = false
                     return
@@ -65,7 +80,8 @@ class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
             }
             R.id.btnSortOrderDesc -> {
                 if(!btnSortOrderDesc.isSelected) {
-                    //TODO: set layout as list
+                    currentSortOrder = BookSortOrder.DESC
+                    onChangeSortOrder.invoke(ChangeSortOrderEventArgs(currentSortOrder))
                     btnSortOrderAsc.isSelected = false
                     btnSortOrderDesc.isSelected = true
                     return
