@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.SearchView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -37,7 +38,8 @@ class SelectBooksActivity : AppCompatActivity() {
 
         //set recyclerview's things
         bookList.setHasFixedSize(true)
-        bookList.layoutManager = GridLayoutManager(this, 2)
+        //bookList.layoutManager = GridLayoutManager(this, 2)
+        bookList.layoutManager = StaggeredGridLayoutManager(2, 1)
         bookList.adapter = BookSelectionAdapter(bibleApplication.currentBible.books)
 
     }

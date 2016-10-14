@@ -5,4 +5,12 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorUnselected">#FF818181</color>
     <color name="colorSelected">#FFdcdcdc</color>
+
+    <!-- BookTypes color -->
+    <color name="colorPentateuch">#557ED2</color>
+    <color name="colorHistoric">#CC7856</color>
+    <color name="colorPoetic">#D6BF53</color>
+    <color name="colorProphetic">#C65AD6</color>
+    <color name="colorGospel">#7ED270</color>
+    <color name="colorEpistle">#7D9DAC</color>
 </resources>
