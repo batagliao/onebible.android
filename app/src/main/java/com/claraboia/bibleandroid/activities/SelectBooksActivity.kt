@@ -70,24 +70,14 @@ class SelectBooksActivity : AppCompatActivity() {
     private fun setRecyclerView() {
 
         if (groupSelectDisplayType.currentDisplayType == BooksSelectDisplay.BookLayoutDisplayType.GRID) {
-            bookAdapter.notifyRemoveEach()
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.GRID
             bookList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            bookAdapter.notifyAddEach()
-
-            //TODO: maybe force adapter to not generate wrong sizes
-            bookList.adapter = bookAdapter
         } else {
-            bookAdapter.notifyRemoveEach()
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.LIST
             bookList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            bookAdapter.notifyAddEach()
-
-            //TODO: maybe force adapter to not generate wrong sizes
-            bookList.adapter = bookAdapter
         }
 
         //is it really needed to set adapter again everytime?
-        //bookList.adapter = bookAdapter
+        bookList.adapter = bookAdapter
     }
 }
