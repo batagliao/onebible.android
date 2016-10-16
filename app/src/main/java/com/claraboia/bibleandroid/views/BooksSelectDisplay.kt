@@ -1,12 +1,15 @@
 package com.claraboia.bibleandroid.views
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.v4.view.LayoutInflaterCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.infrastructure.Event
 import com.claraboia.bibleandroid.infrastructure.EventArg
@@ -61,10 +64,33 @@ class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
         btnViewAsGrid.setOnClickListener(this)
         btnViewAsList.setOnClickListener(this)
 
-        //TODO: load state -> last btn pressed
-        btnViewAsGrid.isSelected = true
-        btnViewAsList.isSelected = false
+        currentDisplayType = context.bibleApplication.preferences.bookSelectionDisplayType
+        setButtons()
 
+    }
+
+    private fun setButtons(){
+        if(currentDisplayType == BookLayoutDisplayType.GRID){
+            btnViewAsGrid.isSelected = true
+            btnViewAsList.isSelected = false
+        }else{
+            btnViewAsGrid.isSelected = false
+            btnViewAsList.isSelected = true
+        }
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        val parc = super.onSaveInstanceState()
+        val ss = SavedState(parc)
+        ss.displayType = currentDisplayType
+        return ss
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val state = state as SavedState
+        super.onRestoreInstanceState(state)
+        currentDisplayType = state.displayType
+        setButtons()
     }
 
     override fun onClick(v: View?) {
@@ -73,22 +99,25 @@ class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
                 if(!btnViewAsGrid.isSelected) {
                     currentDisplayType = BookLayoutDisplayType.GRID
                     onChangeDisplayType.invoke(ChangeDisplayTypeEventArgs(currentDisplayType))
-                    btnViewAsGrid.isSelected = true
-                    btnViewAsList.isSelected = false
-                    return
                 }
-                btnViewAsGrid.isSelected = true
             }
             R.id.btnViewAsList -> {
                 if(!btnViewAsList.isSelected) {
                     currentDisplayType = BookLayoutDisplayType.LIST
                     onChangeDisplayType.invoke(ChangeDisplayTypeEventArgs(currentDisplayType))
-                    btnViewAsGrid.isSelected = false
-                    btnViewAsList.isSelected = true
-                    return
                 }
-                btnViewAsList.isSelected = true
             }
+        }
+        setButtons()
+    }
+
+    private class SavedState(source: Parcelable) : BaseSavedState(source) {
+
+        var displayType = BookLayoutDisplayType.GRID
+
+        override fun writeToParcel(out: Parcel?, flags: Int) {
+            super.writeToParcel(out, flags)
+            out?.writeString(displayType.name)
         }
     }
 }

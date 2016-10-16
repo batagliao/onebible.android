@@ -1,11 +1,14 @@
 package com.claraboia.bibleandroid.views
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.infrastructure.Event
 import com.claraboia.bibleandroid.infrastructure.EventArg
@@ -16,18 +19,18 @@ import kotlinx.android.synthetic.main.layout_books_selectsortorder.view.*
  */
 class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
 
-    enum class BookSortOrder{
+    enum class BookSortOrder {
         ASC,
         DESC
     }
 
-    class ChangeSortOrderEventArgs(val sortOrder: BookSortOrder) : EventArg(){
+    class ChangeSortOrderEventArgs(val sortOrder: BookSortOrder) : EventArg() {
 
     }
 
-    val onChangeSortOrder : Event<ChangeSortOrderEventArgs> = Event()
+    val onChangeSortOrder: Event<ChangeSortOrderEventArgs> = Event()
 
-    var currentSortOrder : BookSortOrder = BookSortOrder.ASC
+    var currentSortOrder: BookSortOrder = BookSortOrder.ASC
 
     constructor(context: Context?) : super(context) {
         initLayout(context)
@@ -61,33 +64,59 @@ class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
         btnSortOrderDesc.setOnClickListener(this)
 
         //TODO: load state -> last btn pressed
-        btnSortOrderAsc.isSelected = true
-        btnSortOrderDesc.isSelected = false
+        currentSortOrder = context.bibleApplication.preferences.bookSelectionSortOrder
+        setButtons()
 
     }
 
+    private fun setButtons() {
+        if (currentSortOrder == BookSortOrder.ASC) {
+            btnSortOrderAsc.isSelected = true
+            btnSortOrderDesc.isSelected = false
+        } else {
+            btnSortOrderAsc.isSelected = false
+            btnSortOrderDesc.isSelected = true
+        }
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        val parc = super.onSaveInstanceState()
+        val ss = SavedState(parc)
+        ss.sortOrder = currentSortOrder
+        return ss
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val state = state as SavedState
+        super.onRestoreInstanceState(state)
+        currentSortOrder = state.sortOrder
+    }
+
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.btnSortOrderAsc -> {
-                if(!btnSortOrderAsc.isSelected) {
+                if (!btnSortOrderAsc.isSelected) {
                     currentSortOrder = BookSortOrder.ASC
                     onChangeSortOrder.invoke(ChangeSortOrderEventArgs(currentSortOrder))
-                    btnSortOrderAsc.isSelected = true
-                    btnSortOrderDesc.isSelected = false
-                    return
                 }
-                btnSortOrderAsc.isSelected = true
             }
             R.id.btnSortOrderDesc -> {
-                if(!btnSortOrderDesc.isSelected) {
+                if (!btnSortOrderDesc.isSelected) {
                     currentSortOrder = BookSortOrder.DESC
                     onChangeSortOrder.invoke(ChangeSortOrderEventArgs(currentSortOrder))
-                    btnSortOrderAsc.isSelected = false
-                    btnSortOrderDesc.isSelected = true
-                    return
                 }
-                btnSortOrderDesc.isSelected = true
             }
+        }
+        setButtons()
+    }
+
+    private class SavedState(source: Parcelable) : BaseSavedState(source) {
+
+        var sortOrder = BookSortOrder.ASC
+
+        override fun writeToParcel(out: Parcel?, flags: Int) {
+            super.writeToParcel(out, flags)
+            out?.writeString(sortOrder.name)
         }
     }
 }

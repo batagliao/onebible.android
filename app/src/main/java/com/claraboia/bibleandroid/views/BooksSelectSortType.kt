@@ -1,12 +1,15 @@
 package com.claraboia.bibleandroid.views
 
     import android.content.Context
-import android.util.AttributeSet
+    import android.os.Parcel
+    import android.os.Parcelable
+    import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.helpers.CheatSheet
+    import com.claraboia.bibleandroid.bibleApplication
+    import com.claraboia.bibleandroid.helpers.CheatSheet
     import com.claraboia.bibleandroid.infrastructure.Event
     import com.claraboia.bibleandroid.infrastructure.EventArg
     import kotlinx.android.synthetic.main.layout_books_selectsorttype.view.*
@@ -60,10 +63,32 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
         btnSortNormal.setOnClickListener(this)
         btnSortAlpha.setOnClickListener(this)
 
-        //TODO: load state -> last btn pressed
-        btnSortNormal.isSelected = true
-        btnSortAlpha.isSelected = false
+        currentSortType = context.bibleApplication.preferences.bookSelectionSortType
+        setButtons()
+    }
 
+    private fun setButtons(){
+        if(currentSortType == BookSortType.NORMAL){
+            btnSortNormal.isSelected = true
+            btnSortAlpha.isSelected = false
+        }else{
+            btnSortNormal.isSelected = true
+            btnSortAlpha.isSelected = false
+        }
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        val parc = super.onSaveInstanceState()
+        val ss = SavedState(parc)
+        ss.sortType = currentSortType
+        return ss
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val state = state as SavedState
+        super.onRestoreInstanceState(state)
+        currentSortType = state.sortType
+        setButtons()
     }
 
     override fun onClick(v: View?) {
@@ -72,22 +97,25 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
                 if(!btnSortNormal.isSelected) {
                     currentSortType = BookSortType.NORMAL
                     onChangeSortType.invoke(ChangeSortTypeEventArgs(currentSortType))
-                    btnSortNormal.isSelected = true
-                    btnSortAlpha.isSelected = false
-                    return
                 }
-                btnSortNormal.isSelected = true
             }
             R.id.btnSortAlpha -> {
                 if(!btnSortAlpha.isSelected) {
                     currentSortType = BookSortType.ALPHA
                     onChangeSortType.invoke(ChangeSortTypeEventArgs(currentSortType))
-                    btnSortNormal.isSelected = false
-                    btnSortAlpha.isSelected = true
-                    return
                 }
-                btnSortAlpha.isSelected = true
             }
+        }
+        setButtons()
+    }
+
+    private class SavedState(source: Parcelable) : BaseSavedState(source) {
+
+        var sortType = BookSortType.NORMAL
+
+        override fun writeToParcel(out: Parcel?, flags: Int) {
+            super.writeToParcel(out, flags)
+            out?.writeString(sortType.name)
         }
     }
 }
