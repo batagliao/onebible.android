@@ -11,23 +11,29 @@ import com.claraboia.bibleandroid.helpers.getBookName
 import com.claraboia.bibleandroid.helpers.getBookType
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.models.BookTypeEnum
+import com.claraboia.bibleandroid.viewmodels.BookForSort
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
+import com.claraboia.bibleandroid.views.BooksSelectSortOrder
 import kotlinx.android.synthetic.main.layout_books_grid_item.*
 import kotlinx.android.synthetic.main.layout_books_grid_item.view.*
+import java.util.*
+import java.util.Collections.sort
+import kotlin.comparisons.compareBy
+import kotlin.comparisons.compareByDescending
 
 /**
  * Created by lucas.batagliao on 13/10/2016.
  */
-class BookSelectionAdapter(val books: MutableList<Book>) : RecyclerView.Adapter<BookSelectionAdapter.BookSelectionViewHolder>() {
+class BookSelectionAdapter(val books: MutableList<BookForSort>) : RecyclerView.Adapter<BookSelectionAdapter.BookSelectionViewHolder>() {
 
     class BookSelectionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(book: Book) {
-            val size = book.chapters.size
+        fun bind(book: BookForSort) {
+            val size = book.chapterCount
             itemView.item_ChapterQty.text = itemView.context.resources.getQuantityString(R.plurals.chapters, size, size)
-            itemView.item_bookName.text =  book.getBookName()
-            itemView.item_bookAbbrev.text = book.getBookAbbrev()
-            itemView.item_book_frame.background =  book.getBookType().color()
+            itemView.item_bookName.text =  book.bookName
+            itemView.item_bookAbbrev.text = book.bookAbbrev
+            itemView.item_book_frame.background =  book.type.color()
         }
     }
 
@@ -54,6 +60,22 @@ class BookSelectionAdapter(val books: MutableList<Book>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: BookSelectionViewHolder?, position: Int) {
         val book = books[position]
         holder?.bind(book)
+    }
+
+    fun sortNormal(order: BooksSelectSortOrder.BookSortOrder){
+        if(order == BooksSelectSortOrder.BookSortOrder.ASC) {
+            books.sortWith(compareBy { it.bookOrder })
+        }else{
+            books.sortWith(compareByDescending { it.bookOrder })
+        }
+    }
+
+    fun sortAlpha(order: BooksSelectSortOrder.BookSortOrder){
+        if(order == BooksSelectSortOrder.BookSortOrder.ASC){
+            books.sortWith(compareBy { it.bookName })
+        }else{
+            books.sortWith(compareByDescending { it.bookName })
+        }
     }
 
     fun notifyRemoveEach() {

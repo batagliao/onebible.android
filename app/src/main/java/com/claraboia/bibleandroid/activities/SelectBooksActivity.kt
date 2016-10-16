@@ -10,6 +10,8 @@ import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
+import com.claraboia.bibleandroid.views.BooksSelectSortOrder
+import com.claraboia.bibleandroid.views.BooksSelectSortType
 import kotlinx.android.synthetic.main.activity_select_books.*
 
 class SelectBooksActivity : AppCompatActivity() {
@@ -35,7 +37,7 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
-        bookAdapter = BookSelectionAdapter(bibleApplication.currentBible.books)
+        bookAdapter = BookSelectionAdapter(bibleApplication.booksForSelection)
 
         bookList.setHasFixedSize(true)
         bookList.itemAnimator = DefaultItemAnimator()
@@ -75,6 +77,12 @@ class SelectBooksActivity : AppCompatActivity() {
         } else {
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.LIST
             bookList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        }
+
+        if(groupSelectSortType.currentSortType == BooksSelectSortType.BookSortType.NORMAL){
+            bookAdapter.sortNormal(groupSelectSortOrder.currentSortOrder)
+        }else{
+            bookAdapter.sortAlpha(groupSelectSortOrder.currentSortOrder)
         }
 
         //is it really needed to set adapter again everytime?
