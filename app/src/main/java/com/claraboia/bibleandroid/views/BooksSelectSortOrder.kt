@@ -86,8 +86,8 @@ class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
         return ss
     }
 
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        val state = state as SavedState
+    override fun onRestoreInstanceState(parc: Parcelable?) {
+        val state = parc as SavedState
         super.onRestoreInstanceState(state)
         currentSortOrder = state.sortOrder
     }
