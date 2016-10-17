@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "7163084579",
+    "firebase_url": "https://bible-2fb80.firebaseio.com",
+    "project_id": "bible-2fb80",
+    "storage_bucket": "bible-2fb80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7163084579:android:4d471ab960183c9f",
+        "android_client_info": {
+          "package_name": "com.claraboia.bibleandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7163084579-r8rea9d9t4l612efpomnmb6vqoh6plnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.claraboia.bibleandroid",
+            "certificate_hash": "2BCE29431E687D65054470053E1885D1935DC7A3"
+          }
+        },
+        {
+          "client_id": "7163084579-k2gl8ru96aupfcu8o14g5e396vp6kn9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKTHJigspD9cgxoR_EuTLBarlzuxyV4xA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7163084579-k2gl8ru96aupfcu8o14g5e396vp6kn9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

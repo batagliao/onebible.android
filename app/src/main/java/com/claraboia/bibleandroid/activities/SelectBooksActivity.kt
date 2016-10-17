@@ -3,14 +3,16 @@ package com.claraboia.bibleandroid.activities
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.*
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.TypedValue
 import android.view.Menu
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
-import com.claraboia.bibleandroid.views.BooksSelectSortOrder
 import com.claraboia.bibleandroid.views.BooksSelectSortType
 import kotlinx.android.synthetic.main.activity_select_books.*
 

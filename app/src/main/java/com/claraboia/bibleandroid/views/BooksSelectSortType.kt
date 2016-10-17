@@ -72,8 +72,8 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
             btnSortNormal.isSelected = true
             btnSortAlpha.isSelected = false
         }else{
-            btnSortNormal.isSelected = true
-            btnSortAlpha.isSelected = false
+            btnSortNormal.isSelected = false
+            btnSortAlpha.isSelected = true
         }
     }
 
@@ -106,6 +106,7 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
                 }
             }
         }
+        context.bibleApplication.preferences.bookSelectionSortType = currentSortType
         setButtons()
     }
 

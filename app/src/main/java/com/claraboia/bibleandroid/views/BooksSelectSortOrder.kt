@@ -107,6 +107,7 @@ class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
                 }
             }
         }
+        context.bibleApplication.preferences.bookSelectionSortOrder = currentSortOrder
         setButtons()
     }
 

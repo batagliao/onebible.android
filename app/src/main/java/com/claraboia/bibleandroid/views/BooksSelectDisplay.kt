@@ -108,6 +108,7 @@ class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
                 }
             }
         }
+        context.bibleApplication.preferences.bookSelectionDisplayType = currentDisplayType
         setButtons()
     }
 
