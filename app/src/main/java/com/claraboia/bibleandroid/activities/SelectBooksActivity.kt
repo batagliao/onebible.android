@@ -9,6 +9,7 @@ import android.support.v7.widget.SearchView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.TypedValue
 import android.view.Menu
+import android.widget.Toast
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
@@ -39,7 +40,7 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
-        bookAdapter = BookSelectionAdapter(bibleApplication.booksForSelection)
+        bookAdapter = BookSelectionAdapter(bibleApplication.booksForSelection, { b -> Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show() })
 
         bookList.setHasFixedSize(true)
         bookList.itemAnimator = DefaultItemAnimator()

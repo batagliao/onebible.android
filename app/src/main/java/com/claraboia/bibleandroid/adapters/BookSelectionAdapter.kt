@@ -24,16 +24,17 @@ import kotlin.comparisons.compareByDescending
 /**
  * Created by lucas.batagliao on 13/10/2016.
  */
-class BookSelectionAdapter(val books: MutableList<BookForSort>) : RecyclerView.Adapter<BookSelectionAdapter.BookSelectionViewHolder>() {
+class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item: BookForSort) -> Unit) : RecyclerView.Adapter<BookSelectionAdapter.BookSelectionViewHolder>() {
 
     class BookSelectionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(book: BookForSort) {
+        fun bind(book: BookForSort, click: (BookForSort) -> Unit) {
             val size = book.chapterCount
             itemView.item_ChapterQty.text = itemView.context.resources.getQuantityString(R.plurals.chapters, size, size)
             itemView.item_bookName.text =  book.bookName
             itemView.item_bookAbbrev.text = book.bookAbbrev
             itemView.item_book_frame.background =  book.type.color()
+            itemView.setOnClickListener { click.invoke(book) }
         }
     }
 
@@ -59,7 +60,7 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: BookSelectionViewHolder?, position: Int) {
         val book = books[position]
-        holder?.bind(book)
+        holder?.bind(book, click)
     }
 
     fun sortNormal(order: BooksSelectSortOrder.BookSortOrder){
