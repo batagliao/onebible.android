@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.ChapterSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.helpers.getBookName
 import kotlinx.android.synthetic.main.activity_select_chapter.*
 
 class SelectChapterActivity : AppCompatActivity() {
@@ -25,8 +26,22 @@ class SelectChapterActivity : AppCompatActivity() {
         chapterList.itemAnimator = DefaultItemAnimator()
 
         //TODO: short this code, maybe an extension method
-        val chapters = listOf(Any(), bibleApplication.currentBible.books[bibleApplication.currentBook -1].chapters)
+        val book = bibleApplication.currentBible.books[bibleApplication.currentBook -1]
+
+        supportActionBar?.setTitle(book.getBookName())
+
+        val chapters = listOf(Any()) + book.chapters
         chapterList.adapter = ChapterSelectionAdapter(chapters)
-        chapterList.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+        val gridlayout = GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false)
+        gridlayout.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                if(position == 0){
+                    return gridlayout.spanCount
+                }else{
+                    return 1
+                }
+            }
+        }
+        chapterList.layoutManager = gridlayout
     }
 }

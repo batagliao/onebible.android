@@ -26,7 +26,10 @@
             android:parentActivityName=".activities.ReadActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activities.SelectChapterActivity"></activity>
+        <activity
+            android:name=".activities.SelectChapterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
