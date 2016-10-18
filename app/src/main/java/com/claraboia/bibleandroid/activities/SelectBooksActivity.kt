@@ -1,5 +1,6 @@
 package com.claraboia.bibleandroid.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
@@ -40,7 +41,12 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
-        bookAdapter = BookSelectionAdapter(bibleApplication.booksForSelection, { b -> Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show() })
+        //click
+        bookAdapter = BookSelectionAdapter(bibleApplication.booksForSelection, click = { b ->
+            bibleApplication.currentBook = b.bookOrder
+            val i = Intent(this, SelectChapterActivity::class.java)
+            startActivity(i)
+        })
 
         bookList.setHasFixedSize(true)
         bookList.itemAnimator = DefaultItemAnimator()
@@ -63,6 +69,8 @@ class SelectBooksActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
+
+        //TODO: make search work
 
         // Associate searchable configuration with the SearchView
         // SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);

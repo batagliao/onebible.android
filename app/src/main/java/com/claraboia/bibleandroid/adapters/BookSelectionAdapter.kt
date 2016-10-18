@@ -34,7 +34,7 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item
             itemView.item_bookName.text =  book.bookName
             itemView.item_bookAbbrev.text = book.bookAbbrev
             itemView.item_book_frame.background =  book.type.color()
-            itemView.setOnClickListener { click.invoke(book) }
+            itemView.item_book_card.setOnClickListener { click.invoke(book) }
         }
     }
 
