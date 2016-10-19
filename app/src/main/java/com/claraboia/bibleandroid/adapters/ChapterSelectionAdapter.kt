@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.models.Chapter
 import kotlinx.android.synthetic.main.layout_chapter_item.view.*
 
 /**
  * Created by lucas.batagliao on 18/10/2016.
  */
-class ChapterSelectionAdapter(val chapters: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_ITEM: Int = 1
     private val TYPE_SUMMARY: Int = 2
