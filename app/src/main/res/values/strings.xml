@@ -20,4 +20,5 @@
 
     <string name="books">Books</string>
     <string name="chapters">Chapters</string>
+    <string name="chapter_more">+   more</string>
 </resources>
