@@ -35,7 +35,7 @@ class SelectChapterActivity : AppCompatActivity() {
         supportActionBar?.title = book.getBookName()
 
         val chapters = listOf(Any()) + book.chapters
-        chapterList.adapter = ChapterSelectionAdapter(chapters)
+        chapterList.adapter = ChapterSelectionAdapter(book, chapters)
         val gridlayout = GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false)
         gridlayout.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {

@@ -1,5 +1,6 @@
 package com.claraboia.bibleandroid.helpers
 
+import android.app.Application
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.BuildConfig
 

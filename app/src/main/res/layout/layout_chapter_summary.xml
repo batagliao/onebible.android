@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/item_book_summary"
                 tools:text="some sample text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

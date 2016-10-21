@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.helpers.getSummary
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.models.Chapter
 import kotlinx.android.synthetic.main.layout_chapter_item.view.*
+import kotlinx.android.synthetic.main.layout_chapter_summary.view.*
 
 /**
  * Created by lucas.batagliao on 18/10/2016.
@@ -18,18 +20,16 @@ class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>) : Recycle
     private val TYPE_SUMMARY: Int = 2
 
     // view holders
-    class ChapterItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class ChapterItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun  bind(chapter: Chapter) {
             itemView.item_chapter_order.text = chapter.chapterOrder.toString()
         }
-
     }
 
-    class ChapterSummaryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class ChapterSummaryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bind() {
-            //throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+            itemView.item_book_summary.text = this@ChapterSelectionAdapter.book.getSummary()
         }
-
     }
 
 

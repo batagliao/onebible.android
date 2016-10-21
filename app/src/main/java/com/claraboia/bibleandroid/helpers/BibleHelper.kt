@@ -9,6 +9,8 @@ import com.claraboia.bibleandroid.models.*
  */
 
 private const val BOOK_NAME_KEY : String = "Book%d"
+private const val BOOK_SUMMARY_KEY = "%sSummary"
+private const val BOOK_KEY : String = "KeyBook%d"
 private const val BOOK_ABBREV_KEY : String = "BookAbbrev%d"
 
 
@@ -23,6 +25,16 @@ fun Bible.getAddressText(address: BibleAddress) : String {
         text.appendln("${v.verseOrder.toString()}. ${v.text}")
     }
     return text.toString()
+}
+
+fun Book.getKey(): String {
+    val resourceName = String.format(BOOK_KEY, this.bookOrder)
+    return ResourceHelper.getStringByName(resourceName)
+}
+
+fun Book.getSummary(): String{
+    val resourceName = String.format(BOOK_SUMMARY_KEY, this.getKey())
+    return ResourceHelper.getStringByName(resourceName)
 }
 
 fun Book.getBookName() : String{

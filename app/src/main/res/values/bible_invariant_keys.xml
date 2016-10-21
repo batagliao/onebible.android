@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    DO NOT TRANSLATE THIS FILE
+    This is a invariant language file, used to make resource keys more readable
+-->
+<resources>
+    <string name="KeyBook1">Genesis</string>
+    <string name="KeyBook2">Exodus</string>
+    <string name="KeyBook3">Leviticus</string>
+    <string name="KeyBook4">Numbers</string>
+    <string name="KeyBook5">Deuteronomy</string>
+    <string name="KeyBook6">Joshua</string>
+    <string name="KeyBook7">Judges</string>
+    <string name="KeyBook8">Ruth</string>
+    <string name="KeyBook9">Samuel1</string>
+    <string name="KeyBook10">Samuel2</string>
+    <string name="KeyBook11">Kings1</string>
+    <string name="KeyBook12">Kings2</string>
+    <string name="KeyBook13">Chronicles1</string>
+    <string name="KeyBook14">Chronicles2</string>
+    <string name="KeyBook15">Ezra</string>
+    <string name="KeyBook16">Nehemiah</string>
+    <string name="KeyBook17">Esther</string>
+    <string name="KeyBook18">Job</string>
+    <string name="KeyBook19">Psalms</string>
+    <string name="KeyBook20">Proverbs</string>
+    <string name="KeyBook21">Ecclesiastes</string>
+    <string name="KeyBook22">SongOfSolomon</string>
+    <string name="KeyBook23">Isaiah</string>
+    <string name="KeyBook24">Jeremiah</string>
+    <string name="KeyBook25">Lamentations</string>
+    <string name="KeyBook26">Ezekiel</string>
+    <string name="KeyBook27">Daniel</string>
+    <string name="KeyBook28">Hosea</string>
+    <string name="KeyBook29">Joel</string>
+    <string name="KeyBook30">Amos</string>
+    <string name="KeyBook31">Obadiah</string>
+    <string name="KeyBook32">Jonah</string>
+    <string name="KeyBook33">Micah</string>
+    <string name="KeyBook34">Nahum</string>
+    <string name="KeyBook35">Habakkuk</string>
+    <string name="KeyBook36">Zephaniah</string>
+    <string name="KeyBook37">Haggai</string>
+    <string name="KeyBook38">Zechariah</string>
+    <string name="KeyBook39">Malachi</string>
+    <string name="KeyBook40">Matthew</string>
+    <string name="KeyBook41">Mark</string>
+    <string name="KeyBook42">Luke</string>
+    <string name="KeyBook43">John</string>
+    <string name="KeyBook44">Acts</string>
+    <string name="KeyBook45">Romans</string>
+    <string name="KeyBook46">Corinthians1</string>
+    <string name="KeyBook47">Corinthians2</string>
+    <string name="KeyBook48">Galatians</string>
+    <string name="KeyBook49">Ephesians</string>
+    <string name="KeyBook50">Philippians</string>
+    <string name="KeyBook51">Colossians</string>
+    <string name="KeyBook52">Thessalonians1</string>
+    <string name="KeyBook53">Thessalonians2</string>
+    <string name="KeyBook54">Timothy1</string>
+    <string name="KeyBook55">Timothy2</string>
+    <string name="KeyBook56">Titus</string>
+    <string name="KeyBook57">Philemon</string>
+    <string name="KeyBook58">Hebrews</string>
+    <string name="KeyBook59">James</string>
+    <string name="KeyBook60">Peter1</string>
+    <string name="KeyBook61">Peter2</string>
+    <string name="KeyBook62">John1</string>
+    <string name="KeyBook63">John2</string>
+    <string name="KeyBook64">John3</string>
+    <string name="KeyBook65">Jude</string>
+    <string name="KeyBook66">Revelation</string>
+</resources>
