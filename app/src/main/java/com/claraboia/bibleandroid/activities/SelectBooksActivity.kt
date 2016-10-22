@@ -17,12 +17,15 @@ import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import com.claraboia.bibleandroid.views.BooksSelectSortType
 import com.claraboia.bibleandroid.views.decorators.DividerItemDecoration
+import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_select_books.*
 
 class SelectBooksActivity : AppCompatActivity() {
 
     lateinit var bookAdapter: BookSelectionAdapter
+    lateinit var gridItemDecoration : GridSpacingItemDecoration
     val dividerItemDecoration by lazy { DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST)}
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +46,19 @@ class SelectBooksActivity : AppCompatActivity() {
             barBellowToolbar.layoutParams = params
         }
 
+        //grid item decoration
+        val metrics = this.resources.displayMetrics
+        val space =  (metrics.density * 12).toInt()
+        gridItemDecoration = GridSpacingItemDecoration(2, space, true, 0)
+
         //click
         bookAdapter = BookSelectionAdapter(bibleApplication.booksForSelection, click = { b ->
             bibleApplication.currentBook = b.bookOrder
             val i = Intent(this, SelectChapterActivity::class.java)
             startActivity(i)
         })
+
+
 
         bookList.setHasFixedSize(true)
         bookList.itemAnimator = DefaultItemAnimator()
@@ -66,6 +76,7 @@ class SelectBooksActivity : AppCompatActivity() {
         groupSelectSortOrder.onChangeSortOrder += {
             setRecyclerView()
         }
+
 
     }
 
@@ -85,11 +96,14 @@ class SelectBooksActivity : AppCompatActivity() {
     private fun setRecyclerView() {
 
         bookList.removeItemDecoration(dividerItemDecoration)
+        bookList.removeItemDecoration(gridItemDecoration)
 
         if (groupSelectDisplayType.currentDisplayType == BooksSelectDisplay.BookLayoutDisplayType.GRID) {
             //GRID
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.GRID
             bookList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+            bookList.addItemDecoration(gridItemDecoration)
         } else {
             //LIST
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.LIST

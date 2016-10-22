@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.layout_chapter_summary.view.*
 /**
  * Created by lucas.batagliao on 18/10/2016.
  */
-class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>, val chapterClick: (Chapter) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_ITEM: Int = 1
     private val TYPE_SUMMARY: Int = 2
@@ -23,6 +23,7 @@ class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>) : Recycle
     inner class ChapterItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun  bind(chapter: Chapter) {
             itemView.item_chapter_order.text = chapter.chapterOrder.toString()
+            itemView.setOnClickListener { chapterClick.invoke(chapter) }
         }
     }
 

@@ -19,7 +19,9 @@ import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
+import com.claraboia.bibleandroid.helpers.asFullText
 import com.claraboia.bibleandroid.helpers.getAddressText
+import com.claraboia.bibleandroid.models.BibleAddress
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_read.*
 import kotlinx.android.synthetic.main.app_bar_read.*
@@ -34,21 +36,12 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
-        //val toolbar = findViewById(R.id.toolbar) as Toolbar
+
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-
-        //val fab = findViewById(R.id.fab) as FloatingActionButton
-        //fab.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
-
-        //val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-        //val toggle = ActionBarDrawerToggle(
-        //        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        //drawer.setDrawerListener(toggle)
-        //toggle.syncState()
 
         val navigationView = findViewById(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
@@ -64,11 +57,26 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         CheatSheet.setup(btnBooks)
         CheatSheet.setup(btnTranslations)
 
+        loadText()
+    }
 
+    private fun loadText(){
+        //convert actual position to address
+        val address = BibleAddress()
+        address.bookOrder = bibleApplication.currentBook
+        address.chapterOrder = bibleApplication.currentChapter
 
-        val text = bibleApplication.currentBible.getAddressText(bibleApplication.preferences.lastAccessedAddress)
+        //set title
+        readTitle.text = address.asFullText()
+
+        //saves it as last address
+        bibleApplication.preferences.lastAccessedAddress = address
+
+        //loads corresponding text
+        val text = bibleApplication.currentBible.getAddressText(address)
+
+        //set text to view
         txtview.text = text
-
     }
 
     override fun onBackPressed() {

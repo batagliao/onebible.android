@@ -7,8 +7,8 @@ import java.util.*
  */
 class BibleAddress {
 
-    var bookOrder: Int = 0
-    var chapterOrder: Int = 0
+    var bookOrder: Int = 1
+    var chapterOrder: Int = 1
     var verses: HashSet<Int> = HashSet()
 
 }

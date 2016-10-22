@@ -57,12 +57,13 @@
                         app:srcCompat="@drawable/ic_book_open_24dp" />
 
                     <TextView
+                        android:id="@+id/readTitle"
                         style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:gravity="center"
-                        android:text="Gn 50" />
+                        tools:text="Gn 50" />
 
                     <ImageButton
                         android:id="@+id/btnTranslations"

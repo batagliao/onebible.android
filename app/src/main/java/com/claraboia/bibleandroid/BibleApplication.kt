@@ -38,6 +38,11 @@ class BibleApplication : Application() {
         //TODO: treat exception
         currentBible = Bible.load(preferences.selectedTranslation)
 
+        //load last accessed address as current position
+        val lastAddress = preferences.lastAccessedAddress
+        currentBook = lastAddress.bookOrder
+        currentChapter = lastAddress.chapterOrder
+
         //create a bookCollection to be able to sort, change without affect orignal list
         currentBible.books.forEach { b ->
             val newbook = BookForSort(

@@ -27,6 +27,7 @@ fun Bible.getAddressText(address: BibleAddress) : String {
     return text.toString()
 }
 
+//extension methods for Book type
 fun Book.getKey(): String {
     val resourceName = String.format(BOOK_KEY, this.bookOrder)
     return ResourceHelper.getStringByName(resourceName)
@@ -38,12 +39,20 @@ fun Book.getSummary(): String{
 }
 
 fun Book.getBookName() : String{
-    val resourceName = String.format(BOOK_NAME_KEY, this.bookOrder)
+    return getBookName(this.bookOrder)
+}
+
+fun getBookName(bookOrder: Int) : String{
+    val resourceName = String.format(BOOK_NAME_KEY, bookOrder)
     return ResourceHelper.getStringByName(resourceName)
 }
 
 fun Book.getBookAbbrev(): String {
-    val resourceName = String.format(BOOK_ABBREV_KEY, this.bookOrder)
+    return getBookAbbrev(this.bookOrder)
+}
+
+fun getBookAbbrev(bookOrder: Int): String{
+    val resourceName = String.format(BOOK_ABBREV_KEY, bookOrder)
     return ResourceHelper.getStringByName(resourceName)
 }
 
@@ -73,4 +82,21 @@ fun Book.getBookType() : BookTypeEnum{
     if (bookOrder <= 65)
         return BookTypeEnum.EPISTLE
     return BookTypeEnum.PROPHETIC //66
+}
+
+//extension methods from BibleAddress type
+fun BibleAddress.asFullText(): String {
+    val bookname = getBookName(this.bookOrder)
+
+    var result: String = "$bookname ${this.chapterOrder}"
+
+    return result
+}
+
+fun BibleAddress.asAbbreviatedText() : String{
+    val bookname = getBookAbbrev(this.bookOrder)
+
+    var result: String = "$bookname ${this.chapterOrder}"
+
+    return result
 }
