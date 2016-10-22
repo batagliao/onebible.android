@@ -16,11 +16,13 @@ import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import com.claraboia.bibleandroid.views.BooksSelectSortType
+import com.claraboia.bibleandroid.views.decorators.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_select_books.*
 
 class SelectBooksActivity : AppCompatActivity() {
 
     lateinit var bookAdapter: BookSelectionAdapter
+    val dividerItemDecoration by lazy { DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,12 +84,18 @@ class SelectBooksActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
 
+        bookList.removeItemDecoration(dividerItemDecoration)
+
         if (groupSelectDisplayType.currentDisplayType == BooksSelectDisplay.BookLayoutDisplayType.GRID) {
+            //GRID
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.GRID
             bookList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         } else {
+            //LIST
             bookAdapter.displayType = BooksSelectDisplay.BookLayoutDisplayType.LIST
             bookList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+            bookList.addItemDecoration(dividerItemDecoration)
         }
 
         if(groupSelectSortType.currentSortType == BooksSelectSortType.BookSortType.NORMAL){

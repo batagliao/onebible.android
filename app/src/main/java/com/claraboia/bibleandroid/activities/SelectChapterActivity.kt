@@ -50,7 +50,7 @@ class SelectChapterActivity : AppCompatActivity() {
             }
         }
         chapterList.layoutManager = gridlayout
-        val metrics = this.baseContext.resources.displayMetrics
+        val metrics = this.resources.displayMetrics
         val space =  (metrics.density * 12).toInt() // resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
         chapterList.addItemDecoration(GridSpacingItemDecoration(5, space, true, 1))
     }

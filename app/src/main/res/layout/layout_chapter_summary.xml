@@ -19,6 +19,7 @@
             <TextView
                 android:id="@+id/item_book_summary"
                 tools:text="some sample text"
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <Button
@@ -31,7 +32,8 @@
         </LinearLayout>
 
     <TextView
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textColor="@color/colorTextSecundary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:text="@string/chapters" />
     <!-- division line -->
