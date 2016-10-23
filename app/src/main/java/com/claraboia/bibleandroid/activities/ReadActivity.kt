@@ -52,12 +52,16 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val openBooksIntent = Intent(this, SelectBooksActivity::class.java)
         btnBooks.setOnClickListener { startActivity(openBooksIntent) }
 
+        val openChapterIntent = Intent(this, SelectChapterActivity::class.java)
+        readTitle.setOnClickListener { startActivity(openChapterIntent) }
+
         //set tooltips
         CheatSheet.setup(btnOpenMenu)
         CheatSheet.setup(btnBooks)
         CheatSheet.setup(btnTranslations)
 
         loadText()
+
     }
 
     private fun loadText(){
