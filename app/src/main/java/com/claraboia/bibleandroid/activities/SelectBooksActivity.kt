@@ -10,8 +10,10 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
@@ -25,8 +27,8 @@ import kotlinx.android.synthetic.main.activity_select_books.*
 class SelectBooksActivity : AppCompatActivity() {
 
     lateinit var bookAdapter: BookSelectionAdapter
-    lateinit var gridItemDecoration : GridSpacingItemDecoration
-    val dividerItemDecoration by lazy { DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST)}
+    lateinit var gridItemDecoration: GridSpacingItemDecoration
+    val dividerItemDecoration by lazy { DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +52,7 @@ class SelectBooksActivity : AppCompatActivity() {
 
         //grid item decoration
         val metrics = this.resources.displayMetrics
-        val space =  (metrics.density * 12).toInt()
+        val space = (metrics.density * 12).toInt()
         gridItemDecoration = GridSpacingItemDecoration(2, space, true, 0)
 
         //click
@@ -60,23 +62,21 @@ class SelectBooksActivity : AppCompatActivity() {
             startActivity(i)
         })
 
-
-
         bookList.setHasFixedSize(true)
         bookList.itemAnimator = DefaultItemAnimator()
-        bookList.adapter = bookAdapter
-        setRecyclerView()
+        setRecyclerLayout()
+        setRecyclerSort()
 
         groupSelectDisplayType.onChangeDisplayType += {
-            setRecyclerView()
+            setRecyclerLayout()
         }
 
         groupSelectSortType.onChangeSortType += {
-            setRecyclerView()
+            setRecyclerSort()
         }
 
         groupSelectSortOrder.onChangeSortOrder += {
-            setRecyclerView()
+            setRecyclerSort()
         }
 
 
@@ -91,13 +91,35 @@ class SelectBooksActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = MenuItemCompat.getActionView(menu?.findItem(R.id.action_search)) as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = resources.getString(R.string.book_search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("newText = ", newText)
+                bookAdapter.filter(newText)
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.d("query = ", query)
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(searchView.windowToken, 0)
+                searchView.clearFocus()
+
+                return true
+            }
+        })
+        searchView.setOnSearchClickListener {
+            val view = currentFocus
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(searchView.windowToken, 0)
+            searchView.clearFocus()
+        }
 
         //searchView.setOnQueryTextListener(this)
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun setRecyclerView() {
-
+    private fun setRecyclerLayout() {
         bookList.removeItemDecoration(dividerItemDecoration)
         bookList.removeItemDecoration(gridItemDecoration)
 
@@ -114,14 +136,15 @@ class SelectBooksActivity : AppCompatActivity() {
 
             bookList.addItemDecoration(dividerItemDecoration)
         }
+        bookList.adapter = bookAdapter
+    }
 
-        if(groupSelectSortType.currentSortType == BooksSelectSortType.BookSortType.NORMAL){
+    private fun setRecyclerSort() {
+
+        if (groupSelectSortType.currentSortType == BooksSelectSortType.BookSortType.NORMAL) {
             bookAdapter.sortNormal(groupSelectSortOrder.currentSortOrder)
-        }else{
+        } else {
             bookAdapter.sortAlpha(groupSelectSortOrder.currentSortOrder)
         }
-
-        //is it really needed to set adapter again everytime?
-        bookList.adapter = bookAdapter
     }
 }

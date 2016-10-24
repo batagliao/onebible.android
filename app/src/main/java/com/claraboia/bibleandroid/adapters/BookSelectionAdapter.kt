@@ -25,6 +25,8 @@ import kotlin.comparisons.compareByDescending
  * Created by lucas.batagliao on 13/10/2016.
  */
 class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item: BookForSort) -> Unit) : RecyclerView.Adapter<BookSelectionAdapter.BookSelectionViewHolder>() {
+    private val booksCopy: List<BookForSort> = ArrayList(books)
+
 
     class BookSelectionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
@@ -69,6 +71,7 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item
         }else{
             books.sortWith(compareByDescending { it.bookOrder })
         }
+        notifyItemRangeChanged(0, itemCount -1)
     }
 
     fun sortAlpha(order: BooksSelectSortOrder.BookSortOrder){
@@ -77,18 +80,36 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item
         }else{
             books.sortWith(compareByDescending { it.bookName })
         }
+        notifyItemRangeChanged(0, itemCount -1)
     }
 
-    fun notifyRemoveEach() {
-        for (i in 0..books.size - 1) {
-            notifyItemRemoved(i)
+    fun filter(query: String?){
+        books.clear()
+        if(query.isNullOrEmpty()){
+            books.addAll(booksCopy)
+        }else{
+            val text = query!!.toLowerCase()
+            for(b in booksCopy){
+                if(b.bookName.toLowerCase().contains(text)
+                || b.bookAbbrev.toLowerCase().contains(text)){
+                    books.add(b)
+                }
+            }
         }
+        notifyDataSetChanged()
     }
 
-    fun notifyAddEach() {
-        for (i in 0..books.size - 1) {
-            notifyItemInserted(i)
-        }
-    }
+//    fun notifyRemoveEach() {
+//        for (i in 0..books.size - 1) {
+//            notifyItemRemoved(i)
+//        }
+//
+//    }
+//
+//    fun notifyAddEach() {
+//        for (i in 0..books.size - 1) {
+//            notifyItemInserted(i)
+//        }
+//    }
 
 }

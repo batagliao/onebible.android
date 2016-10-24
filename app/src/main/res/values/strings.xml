@@ -17,7 +17,7 @@
     <string name="selectbook_btnSort_descending">Sort descending</string>
 
     <string name="btnBack">Back</string>
-    <string name="book_search_hint">book name or abbreviation</string>
+    <string name="book_search_hint">Search book</string>
 
     <string name="books">Books</string>
     <string name="chapters">Chapters</string>
