@@ -1,5 +1,7 @@
 package com.claraboia.bibleandroid.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
@@ -86,9 +88,10 @@ class SelectBooksActivity : AppCompatActivity() {
         //TODO: make search work
 
         // Associate searchable configuration with the SearchView
-        // SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = MenuItemCompat.getActionView(menu?.findItem(R.id.action_search)) as SearchView
-        // searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
         //searchView.setOnQueryTextListener(this)
         return super.onCreateOptionsMenu(menu)
     }

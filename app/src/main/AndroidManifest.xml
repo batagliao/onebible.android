@@ -25,11 +25,15 @@
             android:name=".activities.SelectBooksActivity"
             android:parentActivityName=".activities.ReadActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable_books"/>
+        </activity>
         <activity
             android:name=".activities.SelectChapterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
