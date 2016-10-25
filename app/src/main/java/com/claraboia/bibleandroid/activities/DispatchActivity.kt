@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.getBookAbbrev
-import com.claraboia.bibleandroid.helpers.getBookName
-import com.claraboia.bibleandroid.helpers.getBookType
+import com.claraboia.bibleandroid.helpers.*
 import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.viewmodels.BookForSort
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
 
 class DispatchActivity : AppCompatActivity() {
@@ -20,14 +20,14 @@ class DispatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        verifyGooglePlay()
+
         firebaseauth = FirebaseAuth.getInstance()
         if (firebaseauth.currentUser == null) {
             firebaseauth.signInAnonymously().addOnCompleteListener {
                 Log.d("DispatchActivity", "signInAnonymously:onComplete:" + it.isSuccessful)
 
                 bibleApplication.currentUser = firebaseauth.currentUser
-
-                //TODO: verify which bibles exists locally
 
                 // If sign in fails, display a message to the user. If sign in succeeds
                 // the auth state listener will be notified and logic to handle the
@@ -36,18 +36,40 @@ class DispatchActivity : AppCompatActivity() {
                     Log.w("DispatchActivity", "signInAnonymously", it.exception)
                     Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
+
+                performStartupPath()
             }
+        }else{
+            bibleApplication.currentUser = firebaseauth.currentUser
+            performStartupPath()
         }
-
-        loadBible()
-
-        val intent = Intent(this, ReadActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
-    private fun loadBible() {
-        bibleApplication.currentBible = Bible.load(bibleApplication.preferences.selectedTranslation)
+    private fun verifyGooglePlay(){
+        val playServicesStatus = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
+        if(playServicesStatus != ConnectionResult.SUCCESS){
+            //If google play services in not available show an error dialog and return
+            val errorDialog = GoogleApiAvailability.getInstance().getErrorDialog(this, playServicesStatus, 0, null)
+            errorDialog.show()
+            return
+        }
+    }
+
+    private fun performStartupPath(){
+        //TODO: verify which bibles exists locally
+        val bibles = getAvailableBiblesLocal()
+        if(bibles.size == 0) {
+            //TODO: go to select translation screen
+        }else{
+            loadCurrentBible()
+            val intent = Intent(this, ReadActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun loadCurrentBible() {
+        bibleApplication.currentBible = loadBible(bibleApplication.preferences.selectedTranslation)
 
         //load last accessed address as current position
         val lastAddress = bibleApplication.preferences.lastAccessedAddress

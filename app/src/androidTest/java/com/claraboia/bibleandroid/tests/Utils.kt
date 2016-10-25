@@ -1,10 +1,11 @@
 package com.claraboia.bibleandroid.tests
 
-import com.claraboia.bibleandroid.BIB_FILE_EXTENSION
-import com.claraboia.bibleandroid.getBibleDir
-import java.io.*
+import com.claraboia.bibleandroid.helpers.BIB_FILE_EXTENSION
+import com.claraboia.bibleandroid.helpers.getBibleDir
+import java.io.DataInputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.net.URL
-import java.nio.charset.Charset
 import javax.net.ssl.HttpsURLConnection
 
 /**
@@ -14,7 +15,7 @@ import javax.net.ssl.HttpsURLConnection
 
 fun downloadBibleFile(){
     val name = "acf"
-    val file = File("${getBibleDir()}/$name${BIB_FILE_EXTENSION}")
+    val file = File("${getBibleDir()}/$name$BIB_FILE_EXTENSION")
 
     var connection: HttpsURLConnection? = null
     if (!file.exists()) {
