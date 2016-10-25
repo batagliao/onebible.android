@@ -9,6 +9,7 @@ import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.utils.Preferences
 import com.claraboia.bibleandroid.viewmodels.BookForSort
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 
@@ -34,30 +35,11 @@ class BibleApplication : Application() {
         super.onCreate()
 
         preferences = Preferences(this)
-
-        //TODO: treat exception
-        currentBible = Bible.load(preferences.selectedTranslation)
-
-        //load last accessed address as current position
-        val lastAddress = preferences.lastAccessedAddress
-        currentBook = lastAddress.bookOrder
-        currentChapter = lastAddress.chapterOrder
-
-        //create a bookCollection to be able to sort, change without affect orignal list
-        currentBible.books.forEach { b ->
-            val newbook = BookForSort(
-                    b.bookOrder,
-                    b.chapters.size,
-                    b.getBookName(),
-                    b.getBookAbbrev(),
-                    b.getBookType()
-            )
-            booksForSelection.add(newbook)
-        }
-
     }
 
-    companion object{
-        lateinit var instance : BibleApplication
+
+
+    companion object {
+        lateinit var instance: BibleApplication
     }
 }
