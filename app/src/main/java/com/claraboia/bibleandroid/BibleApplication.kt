@@ -10,6 +10,7 @@ import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.utils.Preferences
 import com.claraboia.bibleandroid.viewmodels.BookForSort
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import java.util.*
 
 
@@ -25,6 +26,8 @@ class BibleApplication : Application() {
 
     lateinit var preferences: Preferences
     lateinit var currentBible: Bible
+
+    var currentUser: FirebaseUser? = null
 
     var currentBook = 0
     var currentChapter = 0
@@ -42,4 +45,6 @@ class BibleApplication : Application() {
     companion object {
         lateinit var instance: BibleApplication
     }
+
+
 }

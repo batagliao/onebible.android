@@ -11,14 +11,14 @@ import java.util.*
  */
 class Bible() {
 
-
     var title: String = ""
 
     var books: MutableList<Book> = ArrayList()
 
     companion object {
+        //TODO: move to helper class
         fun load(name: String): Bible {
-            val filename = "$name${BIB_FILE_EXTENSION}"
+            val filename = "$name$BIB_FILE_EXTENSION"
 
             val stream = getBibleStream(filename)
             stream.use {

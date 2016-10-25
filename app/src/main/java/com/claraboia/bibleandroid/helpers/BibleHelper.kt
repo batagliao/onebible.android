@@ -14,6 +14,7 @@ private const val BOOK_KEY : String = "KeyBook%d"
 private const val BOOK_ABBREV_KEY : String = "BookAbbrev%d"
 
 
+
 //extension methods for Bible type
 fun Bible.getAddressText(address: BibleAddress) : String {
 
