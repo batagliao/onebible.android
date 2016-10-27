@@ -1,10 +1,15 @@
 package com.claraboia.bibleandroid.activities
 
+import android.app.Activity
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
+import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.*
 import com.claraboia.bibleandroid.models.Bible
@@ -12,15 +17,18 @@ import com.claraboia.bibleandroid.viewmodels.BookForSort
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
+import kotlin.concurrent.thread
 
 class DispatchActivity : AppCompatActivity() {
 
     private lateinit var firebaseauth: FirebaseAuth
+    private val REQUEST_GOOGLE_PLAY_SERVICES = 90909
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        verifyGooglePlay()
+        //TODO: get this code back
+        //verifyGooglePlay()
 
         firebaseauth = FirebaseAuth.getInstance()
         if (firebaseauth.currentUser == null) {
@@ -45,21 +53,34 @@ class DispatchActivity : AppCompatActivity() {
         }
     }
 
-    private fun verifyGooglePlay(){
-        val playServicesStatus = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
-        if(playServicesStatus != ConnectionResult.SUCCESS){
-            //If google play services in not available show an error dialog and return
-            val errorDialog = GoogleApiAvailability.getInstance().getErrorDialog(this, playServicesStatus, 0, null)
-            errorDialog.show()
-            return
-        }
-    }
+
+//    private fun verifyGooglePlay(){
+//        val playServicesStatus = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
+//        if(playServicesStatus != ConnectionResult.SUCCESS){
+//            //If google play services in not available show an error dialog and return
+//            GoogleApiAvailability.getInstance().showErrorDialogFragment(this, playServicesStatus, 0)
+//            //val errorDialog = GoogleApiAvailability.getInstance().getErrorDialog(this, playServicesStatus, 0, null)
+//            //errorDialog.show()
+//            return
+//        }
+//    }
 
     private fun performStartupPath(){
-        //TODO: verify which bibles exists locally
+        //TODO: cache local bibles
         val bibles = getAvailableBiblesLocal()
-        if(bibles.size == 0) {
-            //TODO: go to select translation screen
+        if(bibles.size != 0) {
+
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage(R.string.translationNeededToStart)
+            builder.setPositiveButton(R.string.ok) { dialog, button ->
+                val intent = Intent(this, SelectTranslationActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+
         }else{
             loadCurrentBible()
             val intent = Intent(this, ReadActivity::class.java)

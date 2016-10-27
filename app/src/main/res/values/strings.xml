@@ -22,4 +22,11 @@
     <string name="books">Books</string>
     <string name="chapters">Chapters</string>
     <string name="chapter_more">+ more</string>
+    <string name="translations">Bible Translations</string>
+
+    <string name="localTranslations">Local</string>
+    <string name="cloudTranslations">Cloud</string>
+    <string name="ok">OK</string>
+    <string name="translationNeededToStart">You have no bible translation locally. Please select
+    at least one to download on next screen</string>
 </resources>
