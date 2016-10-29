@@ -46,13 +46,13 @@ fun getAvailableBiblesLocal(): List<BibleTranslation> {
     val dir = File(getBibleDir())
     val bibles: ArrayList<BibleTranslation> = ArrayList()
     dir.listFiles().forEach {
-        val bible = BibleTranslation(
-                name = it.name, //TODO: implement
-                abbreviation = it.name, //TODO: implement
-                file = it.absolutePath,
-                language = "", //TODO: implement
-                version = "" //TODO: implement
-        )
+        val bible = BibleTranslation()
+        //TODO: improve
+        bible.name = it.name
+        bible.abbreviation = it.name
+        bible.file = it.absolutePath
+
+
         bibles.add(bible)
     }
     return bibles
