@@ -16,6 +16,7 @@ class TranslationRecyclerAdapter(var translations: List<BibleTranslation>) : Rec
     inner class TranslationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(translation: BibleTranslation){
             itemView.item_translationName.text = translation.name
+            itemView.item_translationAbbrev.text = translation.abbreviation
         }
     }
 

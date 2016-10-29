@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.claraboia.bibleandroid.fragments.LocalTranslationsFragment">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/translationCloudList"
         android:layout_width="match_parent"
