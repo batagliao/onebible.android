@@ -2,9 +2,12 @@ package com.claraboia.bibleandroid.fragments
 
 import android.app.Activity
 import android.app.DownloadManager
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +18,10 @@ import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.TranslationRecyclerAdapter
 import com.claraboia.bibleandroid.helpers.getBibleDir
 import com.claraboia.bibleandroid.models.BibleTranslation
+import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_PROGRESS_ACTION
+import com.claraboia.bibleandroid.services.DownloadTranslationBroadcastReceiver
+import com.claraboia.bibleandroid.services.DownloadTranslationService
+import com.claraboia.bibleandroid.services.EXTRA_TRANSLATION
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_cloud_translations.*
@@ -33,11 +40,13 @@ class CloudTranslationsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_cloud_translations, container, false)
+        registerReceiver()
         return view
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         translationCloudList.visibility = View.GONE
         translationCloudList.layoutManager = LinearLayoutManager(activity)
         translationCloudList.adapter = adapter
@@ -53,17 +62,17 @@ class CloudTranslationsFragment : Fragment() {
         query.addListenerForSingleValueEvent(listenerForDatabase())
     }
 
-    fun downloadTranslationClick(translation: BibleTranslation){
-        val downloadman = activity.getSystemService(Activity.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(Uri.parse(translation.file))
-        request.setDescription(translation.name)
-        request.setTitle(translation.abbreviation)
+    private fun downloadTranslationClick(translation: BibleTranslation){
+        val svcintent = Intent(activity, DownloadTranslationService::class.java)
+        svcintent.putExtra(EXTRA_TRANSLATION, translation)
+        activity.startService(svcintent)
+    }
 
-        val uri = Uri.parse("file://" + getBibleDir() + "/${translation.abbreviation}_${translation.version}.bib")
-        request.setDestinationUri(uri)
-
-        downloadman.enqueue(request)
-
+    private fun registerReceiver() {
+        val filter = IntentFilter(DOWNLOAD_TRANSLATION_PROGRESS_ACTION)
+        val receiver = DownloadTranslationBroadcastReceiver()
+        LocalBroadcastManager.getInstance(activity)
+            .registerReceiver(receiver, filter)
     }
 
     inner class listenerForDatabase: ValueEventListener{
