@@ -11,6 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".services.DownloadTranslationService"
+            android:exported="false"/>
         <activity android:name=".activities.DispatchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
