@@ -11,12 +11,17 @@ import kotlinx.android.synthetic.main.layout_translation_item.view.*
 /**
  * Created by lucasbatagliao on 28/10/16.
  */
-class TranslationRecyclerAdapter(var translations: List<BibleTranslation>) : RecyclerView.Adapter<TranslationRecyclerAdapter.TranslationViewHolder>() {
+class TranslationRecyclerAdapter(var translations: List<BibleTranslation>,
+                                 val click: (translation: BibleTranslation) -> Unit) : RecyclerView.Adapter<TranslationRecyclerAdapter.TranslationViewHolder>() {
 
     inner class TranslationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(translation: BibleTranslation){
             itemView.item_translationName.text = translation.name
             itemView.item_translationAbbrev.text = translation.abbreviation
+            itemView.item_translationSize.text = translation.fileSize.toString() + "MB"
+            itemView.item_translationDownload.setOnClickListener {
+                click.invoke(translation)
+            }
         }
     }
 

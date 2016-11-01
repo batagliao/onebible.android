@@ -8,10 +8,6 @@
     android:background="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="0dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="8dp"
     app:cardElevation="4dp"
     >
 
@@ -22,48 +18,61 @@
         android:orientation="horizontal"
         android:baselineAligned="false">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/item_translatiom_frame"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
             android:background="@color/colorAccent"
-            android:layout_width="100dp"
+            android:layout_width="10dp"
             android:layout_height="80dp">
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
 
             <TextView
                 android:id="@+id/item_translationAbbrev"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="28sp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
                 tools:text="ACF"
-                android:layout_width="match_parent" />
+                android:layout_width="wrap_content" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginStart="10dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/item_translationName"
-                android:layout_width="match_parent"
+                android:layout_below="@id/item_translationAbbrev"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
                 android:textSize="18sp"
                 tools:text="Almeida Corrigida e Fiel" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/item_ChapterQty"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="1dp"-->
-                <!--android:layout_marginBottom="8dp"-->
-                <!--android:gravity="start"-->
-                <!--tools:text="55 capítulos"-->
-                <!--android:textSize="16sp" />-->
-        </LinearLayout>
+            <Button
+                android:id="@+id/item_translationDownload"
+                android:text="download"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-8dp"
+                android:layout_marginTop="-8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/item_translationSize"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/item_translationDownload"
+                android:layout_alignParentEnd="true"
+                tools:text="4.5MB"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
     </LinearLayout>
 
