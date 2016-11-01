@@ -100,7 +100,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
     private fun notify(translation : BibleTranslation){
         val builder = NotificationCompat.Builder(this)
-            .setSmallIcon(R.drawable.notification_template_icon_bg)
+            .setSmallIcon(R.drawable.notification_template_icon_bg) //TODO: correct the icon
             .setContentTitle(translation.abbreviation)
             .setContentText("Downloading ${translation.name}")
             .setProgress(0, 0, true)
