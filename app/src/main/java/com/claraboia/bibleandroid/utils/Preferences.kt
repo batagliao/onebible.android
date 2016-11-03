@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.models.BibleAddress
+import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import com.claraboia.bibleandroid.views.BooksSelectSortOrder
 import com.claraboia.bibleandroid.views.BooksSelectSortType
@@ -27,11 +28,26 @@ class Preferences(private val context: Context) {
                 .build()
     }
 
-    private val defaultTranslation = getResource(R.string.defaultTranslation)
 
-    var selectedTranslation: String
-        get() = Prefs.getString(SELECTED_TRANSLATION_KEY, defaultTranslation)
-        set(value) = Prefs.putString(SELECTED_TRANSLATION_KEY, value)
+//    var selectedTranslation: String
+//        get() = Prefs.getString(SELECTED_TRANSLATION_KEY, "")
+//        set(value) = Prefs.putString(SELECTED_TRANSLATION_KEY, value)
+
+    var selectedTranslation: BibleTranslation
+        get() {
+            val json = Prefs.getString(SELECTED_TRANSLATION_KEY, "")
+            if (json == "") {
+                return BibleTranslation()
+            } else {
+                val gson = Gson()
+                return gson.fromJson(json, BibleTranslation::class.java)
+            }
+        }
+        set(value) {
+            val gson = Gson()
+            val json = gson.toJson(value)
+            Prefs.putString(SELECTED_TRANSLATION_KEY, json)
+        }
 
     var lastAccessedAddress: BibleAddress
         get() {

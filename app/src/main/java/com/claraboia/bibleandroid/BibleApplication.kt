@@ -6,6 +6,7 @@ import com.claraboia.bibleandroid.helpers.getBookAbbrev
 import com.claraboia.bibleandroid.helpers.getBookName
 import com.claraboia.bibleandroid.helpers.getBookType
 import com.claraboia.bibleandroid.models.Bible
+import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.utils.Preferences
 import com.claraboia.bibleandroid.viewmodels.BookForSort
@@ -33,6 +34,7 @@ class BibleApplication : Application() {
     var currentChapter = 0
 
     val booksForSelection: MutableList<BookForSort> = ArrayList()
+    val localBibles : MutableList<BibleTranslation> = ArrayList()
 
     override fun onCreate() {
         super.onCreate()

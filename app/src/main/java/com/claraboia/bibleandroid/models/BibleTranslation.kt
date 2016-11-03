@@ -17,6 +17,8 @@ class BibleTranslation() : Parcelable {
     var name = ""
     var version = "1.0"
 
+    fun isEmpty() : Boolean = abbreviation == ""
+
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(abbreviation)
         dest?.writeByte(if (active) 1 else 0)

@@ -66,10 +66,10 @@ class DispatchActivity : AppCompatActivity() {
 //    }
 
     private fun performStartupPath(){
-        //TODO: cache local bibles
-        val bibles = getAvailableBiblesLocal()
-        //TODO: correct the IF
-        if(bibles.size != 0) {
+
+        bibleApplication.localBibles.addAll(getAvailableBiblesLocal())
+
+        if(bibleApplication.localBibles.size == 0 || bibleApplication.preferences.selectedTranslation.isEmpty()) {
 
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.translationNeededToStart)

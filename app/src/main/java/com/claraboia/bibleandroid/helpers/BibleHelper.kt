@@ -18,8 +18,8 @@ const val BIB_FILE_EXTENSION: String = ".bib"
 
 const val BIB_FOLDER: String = "bibs"
 
-fun loadBible(name: String): Bible {
-    val filename = "$name$BIB_FILE_EXTENSION"
+fun loadBible(translation: BibleTranslation): Bible {
+    val filename = translation.getFileName()
 
     val stream = getBibleStream(filename)
     stream.use {
@@ -46,14 +46,27 @@ fun getAvailableBiblesLocal(): List<BibleTranslation> {
     val dir = File(getBibleDir())
     val bibles: ArrayList<BibleTranslation> = ArrayList()
     dir.listFiles().forEach {
-        val bible = BibleTranslation()
-        //TODO: improve
-        bible.name = it.name
-        bible.abbreviation = it.name
-        bible.file = it.absolutePath
 
+        if(BIB_FILE_EXTENSION.endsWith(it.extension, true)) {
+            val bible = BibleTranslation()
 
-        bibles.add(bible)
+            //TODO: improve
+            //TODO: how to store name and language
+            //{abbreviation}.{version}.bib
+
+            val namestrip = it.name.split(".")
+            val abbreviation = namestrip[0]
+            val version = namestrip[1]
+
+            bible.name = it.name
+            bible.abbreviation = abbreviation
+            bible.file = it.absolutePath
+            bible.fileSize = it.length().toDouble()
+            bible.format = "xml"
+            bible.version = version
+
+            bibles.add(bible)
+        }
     }
     return bibles
 }
@@ -80,4 +93,8 @@ fun BibleAddress.asAbbreviatedText(): String {
     val bookname = getBookAbbrev(this.bookOrder)
     val result: String = "$bookname ${this.chapterOrder}"
     return result
+}
+
+fun BibleTranslation.getFileName() : String{
+    return "${this.abbreviation}.${this.version}$BIB_FILE_EXTENSION"
 }

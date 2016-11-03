@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.TranslationRecyclerAdapter
+import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.getBibleDir
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_PROGRESS_ACTION
@@ -63,6 +64,11 @@ class CloudTranslationsFragment : Fragment() {
     }
 
     private fun downloadTranslationClick(translation: BibleTranslation){
+        if(activity.bibleApplication.localBibles.size == 0){
+            activity.bibleApplication.preferences.selectedTranslation = translation
+            //TODO: add to local cache (maybe after download - inside the intentService)
+        }
+
         val svcintent = Intent(activity, DownloadTranslationService::class.java)
         svcintent.putExtra(EXTRA_TRANSLATION, translation)
         activity.startService(svcintent)

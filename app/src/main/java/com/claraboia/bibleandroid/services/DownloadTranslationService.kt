@@ -10,6 +10,7 @@ import android.util.Log
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.helpers.BIB_FILE_EXTENSION
 import com.claraboia.bibleandroid.helpers.getBibleDir
+import com.claraboia.bibleandroid.helpers.getFileName
 import com.claraboia.bibleandroid.models.BibleTranslation
 import java.io.BufferedInputStream
 import java.io.DataInputStream
@@ -31,7 +32,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
     override fun onHandleIntent(intent: Intent?) {
         val translation = intent?.getParcelableExtra<BibleTranslation>(EXTRA_TRANSLATION)
-        val destfilepath = getBibleDir() + "/${translation?.abbreviation}_${translation?.version}$BIB_FILE_EXTENSION"
+        val destfilepath = getBibleDir() + "/${translation?.getFileName()}"
 
         notify(translation!!)
         try {
