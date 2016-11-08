@@ -8,9 +8,11 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.NotificationCompat
 import android.util.Log
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.BIB_FILE_EXTENSION
 import com.claraboia.bibleandroid.helpers.getBibleDir
 import com.claraboia.bibleandroid.helpers.getFileName
+import com.claraboia.bibleandroid.helpers.saveLocalTranslations
 import com.claraboia.bibleandroid.models.BibleTranslation
 import java.io.BufferedInputStream
 import java.io.DataInputStream
@@ -36,7 +38,9 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
         notify(translation!!)
         try {
-            downloadFile(translation?.file!!, destfilepath)
+            downloadFile(translation.file, destfilepath)
+            bibleApplication.localBibles.add(translation)
+            saveLocalTranslations(bibleApplication.localBibles)
         }finally {
             endNotification()
         }
