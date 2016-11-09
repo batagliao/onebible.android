@@ -30,8 +30,7 @@ fun loadBible(translation: BibleTranslation): Bible {
 }
 
 fun getBibleDir(): String {
-    var appdir = BibleApplication.instance.applicationContext.filesDir
-    var bibdir = File("${appdir.absolutePath}/$BIB_FOLDER")
+    val bibdir = File("/data/data/${BuildConfig.APPLICATION_ID}/files/$BIB_FOLDER/")
 
     if (!bibdir.exists())
         bibdir.mkdirs()
@@ -40,7 +39,7 @@ fun getBibleDir(): String {
 }
 
 private fun getLocalBiblesFile(): File {
-    val biblefile = File("${getBibleDir()}()/$BIB_LOCAL_FILE")
+    val biblefile = File("${getBibleDir()}/$BIB_LOCAL_FILE")
     return biblefile
 }
 
