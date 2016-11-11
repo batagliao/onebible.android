@@ -3,6 +3,7 @@ package com.claraboia.bibleandroid.activities
 import android.content.Intent
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.view.View
@@ -59,6 +60,18 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         CheatSheet.setup(btnOpenMenu)
         CheatSheet.setup(btnBooks)
         CheatSheet.setup(btnTranslations)
+        CheatSheet.setup(btnShowBottomSheet)
+
+        //bottomSheet
+        val bsBehavior = BottomSheetBehavior.from(readBottomSheet)
+        btnShowBottomSheet.setOnClickListener {
+            if(bsBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
+                bsBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }else if (bsBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
+                bsBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
+
 
         loadText()
 
