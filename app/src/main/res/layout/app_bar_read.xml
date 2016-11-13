@@ -7,6 +7,7 @@
     tools:context="com.claraboia.bibleandroid.activities.ReadActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -17,7 +18,8 @@
             android:layout_height="match_parent"
             android:minHeight="?attr/actionBarSize"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

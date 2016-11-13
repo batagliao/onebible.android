@@ -30,7 +30,9 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 tools:text="Gen"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                android:fontFamily="sans-serif-condensed"
+                android:typeface="sans" />
 
         </LinearLayout>
 
@@ -44,9 +46,13 @@
                 android:id="@+id/item_bookName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorTextPrimary"
                 android:gravity="start"
                 android:textSize="18sp"
-                tools:text="Genesis" />
+                tools:text="Genesis"
+                android:typeface="sans"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif" />
 
             <TextView
                 android:id="@+id/item_ChapterQty"
@@ -54,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
                 android:layout_marginBottom="8dp"
+                android:textColor="@color/colorTextSecundary"
                 android:gravity="start"
                 tools:text="55 capítulos"
                 android:textSize="16sp" />
