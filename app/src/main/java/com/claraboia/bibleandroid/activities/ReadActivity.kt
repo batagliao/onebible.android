@@ -9,6 +9,8 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.WindowCompat
+import android.support.v4.view.WindowInsetsCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -35,7 +37,10 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val firebaseAnalytics by lazy { FirebaseAnalytics.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY)
         super.onCreate(savedInstanceState)
+        
         setContentView(R.layout.activity_read)
 
         setSupportActionBar(toolbar)
@@ -65,11 +70,16 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //bottomSheet
         val bsBehavior = BottomSheetBehavior.from(readBottomSheet)
         btnShowBottomSheet.setOnClickListener {
+
+
             if(bsBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
                 bsBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                appbarlayout.setExpanded(true, true)
             }else if (bsBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
                 bsBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                appbarlayout.setExpanded(false, true)
             }
+
         }
 
 
