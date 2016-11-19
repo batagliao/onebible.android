@@ -91,7 +91,7 @@ fun getAvailableBiblesLocal(): List<BibleTranslation> {
 
 //extension methods for Bible type
 fun Bible.getAddressText(address: BibleAddress): String {
-    val chapter = this.books[address.bookOrder].chapters[address.chapterOrder]
+    val chapter = this.books[address.bookOrder -1].chapters[address.chapterOrder -1]
     val text = StringBuilder()
     for (v in chapter.verses) {
         text.appendln("${v.verseOrder.toString()}. ${v.text}")

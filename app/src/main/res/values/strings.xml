@@ -29,4 +29,8 @@
     <string name="ok">OK</string>
     <string name="translationNeededToStart">You have no bible translation locally. Please select
     at least one to download on next screen</string>
+
+    <string name="title_activity_test_fullscreen">TestFullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
