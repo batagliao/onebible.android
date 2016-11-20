@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.WindowCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import android.view.animation.DecelerateInterpolator
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
@@ -41,6 +42,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayShowHomeEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setShowHideAnimationEnabled(true)
 
         val navigationView = findViewById(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
@@ -48,8 +50,8 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //menu definition
         btnOpenMenu.setOnClickListener { drawer.openDrawer(GravityCompat.START, true) }
 
-        //val openBooksIntent = Intent(this, SelectBooksActivity::class.java)
-        val openBooksIntent = Intent(this, TestFullscreenActivity::class.java)
+        val openBooksIntent = Intent(this, SelectBooksActivity::class.java)
+        //val openBooksIntent = Intent(this, TestFullscreenActivity::class.java)
         btnBooks.setOnClickListener { startActivity(openBooksIntent) }
 
         val openChapterIntent = Intent(this, SelectChapterActivity::class.java)
@@ -164,7 +166,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private val showSystemUI = Runnable {
-        supportActionBar?.show()
+        showActionBar()
         //TODO: show bottom bar
     }
 
@@ -175,9 +177,16 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             show()
     }
 
+    private fun hideActionBar(){
+        appbarlayout.animate()
+                .translationY((- toolbar.height).toFloat())
+                .setDuration(UI_ANIMATION_DELAY)
+                .setInterpolator(DecelerateInterpolator())
+    }
+
     private fun hide() {
 
-        supportActionBar?.hide()
+        appbarlayout.setExpanded(false, true)
 
         //TODO: hide bottom bar
 
@@ -188,7 +197,14 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mHideHandler.postDelayed(hideSystemUI, UI_ANIMATION_DELAY)
 
 
-        supportActionBar?.hide()
+        hideActionBar()
+    }
+
+    private fun showActionBar(){
+        appbarlayout.animate()
+                .translationY(0F)
+                .setDuration(UI_ANIMATION_DELAY)
+                .setInterpolator(DecelerateInterpolator())
     }
 
     private fun show() {
