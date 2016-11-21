@@ -26,7 +26,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private val firebaseAnalytics by lazy { FirebaseAnalytics.getInstance(this) }
-    private var isShowingBars = true
+    private var isShowingBars = false
     private val UI_ANIMATION_DELAY = 300L
     private val mHideHandler = Handler()
 
@@ -93,8 +93,9 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // created, to briefly hint to the user that UI controls
         // are available.
         mHideHandler.removeCallbacks { hideSystemUI }
-        mHideHandler.postDelayed(hideSystemUI, UI_ANIMATION_DELAY)
-        //delayedHide(100)
+        mHideHandler.postDelayed({
+            hide()
+        }, 1000)
     }
 
 
@@ -120,9 +121,9 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val id = item.itemId
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true
-        }
+//        if (id == R.id.action_settings) {
+//            return true
+//        }
 
         return super.onOptionsItemSelected(item)
     }
@@ -132,19 +133,19 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         //val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
@@ -185,8 +186,6 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun hide() {
-
-        appbarlayout.setExpanded(false, true)
 
         //TODO: hide bottom bar
 
