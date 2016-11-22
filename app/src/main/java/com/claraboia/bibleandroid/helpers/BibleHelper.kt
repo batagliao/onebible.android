@@ -1,5 +1,10 @@
 package com.claraboia.bibleandroid.helpers
 
+import android.content.Context
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.SuperscriptSpan
+import android.text.style.TextAppearanceSpan
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.BuildConfig
 import com.claraboia.bibleandroid.R
@@ -90,13 +95,37 @@ fun getAvailableBiblesLocal(): List<BibleTranslation> {
 }
 
 //extension methods for Bible type
-fun Bible.getAddressText(address: BibleAddress): String {
+fun Bible.getAddressText(context: Context, address: BibleAddress): SpannableStringBuilder {
     val chapter = this.books[address.bookOrder -1].chapters[address.chapterOrder -1]
-    val text = StringBuilder()
+
+    val builder = SpannableStringBuilder()
+
+    var start = 0
+    var end = 0
+    //val text = StringBuilder()
     for (v in chapter.verses) {
-        text.appendln("${v.verseOrder.toString()}. ${v.text}")
+        start = end
+
+        //verse num
+        val verseNumSpan = TextAppearanceSpan(context, R.style.VerseNumberTextAppearance)
+        val vnum = v.verseOrder.toString() + " "
+        end = start + vnum.length
+        builder.append(vnum)
+        builder.setSpan(SuperscriptSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.setSpan(verseNumSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+        //verse text
+        val verseSpan = TextAppearanceSpan(context, R.style.VerseTextAppearance)
+        val vtext = v.text + " \n"
+        start = end
+        end = start + vtext.length
+        builder.append(vtext)
+        builder.setSpan(verseSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
     }
-    return text.toString()
+    //return text.toString()
+    return builder
 }
 
 

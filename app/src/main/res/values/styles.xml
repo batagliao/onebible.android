@@ -40,4 +40,16 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="VerseNumberTextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">@color/colorSecundaryText</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="VerseTextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+
 </resources>

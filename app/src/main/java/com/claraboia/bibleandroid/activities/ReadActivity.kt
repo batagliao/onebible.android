@@ -231,7 +231,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bibleApplication.preferences.lastAccessedAddress = address
 
         //loads corresponding text
-        val text = bibleApplication.currentBible.getAddressText(address)
+        val text = bibleApplication.currentBible.getAddressText(this, address)
 
         //set text to view
         txtview.text = text
