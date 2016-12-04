@@ -3,6 +3,7 @@ package com.claraboia.bibleandroid.tests.models
 import android.support.test.filters.SmallTest
 import android.support.test.runner.AndroidJUnit4
 import com.claraboia.bibleandroid.helpers.loadBible
+import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.tests.downloadBibleFile
 import org.junit.Assert
 import org.junit.Before
@@ -21,11 +22,4 @@ class BibleTest {
         downloadBibleFile()
     }
 
-    @Test
-    fun loadtest(){
-        val bible =  loadBible("acf")
-
-        Assert.assertNotNull(bible)
-        Assert.assertEquals(66, bible.books.size)
-    }
 }

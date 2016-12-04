@@ -129,18 +129,7 @@ fun Bible.getAddressText(context: Context, address: BibleAddress): SpannableStri
 }
 
 
-//extension methods from BibleAddress type
-fun BibleAddress.asFullText(): String {
-    val bookname = getBookName(this.bookOrder)
-    val result: String = "$bookname ${this.chapterOrder}"
-    return result
-}
 
-fun BibleAddress.asAbbreviatedText(): String {
-    val bookname = getBookAbbrev(this.bookOrder)
-    val result: String = "$bookname ${this.chapterOrder}"
-    return result
-}
 
 fun BibleTranslation.getFileName() : String{
     //return "${this.abbreviation}.${this.version}$BIB_FILE_EXTENSION"

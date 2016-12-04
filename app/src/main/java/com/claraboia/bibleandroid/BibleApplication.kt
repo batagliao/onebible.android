@@ -6,6 +6,7 @@ import com.claraboia.bibleandroid.helpers.getBookAbbrev
 import com.claraboia.bibleandroid.helpers.getBookName
 import com.claraboia.bibleandroid.helpers.getBookType
 import com.claraboia.bibleandroid.models.Bible
+import com.claraboia.bibleandroid.models.BibleAddress
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.utils.Preferences
@@ -34,7 +35,15 @@ class BibleApplication : Application() {
     var currentChapter = 0
 
     val booksForSelection: MutableList<BookForSort> = ArrayList()
-    val localBibles : MutableList<BibleTranslation> = ArrayList()
+    val localBibles: MutableList<BibleTranslation> = ArrayList()
+
+    val currentAddress: BibleAddress
+        get() {
+            val address = BibleAddress()
+            address.bookOrder = currentBook
+            address.chapterOrder = currentChapter
+            return address
+        }
 
     override fun onCreate() {
         super.onCreate()
@@ -42,6 +51,11 @@ class BibleApplication : Application() {
         preferences = Preferences(this)
     }
 
+    fun updatePosition(address: BibleAddress){
+        currentBook = address.bookOrder
+        currentChapter = address.chapterOrder
+        preferences.lastAccessedAddress = address
+    }
 
 
     companion object {

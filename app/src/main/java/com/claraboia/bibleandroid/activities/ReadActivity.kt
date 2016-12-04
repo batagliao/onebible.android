@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.view.animation.DecelerateInterpolator
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.adapters.ReadViewPagerAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.helpers.asFullText
@@ -79,11 +80,13 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //
 //        }
 
-        txtview.setOnClickListener {
-            toggleVisibility()
-        }
+//        txtview.setOnClickListener {
+//            toggleVisibility()
+//        }
+//
+//        loadText()
 
-        loadText()
+        setupViewPager()
 
     }
 
@@ -152,6 +155,12 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    private fun setupViewPager(){
+        val adapter = ReadViewPagerAdapter(supportFragmentManager)
+        viewpagerRead.adapter = adapter
+        viewpagerRead.setCurrentItem(1, false)
+    }
+
     private val hideSystemUI = Runnable {
         // Set the IMMERSIVE flag.
         // Set the content to appear under the system bars so that the content
@@ -218,24 +227,5 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mHideHandler.postDelayed(showSystemUI, UI_ANIMATION_DELAY)
     }
 
-    private fun loadText() {
-        //convert actual position to address
-        val address = BibleAddress()
-        address.bookOrder = bibleApplication.currentBook
-        address.chapterOrder = bibleApplication.currentChapter
 
-        //set title
-        readTitle.text = address.asFullText()
-
-        //saves it as last address
-        bibleApplication.preferences.lastAccessedAddress = address
-
-        //loads corresponding text
-        val text = bibleApplication.currentBible.getAddressText(this, address)
-
-        //set text to view
-        txtview.text = text
-
-
-    }
 }
