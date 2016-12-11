@@ -156,9 +156,9 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupViewPager(){
-        val adapter = ReadViewPagerAdapter(supportFragmentManager)
+        val adapter = ReadViewPagerAdapter(viewpagerRead, supportFragmentManager)
         viewpagerRead.adapter = adapter
-        viewpagerRead.setCurrentItem(1, false)
+        viewpagerRead.setCurrentItem(Int.MAX_VALUE/2, false)
     }
 
     private val hideSystemUI = Runnable {
