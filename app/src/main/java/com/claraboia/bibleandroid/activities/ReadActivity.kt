@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.view.animation.DecelerateInterpolator
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.adapters.CENTER
 import com.claraboia.bibleandroid.adapters.ReadViewPagerAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
@@ -57,7 +58,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val openChapterIntent = Intent(this, SelectChapterActivity::class.java)
         readTitle.setOnClickListener { startActivity(openChapterIntent) }
-
+        readTitle.text = bibleApplication.currentAddress.asFullText()
 
         //set tooltips
         CheatSheet.setup(btnOpenMenu)
@@ -157,8 +158,13 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setupViewPager(){
         val adapter = ReadViewPagerAdapter(viewpagerRead, supportFragmentManager)
+
+        adapter.setPageChangedListener {
+            readTitle.text = it.asFullText()
+        }
+
         viewpagerRead.adapter = adapter
-        viewpagerRead.setCurrentItem(Int.MAX_VALUE/2, false)
+        viewpagerRead.setCurrentItem(CENTER , false)
     }
 
     private val hideSystemUI = Runnable {
@@ -180,7 +186,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //TODO: show bottom bar
     }
 
-    private fun toggleVisibility() {
+    fun toggleVisibility() {
         if (isShowingBars)
             hide()
         else

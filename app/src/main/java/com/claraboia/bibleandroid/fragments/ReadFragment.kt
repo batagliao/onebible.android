@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.activities.ReadActivity
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.asFullText
 import com.claraboia.bibleandroid.helpers.getAddressText
@@ -38,6 +39,8 @@ class ReadFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -49,6 +52,10 @@ class ReadFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadText()
+        txtview.setOnClickListener {
+            val readactivity = activity as ReadActivity
+            readactivity.toggleVisibility()
+        }
     }
 
     private fun loadText() {
