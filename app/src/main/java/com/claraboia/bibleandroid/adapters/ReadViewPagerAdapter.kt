@@ -35,7 +35,9 @@ class ReadViewPagerAdapter(val viewpager: ViewPager, val fm: FragmentManager?) :
         showingPosition = position
         showingFragment = getVisibleFragment(position)
         val address = showingFragment?.address
-        //TODO: set current position
+
+        address?.let { BibleApplication.instance.updatePosition(it) }
+
         if(onPageChangeListener != null && address != null){
             onPageChangeListener?.invoke(address)
         }
