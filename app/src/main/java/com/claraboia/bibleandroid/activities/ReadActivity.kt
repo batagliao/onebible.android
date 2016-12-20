@@ -64,28 +64,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         CheatSheet.setup(btnOpenMenu)
         CheatSheet.setup(btnBooks)
         CheatSheet.setup(btnTranslations)
-        //CheatSheet.setup(btnShowBottomSheet)
 
-        //bottomSheet
-//        val bsBehavior = BottomSheetBehavior.from(readBottomSheet)
-//        btnShowBottomSheet.setOnClickListener {
-//
-//
-//            if(bsBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
-//                bsBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//                //appbarlayout.setExpanded(true, true)
-//            }else if (bsBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
-//                bsBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//                //appbarlayout.setExpanded(false, true)
-//            }
-//
-//        }
-
-//        txtview.setOnClickListener {
-//            toggleVisibility()
-//        }
-//
-//        loadText()
 
         setupViewPager()
 
@@ -137,26 +116,18 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        if (id == R.id.nav_translation) {
+            val openTranslationsItent = Intent(this, SelectTranslationActivity::class.java)
+            startActivity(openTranslationsItent)
+        }
+
 
         //val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
-        return true
+        return false
     }
 
-    private fun setupViewPager(){
+    private fun setupViewPager() {
         val adapter = ReadViewPagerAdapter(viewpagerRead, supportFragmentManager)
 
         adapter.setPageChangedListener {
@@ -164,7 +135,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         viewpagerRead.adapter = adapter
-        viewpagerRead.setCurrentItem(CENTER , false)
+        viewpagerRead.setCurrentItem(CENTER, false)
     }
 
     private val hideSystemUI = Runnable {
@@ -193,9 +164,9 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             show()
     }
 
-    private fun hideActionBar(){
+    private fun hideActionBar() {
         appbarlayout.animate()
-                .translationY((- toolbar.height).toFloat())
+                .translationY((-toolbar.height).toFloat())
                 .setDuration(UI_ANIMATION_DELAY)
                 .setInterpolator(DecelerateInterpolator())
     }
@@ -214,7 +185,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         hideActionBar()
     }
 
-    private fun showActionBar(){
+    private fun showActionBar() {
         appbarlayout.animate()
                 .translationY(0F)
                 .setDuration(UI_ANIMATION_DELAY)

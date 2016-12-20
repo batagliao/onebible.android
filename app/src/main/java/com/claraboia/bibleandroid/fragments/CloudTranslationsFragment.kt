@@ -55,12 +55,14 @@ class CloudTranslationsFragment : Fragment() {
         val metrics = this.resources.displayMetrics
         val space =  (metrics.density * 12).toInt()
         translationCloudList.addItemDecoration(GridSpacingItemDecoration(1, space, true, 0))
+
+        val query = database.child("translations").orderByChild("abbreviation")
+        query.addListenerForSingleValueEvent(listenerForDatabase())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val query = database.child("translations").orderByChild("abbreviation")
-        query.addListenerForSingleValueEvent(listenerForDatabase())
+
     }
 
     private fun downloadTranslationClick(translation: BibleTranslation){
