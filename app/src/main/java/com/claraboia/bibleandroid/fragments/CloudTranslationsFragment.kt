@@ -15,7 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.adapters.TranslationRecyclerAdapter
+import com.claraboia.bibleandroid.adapters.TranslationCloudRecyclerAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.getBibleDir
 import com.claraboia.bibleandroid.models.BibleTranslation
@@ -36,7 +36,7 @@ class CloudTranslationsFragment : Fragment() {
     private val database by lazy { FirebaseDatabase.getInstance().reference }
 
     private val translations: MutableList<BibleTranslation> = ArrayList()
-    private val adapter = TranslationRecyclerAdapter(translations,
+    private val adapter = TranslationCloudRecyclerAdapter(translations,
             click = {t -> downloadTranslationClick(t)})
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

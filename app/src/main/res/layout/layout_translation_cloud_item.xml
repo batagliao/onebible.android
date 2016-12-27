@@ -28,27 +28,46 @@
         <RelativeLayout
             android:layout_marginStart="10dp"
             android:layout_marginEnd="4dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="match_parent"
             >
 
             <TextView
                 android:id="@+id/item_translationAbbrev"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
                 tools:text="ACF"
-                android:layout_width="wrap_content" />
+                android:textColor="@color/colorPrimaryText"
+                 />
 
             <TextView
                 android:id="@+id/item_translationName"
                 android:layout_below="@id/item_translationAbbrev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="14sp"
+                android:textColor="@color/colorSecundaryText"
                 tools:text="Almeida Corrigida e Fiel" />
 
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/item_translationSize"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/colorPrimaryText"
+                tools:text="4.5MB"
+                android:textSize="14sp" />
             <Button
                 android:id="@+id/item_translationDownload"
                 android:text="download"
@@ -59,19 +78,11 @@
                 android:layout_marginBottom="-8dp"
                 android:layout_marginTop="-8dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:textSize="16sp"
+                android:layout_below="@id/item_translationSize"
+                android:textSize="14sp"
                 />
 
-            <TextView
-                android:id="@+id/item_translationSize"
-                android:layout_marginEnd="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/item_translationDownload"
-                android:layout_alignParentEnd="true"
-                tools:text="4.5MB"
-                android:textSize="16sp" />
+
         </RelativeLayout>
 
     </LinearLayout>
