@@ -70,8 +70,8 @@
                 tools:text="4.5MB"
                 android:textSize="14sp" />
             <Button
-                android:id="@+id/item_translationDownload"
-                android:text="@string/download"
+                android:id="@+id/item_translationDelete"
+                android:text="@string/delete"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="wrap_content"
