@@ -27,6 +27,7 @@ import java.net.URLConnection
 const val EXTRA_TRANSLATION = "com.claraboia.bibleandroid.BibleTranslation.extra"
 const val DOWNLOAD_TRANSLATION_PROGRESS_ACTION = "com.claraboia.bibleandroid.DownloadTranslation.ActionProgress"
 const val DOWNLOAD_TRANSLATION_PROGRESS_VALUE = "com.claraboia.bibleandroid.DownloadTranslation.ProgressValue"
+const val DOWNLOAD_TRANSLATION_NAME_VALUE = "com.claraboia.bibleandroid.DownloadTranslation.NameValue"
 
 class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
@@ -40,7 +41,8 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
         try {
             downloadFile(translation.file, destfilepath)
             bibleApplication.localBibles.add(translation)
-            saveLocalTranslations(bibleApplication.localBibles)
+
+            (bibleApplication.localBibles)
         }finally {
             endNotification()
         }
@@ -59,6 +61,8 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
             // this will be useful so that you can show a tipical 0-100%
             // progress bar
+            // ---------
+            // unfortunatelly we are getting -1 because size is unknow
             val lenghtOfFile = connection.contentLength
 
             // download the file
@@ -77,7 +81,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
                 // publishing the progress....
                 // After this onProgressUpdate will be called
                 val progress = (lenghtOfFile * 100 / total).toInt()
-                postProgress(progress)
+                postProgress(progress, target)
 
                 if(count > 0) {
                     // writing data to file
@@ -86,28 +90,35 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
             } while (count > 0)
 
+
             // flushing output
             output.flush()
             // closing streams
             output.close()
             input.close()
 
+            //TODO: incread download count on Firebase
+            postProgress(100, target)
+
         } finally {
 
         }
     }
 
-    fun postProgress(progress: Int) {
+    fun postProgress(progress: Int, target: String) {
         val intent = Intent(DOWNLOAD_TRANSLATION_PROGRESS_ACTION)
                 .putExtra(DOWNLOAD_TRANSLATION_PROGRESS_VALUE, progress)
+                .putExtra(DOWNLOAD_TRANSLATION_NAME_VALUE, target)
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     private fun notify(translation : BibleTranslation){
+        val text = resources.getText(R.string.notification_downloading).toString() + " ${translation.name}"
+
         val builder = NotificationCompat.Builder(this)
-            .setSmallIcon(R.drawable.notification_template_icon_bg) //TODO: correct the icon
+            .setSmallIcon(R.drawable.ic_bible_notify)
             .setContentTitle(translation.abbreviation)
-            .setContentText("Downloading ${translation.name}")
+            .setContentText(text)
             .setProgress(0, 0, true)
 
 //        // Creates an explicit intent for an Activity in your app

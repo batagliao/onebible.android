@@ -2,6 +2,8 @@ package com.claraboia.bibleandroid.fragments
 
 import android.app.Activity
 import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
@@ -19,10 +21,7 @@ import com.claraboia.bibleandroid.adapters.TranslationCloudRecyclerAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.getBibleDir
 import com.claraboia.bibleandroid.models.BibleTranslation
-import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_PROGRESS_ACTION
-import com.claraboia.bibleandroid.services.DownloadTranslationBroadcastReceiver
-import com.claraboia.bibleandroid.services.DownloadTranslationService
-import com.claraboia.bibleandroid.services.EXTRA_TRANSLATION
+import com.claraboia.bibleandroid.services.*
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_cloud_translations.*
@@ -39,9 +38,10 @@ class CloudTranslationsFragment : Fragment() {
     private val adapter = TranslationCloudRecyclerAdapter(translations,
             click = {t -> downloadTranslationClick(t)})
 
+    private val downloadIntentReceiver = intentReceiver()
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_cloud_translations, container, false)
-        registerReceiver()
         return view
     }
 
@@ -62,13 +62,21 @@ class CloudTranslationsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        registerReceiver()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(downloadIntentReceiver);
     }
 
     private fun downloadTranslationClick(translation: BibleTranslation){
         if(activity.bibleApplication.localBibles.size == 0){
             activity.bibleApplication.preferences.selectedTranslation = translation
-            //TODO: add to local cache (maybe after download - inside the intentService)
         }
 
         val svcintent = Intent(activity, DownloadTranslationService::class.java)
@@ -78,9 +86,19 @@ class CloudTranslationsFragment : Fragment() {
 
     private fun registerReceiver() {
         val filter = IntentFilter(DOWNLOAD_TRANSLATION_PROGRESS_ACTION)
-        val receiver = DownloadTranslationBroadcastReceiver()
         LocalBroadcastManager.getInstance(activity)
-            .registerReceiver(receiver, filter)
+            .registerReceiver(downloadIntentReceiver, filter)
+    }
+
+    inner class intentReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            //TODO: update adapter to mark the translation as downloading - show progress bar
+            //TODO: if done, remove the item from list (adapter)
+            val translation =  intent?.getStringExtra(DOWNLOAD_TRANSLATION_NAME_VALUE)
+            val progress = intent?.getIntExtra(DOWNLOAD_TRANSLATION_PROGRESS_VALUE, 0)
+
+            Log.d("CLOUDTRANSLATION", "$translation >> $progress")
+        }
     }
 
     inner class listenerForDatabase: ValueEventListener{
@@ -92,7 +110,11 @@ class CloudTranslationsFragment : Fragment() {
             translations.clear()
             for(translationsnapshot in snapshot!!.children){
                 val translation = translationsnapshot.getValue(BibleTranslation::class.java)
-                translations.add(translation)
+
+                if(!activity.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation } ){
+                    //include only not downloaded translations
+                    translations.add(translation)
+                }
             }
             adapter.updateData(translations)
             translationCloudList.visibility = View.VISIBLE

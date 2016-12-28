@@ -37,6 +37,7 @@
     at least one to download on next screen</string>
     
     <string name="download">download</string>
+    <string name="notification_downloading">Downloading</string>
     <string name="delete">delete</string>
 
 </resources>

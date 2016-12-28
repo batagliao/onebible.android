@@ -133,7 +133,7 @@ fun Bible.getAddressText(context: Context, address: BibleAddress): SpannableStri
 
 fun BibleTranslation.getFileName() : String{
     //return "${this.abbreviation}.${this.version}$BIB_FILE_EXTENSION"
-    return "${this.abbreviation}.$BIB_FILE_EXTENSION"
+    return "${this.abbreviation}$BIB_FILE_EXTENSION"
 }
 
 fun saveLocalTranslations(translations: List<BibleTranslation>){

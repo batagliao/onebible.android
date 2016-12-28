@@ -43,11 +43,7 @@
             android:name=".activities.SelectTranslationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".activities.TestFullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_test_fullscreen"
-            android:theme="@style/FullscreenTheme"></activity>
+
     </application>
 
 </manifest>
