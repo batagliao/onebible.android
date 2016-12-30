@@ -36,7 +36,7 @@ class CloudTranslationsFragment : Fragment() {
 
     private val translations: MutableList<BibleTranslation> = ArrayList()
     private val adapter = TranslationCloudRecyclerAdapter(translations,
-            click = {t -> downloadTranslationClick(t)})
+            click = { t -> downloadTranslationClick(t) })
 
     private val downloadIntentReceiver = intentReceiver()
 
@@ -53,7 +53,7 @@ class CloudTranslationsFragment : Fragment() {
         translationCloudList.adapter = adapter
         translationCloudList.setHasFixedSize(true)
         val metrics = this.resources.displayMetrics
-        val space =  (metrics.density * 12).toInt()
+        val space = (metrics.density * 12).toInt()
         translationCloudList.addItemDecoration(GridSpacingItemDecoration(1, space, true, 0))
 
         val query = database.child("translations").orderByChild("abbreviation")
@@ -74,8 +74,8 @@ class CloudTranslationsFragment : Fragment() {
         LocalBroadcastManager.getInstance(activity).unregisterReceiver(downloadIntentReceiver);
     }
 
-    private fun downloadTranslationClick(translation: BibleTranslation){
-        if(activity.bibleApplication.localBibles.size == 0){
+    private fun downloadTranslationClick(translation: BibleTranslation) {
+        if (activity.bibleApplication.localBibles.size == 0) {
             activity.bibleApplication.preferences.selectedTranslation = translation
         }
 
@@ -87,31 +87,35 @@ class CloudTranslationsFragment : Fragment() {
     private fun registerReceiver() {
         val filter = IntentFilter(DOWNLOAD_TRANSLATION_PROGRESS_ACTION)
         LocalBroadcastManager.getInstance(activity)
-            .registerReceiver(downloadIntentReceiver, filter)
+                .registerReceiver(downloadIntentReceiver, filter)
     }
 
     inner class intentReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             //TODO: update adapter to mark the translation as downloading - show progress bar
-            //TODO: if done, remove the item from list (adapter)
-            val translation =  intent?.getStringExtra(DOWNLOAD_TRANSLATION_NAME_VALUE)
+            val translation = intent?.getStringExtra(DOWNLOAD_TRANSLATION_NAME_VALUE)
             val progress = intent?.getIntExtra(DOWNLOAD_TRANSLATION_PROGRESS_VALUE, 0)
+
+            if (progress != null && progress > 99) {
+                adapter.removeTranslation(translation)
+                //TODO: if done, remove the item from list (adapter)
+            }
 
             Log.d("CLOUDTRANSLATION", "$translation >> $progress")
         }
     }
 
-    inner class listenerForDatabase: ValueEventListener{
+    inner class listenerForDatabase : ValueEventListener {
         override fun onCancelled(error: DatabaseError?) {
             Log.e("CloudTranslationsFragme", error.toString())
         }
 
         override fun onDataChange(snapshot: DataSnapshot?) {
             translations.clear()
-            for(translationsnapshot in snapshot!!.children){
+            for (translationsnapshot in snapshot!!.children) {
                 val translation = translationsnapshot.getValue(BibleTranslation::class.java)
 
-                if(!activity.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation } ){
+                if (!activity.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation }) {
                     //include only not downloaded translations
                     translations.add(translation)
                 }

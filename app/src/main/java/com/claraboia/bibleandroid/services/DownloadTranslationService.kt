@@ -39,19 +39,21 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
         notify(translation!!)
         try {
-            downloadFile(translation.file, destfilepath)
+            downloadFile(translation.file, destfilepath, translation)
             bibleApplication.localBibles.add(translation)
 
-            (bibleApplication.localBibles)
+            saveLocalTranslations(bibleApplication.localBibles)
+            //TODO: increase download count on Firebase
+            postProgress(100, translation?.abbreviation.toString())
         }finally {
             endNotification()
         }
 
 
-        //TODO: notify on status bar when download finishes
+        //TODO: notify on status bar when download finishes?
     }
 
-    private fun downloadFile(source: String, target: String) {
+    private fun downloadFile(source: String, target: String, translation: BibleTranslation?) {
         var count = 0
         try {
             val url = URL(source)
@@ -81,7 +83,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
                 // publishing the progress....
                 // After this onProgressUpdate will be called
                 val progress = (lenghtOfFile * 100 / total).toInt()
-                postProgress(progress, target)
+                postProgress(progress, translation?.abbreviation.toString())
 
                 if(count > 0) {
                     // writing data to file
@@ -97,8 +99,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
             output.close()
             input.close()
 
-            //TODO: incread download count on Firebase
-            postProgress(100, target)
+
 
         } finally {
 

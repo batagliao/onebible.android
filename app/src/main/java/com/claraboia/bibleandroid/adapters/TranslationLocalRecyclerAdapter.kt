@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.models.BibleTranslation
 import kotlinx.android.synthetic.main.layout_translation_local_item.view.*
@@ -11,7 +12,7 @@ import kotlinx.android.synthetic.main.layout_translation_local_item.view.*
 /**
  * Created by lucasbatagliao on 23/12/16.
  */
-class TranslationLocalRecyclerAdapter(val translations: List<BibleTranslation>) : RecyclerView.Adapter<TranslationLocalRecyclerAdapter.TranslationViewHolder>() {
+class TranslationLocalRecyclerAdapter : RecyclerView.Adapter<TranslationLocalRecyclerAdapter.TranslationViewHolder>() {
     inner class TranslationViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(translation: BibleTranslation){
@@ -21,9 +22,12 @@ class TranslationLocalRecyclerAdapter(val translations: List<BibleTranslation>) 
         }
     }
 
+    fun notifyChanged() {
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int {
-        return translations.size
+        return BibleApplication.instance.localBibles.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TranslationViewHolder {
@@ -33,6 +37,8 @@ class TranslationLocalRecyclerAdapter(val translations: List<BibleTranslation>) 
     }
 
     override fun onBindViewHolder(holder: TranslationViewHolder?, position: Int) {
-        holder?.bind(translations[position])
+        holder?.bind(BibleApplication.instance.localBibles[position])
     }
+
+
 }

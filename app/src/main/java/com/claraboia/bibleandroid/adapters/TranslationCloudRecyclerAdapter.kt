@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.layout_translation_cloud_item.view.*
 /**
  * Created by lucasbatagliao on 28/10/16.
  */
-class TranslationCloudRecyclerAdapter(var translations: List<BibleTranslation>,
+class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTranslation>,
                                       val click: (translation: BibleTranslation) -> Unit) : RecyclerView.Adapter<TranslationCloudRecyclerAdapter.TranslationViewHolder>() {
 
     inner class TranslationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,9 +25,16 @@ class TranslationCloudRecyclerAdapter(var translations: List<BibleTranslation>,
         }
     }
 
-    fun updateData(translations: List<BibleTranslation>){
+    fun updateData(translations: MutableList<BibleTranslation>){
         this.translations = translations
         notifyDataSetChanged()
+    }
+
+    fun removeTranslation(abbreviation: String?) {
+        val i  = translations.indexOfFirst { t -> t.abbreviation == abbreviation }
+        translations.removeAt(i)
+        notifyItemRemoved(i)
+        notifyItemRangeChanged(i, translations.count())
     }
 
     override fun getItemCount(): Int {
@@ -43,5 +50,7 @@ class TranslationCloudRecyclerAdapter(var translations: List<BibleTranslation>,
     override fun onBindViewHolder(holder: TranslationViewHolder?, position: Int) {
         holder?.bind(translations[position])
     }
+
+
 }
 
