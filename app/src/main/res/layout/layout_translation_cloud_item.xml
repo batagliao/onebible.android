@@ -60,28 +60,41 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center">
-            <TextView
-                android:id="@+id/item_translationSize"
-                android:layout_marginEnd="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/colorPrimaryText"
-                tools:text="4.5MB"
-                android:textSize="14sp" />
-            <Button
+            <ImageButton
                 android:id="@+id/item_translationDownload"
-                android:text="@string/download"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="-8dp"
                 android:layout_marginTop="-8dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/download"
+                app:srcCompat="@drawable/ic_download"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/item_translationSize"
+                android:layout_below="@id/item_translationDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@id/item_translationSize"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="14sp"
-                />
+                tools:text="4.5MB" />
+            <!--<Button-->
+                <!--android:id="@+id/item_translationDownload"-->
+                <!--android:text="@string/download"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
+                <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="-8dp"-->
+                <!--android:layout_marginTop="-8dp"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_below="@id/item_translationSize"-->
+                <!--android:textSize="14sp"-->
+                <!--/>-->
 
 
         </RelativeLayout>

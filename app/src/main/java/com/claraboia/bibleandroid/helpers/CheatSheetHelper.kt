@@ -48,11 +48,7 @@ object CheatSheet {
      * @param view The view to add a cheat sheet for.
      */
     fun setup(view: View) {
-        view.setOnLongClickListener(object : View.OnLongClickListener {
-            override fun onLongClick(view: View): Boolean {
-                return showCheatSheet(view, view.getContentDescription())
-            }
-        })
+        view.setOnLongClickListener { view -> showCheatSheet(view, view.contentDescription) }
     }
 
     /**
@@ -65,11 +61,7 @@ object CheatSheet {
      * @param textResId The string resource containing the text to show on long-press.
      */
     fun setup(view: View, textResId: Int) {
-        view.setOnLongClickListener(object : View.OnLongClickListener {
-            override fun onLongClick(view: View): Boolean {
-                return showCheatSheet(view, view.getContext().getString(textResId))
-            }
-        })
+        view.setOnLongClickListener { view -> showCheatSheet(view, view.context.getString(textResId)) }
     }
 
     /**
@@ -82,11 +74,7 @@ object CheatSheet {
      * @param text The text to show on long-press.
      */
     fun setup(view: View, text: CharSequence) {
-        view.setOnLongClickListener(object : View.OnLongClickListener {
-            override fun onLongClick(view: View): Boolean {
-                return showCheatSheet(view, text)
-            }
-        })
+        view.setOnLongClickListener { view -> showCheatSheet(view, text) }
     }
 
     /**
@@ -111,12 +99,12 @@ object CheatSheet {
         view.getLocationOnScreen(screenPos)
         view.getWindowVisibleDisplayFrame(displayFrame)
 
-        val context = view.getContext()
-        val viewWidth = view.getWidth()
-        val viewHeight = view.getHeight()
+        val context = view.context
+        val viewWidth = view.width
+        val viewHeight = view.height
         val viewCenterX = screenPos[0] + viewWidth / 2
-        val screenWidth = context.getResources().getDisplayMetrics().widthPixels
-        val estimatedToastHeight = (ESTIMATED_TOAST_HEIGHT_DIPS * context.getResources().getDisplayMetrics().density).toInt()
+        val screenWidth = context.resources.displayMetrics.widthPixels
+        val estimatedToastHeight = (ESTIMATED_TOAST_HEIGHT_DIPS * context.resources.displayMetrics.density).toInt()
 
         val cheatSheet = Toast.makeText(context, text, Toast.LENGTH_SHORT)
         val showBelow = screenPos[1] < estimatedToastHeight

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.models.BibleTranslation
 import kotlinx.android.synthetic.main.layout_translation_cloud_item.view.*
 
@@ -22,6 +23,7 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
             itemView.item_translationDownload.setOnClickListener {
                 click.invoke(translation)
             }
+            CheatSheet.setup(itemView.item_translationDownload)
         }
     }
 

@@ -78,7 +78,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mHideHandler.removeCallbacks { hideSystemUI }
         mHideHandler.postDelayed({
             hide()
-        }, 1000)
+        }, 3000)
     }
 
 

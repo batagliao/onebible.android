@@ -36,8 +36,13 @@
     <string name="translationNeededToStart">You have no bible translation locally. Please select
     at least one to download on next screen</string>
     
-    <string name="download">download</string>
+    <string name="download">Download Translation</string>
     <string name="notification_downloading">Downloading</string>
-    <string name="delete">delete</string>
+    <string name="delete">Delete Translation</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete the %s translation?</string>
+    <string name="delete_unable_to_delete_active_translation">Sorry, you can not delete your current translation.</string>
+
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 
 </resources>

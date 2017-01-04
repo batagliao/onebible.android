@@ -6,19 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
+import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.models.BibleTranslation
 import kotlinx.android.synthetic.main.layout_translation_local_item.view.*
 
 /**
  * Created by lucasbatagliao on 23/12/16.
  */
-class TranslationLocalRecyclerAdapter : RecyclerView.Adapter<TranslationLocalRecyclerAdapter.TranslationViewHolder>() {
+class TranslationLocalRecyclerAdapter(val click: (translation: BibleTranslation) -> Unit) : RecyclerView.Adapter<TranslationLocalRecyclerAdapter.TranslationViewHolder>() {
+
     inner class TranslationViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(translation: BibleTranslation){
             itemView.item_translationName.text = translation.name
             itemView.item_translationAbbrev.text = translation.abbreviation
             itemView.item_translationSize.text = translation.fileSize.toString() + "MB"
+            itemView.item_translationDelete.setOnClickListener {
+                click.invoke(translation)
+            }
+            CheatSheet.setup(itemView.item_translationDelete)
         }
     }
 
