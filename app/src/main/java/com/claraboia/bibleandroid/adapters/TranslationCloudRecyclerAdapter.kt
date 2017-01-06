@@ -32,6 +32,12 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
         notifyDataSetChanged()
     }
 
+    fun addTranslation(translation: BibleTranslation) {
+        translations.add(translation)
+        translations.sortBy { t -> t.abbreviation }
+        notifyDataSetChanged()
+    }
+
     fun removeTranslation(abbreviation: String?) {
         val i  = translations.indexOfFirst { t -> t.abbreviation == abbreviation }
         translations.removeAt(i)
@@ -52,6 +58,8 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
     override fun onBindViewHolder(holder: TranslationViewHolder?, position: Int) {
         holder?.bind(translations[position])
     }
+
+
 
 
 }

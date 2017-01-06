@@ -20,6 +20,7 @@ import com.claraboia.bibleandroid.adapters.TranslationCloudRecyclerAdapter
 import com.claraboia.bibleandroid.adapters.TranslationLocalRecyclerAdapter
 import com.claraboia.bibleandroid.bibleApplication
 import com.claraboia.bibleandroid.helpers.getFileName
+import com.claraboia.bibleandroid.helpers.removeFromLocalTranslations
 import com.claraboia.bibleandroid.helpers.saveLocalTranslations
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_NAME_VALUE
@@ -34,6 +35,7 @@ import java.io.File
 class LocalTranslationsFragment : Fragment() {
 
     private val adapter = TranslationLocalRecyclerAdapter(click = { t -> deleteTranslationClick(t) })
+    var cloudTranslationFragment: CloudTranslationsFragment? = null
 
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -74,11 +76,9 @@ class LocalTranslationsFragment : Fragment() {
     private fun performDeleteTranslation(translation: BibleTranslation) {
         val file = File(translation.getFileName())
         file.delete()
-
-        activity.bibleApplication.localBibles.remove(translation)
-        saveLocalTranslations(activity.bibleApplication.localBibles)
-
-        //TODO: não permitir deletar a tradução ativa
+        translation.removeFromLocalTranslations()
+        //add it to cloudTranslationsBack
+        cloudTranslationFragment?.addTranslation(translation)
     }
 
 
@@ -93,4 +93,5 @@ class LocalTranslationsFragment : Fragment() {
             }
         }
     }
+
 }

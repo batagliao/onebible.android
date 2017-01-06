@@ -136,6 +136,16 @@ fun BibleTranslation.getFileName() : String{
     return "${this.abbreviation}$BIB_FILE_EXTENSION"
 }
 
+fun BibleTranslation.addToLocalTranslations(){
+    BibleApplication.instance.localBibles.add(this)
+    saveLocalTranslations(BibleApplication.instance.localBibles)
+}
+
+fun BibleTranslation.removeFromLocalTranslations(){
+    BibleApplication.instance.localBibles.remove(this)
+    saveLocalTranslations(BibleApplication.instance.localBibles)
+}
+
 fun saveLocalTranslations(translations: List<BibleTranslation>){
     val gson = Gson()
     val json = gson.toJson(translations)

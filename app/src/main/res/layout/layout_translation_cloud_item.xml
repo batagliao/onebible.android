@@ -52,6 +52,14 @@
                 android:textSize="14sp"
                 android:textColor="@color/colorSecundaryText"
                 tools:text="Almeida Corrigida e Fiel" />
+            <TextView
+                android:id="@+id/item_translationSize"
+                android:layout_below="@id/item_translationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecundaryText"
+                android:textSize="12sp"
+                tools:text="4.5MB" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -72,16 +80,7 @@
                 android:contentDescription="@string/download"
                 app:srcCompat="@drawable/ic_download"
                 android:scaleType="centerCrop" />
-            <TextView
-                android:id="@+id/item_translationSize"
-                android:layout_below="@id/item_translationDownload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="14sp"
-                tools:text="4.5MB" />
+
             <!--<Button-->
                 <!--android:id="@+id/item_translationDownload"-->
                 <!--android:text="@string/download"-->

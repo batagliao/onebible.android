@@ -9,14 +9,13 @@ import android.support.v7.app.NotificationCompat
 import android.util.Log
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.BIB_FILE_EXTENSION
-import com.claraboia.bibleandroid.helpers.getBibleDir
-import com.claraboia.bibleandroid.helpers.getFileName
-import com.claraboia.bibleandroid.helpers.saveLocalTranslations
+import com.claraboia.bibleandroid.helpers.*
 import com.claraboia.bibleandroid.models.BibleTranslation
 import java.io.BufferedInputStream
 import java.io.DataInputStream
 import java.io.FileOutputStream
+import java.io.IOException
+import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
 
@@ -40,15 +39,13 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
         notify(translation!!)
         try {
             downloadFile(translation.file, destfilepath, translation)
-            bibleApplication.localBibles.add(translation)
+            translation.addToLocalTranslations()
 
-            saveLocalTranslations(bibleApplication.localBibles)
             //TODO: increase download count on Firebase
-            postProgress(100, translation?.abbreviation.toString())
+            postProgress(100, translation.abbreviation.toString())
         }finally {
             endNotification()
         }
-
 
         //TODO: notify on status bar when download finishes?
     }
@@ -65,7 +62,10 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
             // progress bar
             // ---------
             // unfortunatelly we are getting -1 because size is unknow
-            val lenghtOfFile = connection.contentLength
+            var lenghtOfFile = connection.contentLength
+            if(lenghtOfFile <= 0){
+                lenghtOfFile = tryGetFileSize(url)
+            }
 
             // download the file
             val input = BufferedInputStream(url.openStream(), 8192)
@@ -82,7 +82,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
                 total += count
                 // publishing the progress....
                 // After this onProgressUpdate will be called
-                val progress = (lenghtOfFile * 100 / total).toInt()
+                val progress = (total * 100 / lenghtOfFile).toInt()
                 postProgress(progress, translation?.abbreviation.toString())
 
                 if(count > 0) {
@@ -103,6 +103,20 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
 
         } finally {
 
+        }
+    }
+
+    private fun tryGetFileSize(url: URL): Int {
+        var conn: HttpURLConnection? = null
+        try {
+            conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "HEAD"
+            conn.inputStream
+            return conn.contentLength
+        } catch (e: IOException) {
+            return -1
+        } finally {
+            conn!!.disconnect()
         }
     }
 

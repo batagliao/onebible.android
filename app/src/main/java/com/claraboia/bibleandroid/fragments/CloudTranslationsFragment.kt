@@ -33,6 +33,7 @@ import java.util.*
 class CloudTranslationsFragment : Fragment() {
 
     private val database by lazy { FirebaseDatabase.getInstance().reference }
+    var localTranslationFragment: LocalTranslationsFragment? = null
 
     private val translations: MutableList<BibleTranslation> = ArrayList()
     private val adapter = TranslationCloudRecyclerAdapter(translations,
@@ -126,4 +127,10 @@ class CloudTranslationsFragment : Fragment() {
         }
 
     }
+
+    //this method is here to LocalTranslationFragment be able to add removed translations back to this list
+    fun addTranslation(translation: BibleTranslation) {
+        adapter.addTranslation(translation)
+    }
+
 }
