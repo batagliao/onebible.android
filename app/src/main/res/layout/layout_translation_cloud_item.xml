@@ -64,7 +64,7 @@
 
         <RelativeLayout
             android:layout_column="2"
-            android:layout_width="100dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center">
@@ -74,8 +74,6 @@
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="-8dp"
-                android:layout_marginTop="-8dp"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/download"
                 app:srcCompat="@drawable/ic_download"

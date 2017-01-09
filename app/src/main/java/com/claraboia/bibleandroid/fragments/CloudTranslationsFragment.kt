@@ -99,7 +99,6 @@ class CloudTranslationsFragment : Fragment() {
 
             if (progress != null && progress > 99) {
                 adapter.removeTranslation(translation)
-                //TODO: if done, remove the item from list (adapter)
             }
 
             Log.d("CLOUDTRANSLATION", "$translation >> $progress")
