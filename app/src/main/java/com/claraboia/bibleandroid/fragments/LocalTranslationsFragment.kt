@@ -1,13 +1,11 @@
 package com.claraboia.bibleandroid.fragments;
 
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.os.Bundle;
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -24,6 +22,7 @@ import com.claraboia.bibleandroid.helpers.removeFromLocalTranslations
 import com.claraboia.bibleandroid.helpers.saveLocalTranslations
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_NAME_VALUE
+import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_PROGRESS_ACTION
 import com.claraboia.bibleandroid.services.DOWNLOAD_TRANSLATION_PROGRESS_VALUE
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_local_translations.*
@@ -36,6 +35,7 @@ class LocalTranslationsFragment : Fragment() {
 
     private val adapter = TranslationLocalRecyclerAdapter(click = { t -> deleteTranslationClick(t) })
     var cloudTranslationFragment: CloudTranslationsFragment? = null
+    private val downloadIntentReceiver = intentReceiver()
 
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -50,6 +50,16 @@ class LocalTranslationsFragment : Fragment() {
         val metrics = this.resources.displayMetrics
         val space = (metrics.density * 12).toInt()
         translationLocalList.addItemDecoration(GridSpacingItemDecoration(1, space, true, 0))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(downloadIntentReceiver)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver()
     }
 
     private fun deleteTranslationClick(translation: BibleTranslation) {
@@ -81,10 +91,16 @@ class LocalTranslationsFragment : Fragment() {
         cloudTranslationFragment?.addTranslation(translation)
     }
 
+    private fun registerReceiver() {
+        val filter = IntentFilter(DOWNLOAD_TRANSLATION_PROGRESS_ACTION)
+        LocalBroadcastManager.getInstance(activity)
+                .registerReceiver(downloadIntentReceiver, filter)
+    }
 
     inner class intentReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             //TODO: update adapter to mark the translation as downloading - show progress bar
+            //TODO: translation not showing here after download finishes
             val translation = intent?.getStringExtra(DOWNLOAD_TRANSLATION_NAME_VALUE)
             val progress = intent?.getIntExtra(DOWNLOAD_TRANSLATION_PROGRESS_VALUE, 0)
 

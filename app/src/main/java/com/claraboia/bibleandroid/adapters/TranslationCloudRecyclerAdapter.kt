@@ -39,10 +39,12 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
     }
 
     fun removeTranslation(abbreviation: String?) {
-        val i  = translations.indexOfFirst { t -> t.abbreviation == abbreviation }
-        translations.removeAt(i)
-        notifyItemRemoved(i)
-        notifyItemRangeChanged(i, translations.count())
+        val i  = translations.indexOfFirst { t -> t.abbreviation.toLowerCase() == abbreviation?.toLowerCase() }
+        if(i > -1) {
+            translations.removeAt(i)
+            notifyItemRemoved(i)
+            notifyItemRangeChanged(i, translations.count())
+        }
     }
 
     override fun getItemCount(): Int {

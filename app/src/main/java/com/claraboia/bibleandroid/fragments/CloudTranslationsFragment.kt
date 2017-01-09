@@ -72,7 +72,7 @@ class CloudTranslationsFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(downloadIntentReceiver);
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(downloadIntentReceiver)
     }
 
     private fun downloadTranslationClick(translation: BibleTranslation) {
