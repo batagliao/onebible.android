@@ -23,8 +23,8 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
             itemView.item_translationDownload.setOnClickListener {
                 click.invoke(translation)
             }
-            itemView.item_translationDownloadProgressBar.visibility = View.INVISIBLE
-            itemView.item_translationDownloadProgressText.visibility = View.INVISIBLE
+            itemView.item_translationDownloadProgressBar.visibility = View.GONE
+            itemView.item_translationDownloadProgressText.visibility = View.GONE
             CheatSheet.setup(itemView.item_translationDownload)
         }
     }

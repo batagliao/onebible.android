@@ -75,6 +75,7 @@ class DispatchActivity : AppCompatActivity() {
             builder.setMessage(R.string.translationNeededToStart)
             builder.setPositiveButton(R.string.ok) { dialog, button ->
                 val intent = Intent(this, SelectTranslationActivity::class.java)
+                intent.putExtra(SHOULD_OPEN_CLOUD_TAB_KEY, true)
                 startActivity(intent)
                 finish()
             }
