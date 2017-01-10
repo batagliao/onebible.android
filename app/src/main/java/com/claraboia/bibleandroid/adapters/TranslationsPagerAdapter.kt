@@ -38,10 +38,6 @@ class TranslationsPagerAdapter(fm: FragmentManager?, private val context: Contex
     }
 
     override fun getItem(position: Int): Fragment {
-        when(position){
-            0 -> return LocalTranslationsFragment()
-            1 -> return CloudTranslationsFragment()
-        }
-        return LocalTranslationsFragment()
+        return fragments[position]
     }
 }

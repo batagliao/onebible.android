@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,9 @@ import com.claraboia.bibleandroid.services.*
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_cloud_translations.*
+import kotlinx.android.synthetic.main.fragment_cloud_translations.view.*
+import kotlinx.android.synthetic.main.layout_translation_cloud_item.*
+import kotlinx.android.synthetic.main.layout_translation_cloud_item.view.*
 import java.util.*
 
 /**
@@ -80,6 +84,10 @@ class CloudTranslationsFragment : Fragment() {
             activity.bibleApplication.preferences.selectedTranslation = translation
         }
 
+        val position = adapter.getTranslationPosition(translation.abbreviation)
+        val viewholder = translationCloudList.findViewHolderForAdapterPosition(position)
+        updateItem(viewholder as TranslationCloudRecyclerAdapter.TranslationViewHolder, 0)
+
         val svcintent = Intent(activity, DownloadTranslationService::class.java)
         svcintent.putExtra(EXTRA_TRANSLATION, translation)
         activity.startService(svcintent)
@@ -101,8 +109,38 @@ class CloudTranslationsFragment : Fragment() {
                 adapter.removeTranslation(translation)
             }
 
+            if (progress != null) {
+                val position = adapter.getTranslationPosition(translation)
+                val viewholder = translationCloudList.findViewHolderForAdapterPosition(position)
+                updateItem(viewholder as TranslationCloudRecyclerAdapter.TranslationViewHolder, progress)
+            }
+
+
             Log.d("CLOUDTRANSLATION", "$translation >> $progress")
         }
+    }
+
+    fun updateItem(vh: TranslationCloudRecyclerAdapter.TranslationViewHolder, progress: Int){
+        //block download buytton if not
+        //show progress bar if not
+        //update progress bar value
+        val view = vh.itemView
+        if(view.item_translationDownload.visibility != View.INVISIBLE){
+            view.item_translationDownload.visibility = View.INVISIBLE
+        }
+
+        if(view.item_translationDownloadProgressBar.visibility != View.VISIBLE){
+            view.item_translationDownloadProgressBar.visibility = View.VISIBLE
+        }
+
+        if(view.item_translationDownloadProgressText.visibility != View.VISIBLE){
+            view.item_translationDownloadProgressText.visibility = View.VISIBLE
+        }
+
+
+        view.item_translationDownloadProgressBar.progress = progress
+        view.item_translationDownloadProgressText.text = progress.toString() + " %"
+
     }
 
     inner class listenerForDatabase : ValueEventListener {

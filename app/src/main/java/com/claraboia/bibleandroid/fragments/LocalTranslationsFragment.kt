@@ -84,10 +84,10 @@ class LocalTranslationsFragment : Fragment() {
     }
 
     private fun performDeleteTranslation(translation: BibleTranslation) {
-        val file = File(translation.getFileName())
+        val file = File(translation.localFile)
         file.delete()
         translation.removeFromLocalTranslations()
-        //add it to cloudTranslationsBack
+        adapter.notifyChanged()
         cloudTranslationFragment?.addTranslation(translation)
     }
 

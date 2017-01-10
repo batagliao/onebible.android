@@ -35,6 +35,7 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
     override fun onHandleIntent(intent: Intent?) {
         val translation = intent?.getParcelableExtra<BibleTranslation>(EXTRA_TRANSLATION)
         val destfilepath = getBibleDir() + "/${translation?.getFileName()}"
+        translation?.localFile = destfilepath
 
         notify(translation!!)
         try {

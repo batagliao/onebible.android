@@ -23,8 +23,14 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
             itemView.item_translationDownload.setOnClickListener {
                 click.invoke(translation)
             }
+            itemView.item_translationDownloadProgressBar.visibility = View.INVISIBLE
+            itemView.item_translationDownloadProgressText.visibility = View.INVISIBLE
             CheatSheet.setup(itemView.item_translationDownload)
         }
+    }
+
+    fun getTranslationPosition(abbreviation: String?): Int{
+        return translations.indexOfFirst { t -> t.abbreviation.toLowerCase() == abbreviation?.toLowerCase() }
     }
 
     fun updateData(translations: MutableList<BibleTranslation>){

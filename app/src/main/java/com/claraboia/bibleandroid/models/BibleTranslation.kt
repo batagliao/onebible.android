@@ -6,11 +6,12 @@ import android.os.Parcelable
 /**
  * Created by lucasbatagliao on 25/10/16.
  */
-class BibleTranslation() : Parcelable {
+class BibleTranslation : Parcelable {
 
     var abbreviation = ""
     var active = true
     var file = ""
+    var localFile = ""
     var fileSize = 0.0
     var format = "xml"
     var language = ""
@@ -28,6 +29,7 @@ class BibleTranslation() : Parcelable {
         dest?.writeString(language)
         dest?.writeString(name)
         dest?.writeString(version)
+        dest?.writeString(localFile)
     }
 
     override fun describeContents(): Int {
@@ -46,6 +48,7 @@ class BibleTranslation() : Parcelable {
                 translation.language = source.readString()
                 translation.name = source.readString()
                 translation.version = source.readString()
+                translation.localFile = source.readString()
                 return translation
             }
 

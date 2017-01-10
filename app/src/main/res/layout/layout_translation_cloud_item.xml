@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    android:id="@+id/item_translation_card"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.SelectTranslationActivity"
-    android:background="?android:attr/selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_translation_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     app:cardElevation="4dp"
-    >
+    tools:context=".activities.SelectTranslationActivity">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -17,57 +15,58 @@
         android:background="?attr/selectableItemBackground"
         android:columnCount="3"
         android:orientation="horizontal"
-        >
+        android:rowCount="2">
+
         <FrameLayout
             android:id="@+id/item_translatiom_frame"
-            android:background="@color/colorAccent"
-            android:layout_column="0"
             android:layout_width="10dp"
-            android:layout_height="80dp">
-        </FrameLayout>
+            android:layout_height="80dp"
+            android:layout_column="0"
+            android:layout_rowSpan="2"
+            android:background="@color/colorAccent"></FrameLayout>
 
         <RelativeLayout
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="4dp"
             android:layout_height="match_parent"
-            android:layout_gravity="fill"
             android:layout_column="1"
-            >
+            android:layout_gravity="fill"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/item_translationAbbrev"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textSize="20sp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                tools:text="ACF"
                 android:textColor="@color/colorPrimaryText"
-                />
+                android:textSize="20sp"
+                tools:text="ACF" />
 
             <TextView
                 android:id="@+id/item_translationName"
-                android:layout_below="@id/item_translationAbbrev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:layout_below="@id/item_translationAbbrev"
                 android:textColor="@color/colorSecundaryText"
+                android:textSize="14sp"
                 tools:text="Almeida Corrigida e Fiel" />
+
             <TextView
                 android:id="@+id/item_translationSize"
-                android:layout_below="@id/item_translationName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/item_translationName"
                 android:textColor="@color/colorSecundaryText"
                 android:textSize="12sp"
                 tools:text="4.5MB" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_column="2"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:layout_column="2"
             android:layout_gravity="center_vertical"
             android:gravity="center">
+
             <ImageButton
                 android:id="@+id/item_translationDownload"
                 style="?android:attr/borderlessButtonStyle"
@@ -76,25 +75,47 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/download"
-                app:srcCompat="@drawable/ic_download"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_download" />
 
             <!--<Button-->
-                <!--android:id="@+id/item_translationDownload"-->
-                <!--android:text="@string/download"-->
-                <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
-                <!--android:background="?attr/selectableItemBackgroundBorderless"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="-8dp"-->
-                <!--android:layout_marginTop="-8dp"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_below="@id/item_translationSize"-->
-                <!--android:textSize="14sp"-->
-                <!--/>-->
+            <!--android:id="@+id/item_translationDownload"-->
+            <!--android:text="@string/download"-->
+            <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
+            <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="-8dp"-->
+            <!--android:layout_marginTop="-8dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_below="@id/item_translationSize"-->
+            <!--android:textSize="14sp"-->
+            <!--/>-->
 
 
         </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/item_translationDownloadProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_height="10dp"
+            android:layout_column="1"
+            android:layout_gravity="fill"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_row="1"
+            tools:progress="50" />
+
+        <TextView
+            android:id="@+id/item_translationDownloadProgressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:layout_marginTop="-10dp"
+            android:layout_row="1"
+            android:textSize="12sp"
+            tools:text="100%" />
     </GridLayout>
 
 </android.support.v7.widget.CardView>
