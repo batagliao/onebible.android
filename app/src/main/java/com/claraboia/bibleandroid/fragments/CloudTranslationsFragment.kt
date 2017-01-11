@@ -119,9 +119,9 @@ class CloudTranslationsFragment : Fragment() {
 
             Log.d("CLOUDTRANSLATION", "$translation >> $progress")
             //if there is only one translation > restart the app (first translation downloaded)
-            if(activity.bibleApplication.localBibles.size == 1){
-                activity.bibleApplication.doRestart()
-            }
+//            if(activity.bibleApplication.localBibles.size == 1){
+//                activity.bibleApplication.doRestart()
+//            }
         }
     }
 

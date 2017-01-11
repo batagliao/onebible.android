@@ -60,6 +60,8 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         readTitle.setOnClickListener { startActivity(openChapterIntent) }
         readTitle.text = bibleApplication.currentAddress.asFullText()
 
+        btnTranslations.setOnClickListener { drawer.openDrawer(GravityCompat.END, true) }
+
         //set tooltips
         CheatSheet.setup(btnOpenMenu)
         CheatSheet.setup(btnBooks)

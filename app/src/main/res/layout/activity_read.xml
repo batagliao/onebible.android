@@ -5,7 +5,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
 
     <include
         layout="@layout/app_bar_read"
@@ -14,13 +14,66 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:background="@color/colorPrimary"
-        app:itemTextColor="@color/colorTextIcons"
-        app:itemIconTint="@color/colorTextIcons"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/colorPrimary"
         app:headerLayout="@layout/nav_header_read"
+        app:itemIconTint="@color/colorTextIcons"
+        app:itemTextColor="@color/colorTextIcons"
         app:menu="@menu/activity_read_drawer" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/translations_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/colorTextIcons"
+        app:itemTextColor="@color/colorTextIcons">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/currentTranslation"
+                    android:textColor="@color/colorTextTerciary" />
+
+                <TextView
+                    android:id="@+id/text_currentTranslationAbbrev"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextIcons"
+                    tools:text="ACF" />
+
+                <TextView
+                    android:id="@+id/text_currentTranslationName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextIcons"
+                    tools:text="Almeida Corrigida e Fiel" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/colorDivider"
+                    android:layout_height="1dp">
+                </FrameLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
