@@ -112,11 +112,16 @@ class CloudTranslationsFragment : Fragment() {
             if (progress != null) {
                 val position = adapter.getTranslationPosition(translation)
                 val viewholder = translationCloudList.findViewHolderForAdapterPosition(position)
-                updateItem(viewholder as TranslationCloudRecyclerAdapter.TranslationViewHolder, progress)
+                if(viewholder != null) {
+                    updateItem(viewholder as TranslationCloudRecyclerAdapter.TranslationViewHolder, progress)
+                }
             }
 
-
             Log.d("CLOUDTRANSLATION", "$translation >> $progress")
+            //if there is only one translation > restart the app (first translation downloaded)
+            if(activity.bibleApplication.localBibles.size == 1){
+                activity.bibleApplication.doRestart()
+            }
         }
     }
 

@@ -49,6 +49,8 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
         }
 
         //TODO: notify on status bar when download finishes?
+
+
     }
 
     private fun downloadFile(source: String, target: String, translation: BibleTranslation?) {

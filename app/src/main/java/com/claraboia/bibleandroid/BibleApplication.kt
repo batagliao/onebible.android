@@ -14,6 +14,12 @@ import com.claraboia.bibleandroid.viewmodels.BookForSort
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import java.util.*
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.util.Log
+import com.claraboia.bibleandroid.activities.DispatchActivity
 
 
 //make an extended property for context
@@ -55,6 +61,12 @@ class BibleApplication : Application() {
         currentBook = address.bookOrder
         currentChapter = address.chapterOrder
         preferences.lastAccessedAddress = address
+    }
+
+    fun doRestart() {
+        val intent = Intent(this, DispatchActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP + Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
 
