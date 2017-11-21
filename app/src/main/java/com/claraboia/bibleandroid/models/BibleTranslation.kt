@@ -2,12 +2,12 @@ package com.claraboia.bibleandroid.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.claraboia.bibleandroid.infrastructure.KParcelable
 
 /**
- * Created by lucasbatagliao on 25/10/16.
+ * Created by lucas.batagliao on 21/11/2017.
  */
-class BibleTranslation : Parcelable {
-
+class BibleTranslation : KParcelable {
     var abbreviation = ""
     var active = true
     var file = ""
@@ -20,20 +20,16 @@ class BibleTranslation : Parcelable {
 
     fun isEmpty() : Boolean = abbreviation == ""
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeString(abbreviation)
-        dest?.writeByte(if (active) 1 else 0)
-        dest?.writeString(file)
-        dest?.writeDouble(fileSize)
-        dest?.writeString(format)
-        dest?.writeString(language)
-        dest?.writeString(name)
-        dest?.writeString(version)
-        dest?.writeString(localFile)
-    }
-
-    override fun describeContents(): Int {
-        return 0
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(abbreviation)
+        writeByte(if (active) 1 else 0)
+        writeString(file)
+        writeDouble(fileSize)
+        writeString(format)
+        writeString(language)
+        writeString(name)
+        writeString(version)
+        writeString(localFile)
     }
 
     companion object {

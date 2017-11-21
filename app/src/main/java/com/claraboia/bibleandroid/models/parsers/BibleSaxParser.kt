@@ -9,10 +9,9 @@ import javax.xml.parsers.ParserConfigurationException
 import javax.xml.parsers.SAXParserFactory
 
 /**
- * Created by lucas.batagliao on 12/07/2016.
+ * Created by lucas.batagliao on 21/11/2017.
  */
 class BibleSaxParser {
-
     fun parse(inputStream: InputStream): Bible {
         var b: Bible? = null
 

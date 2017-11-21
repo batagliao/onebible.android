@@ -7,11 +7,7 @@ import com.claraboia.bibleandroid.models.Verse
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 
-/**
- * Created by lucas.batagliao on 12/07/2016.
- */
 class BibleContentHandler : DefaultHandler() {
-
     val Bible : Bible = Bible()
 
     private var tempVal: String = ""
@@ -81,9 +77,4 @@ class BibleContentHandler : DefaultHandler() {
             currentVerse = null
         }
     }
-
-
-
-
-
 }

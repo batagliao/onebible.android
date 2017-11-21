@@ -2,26 +2,20 @@ package com.claraboia.bibleandroid.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.*
+import com.claraboia.bibleandroid.infrastructure.KParcelable
 
 /**
- * Created by lucas.batagliao on 12/07/2016.
+ * Created by lucas.batagliao on 21/11/2017.
  */
-class BibleAddress : Parcelable {
-
-
+class BibleAddress : KParcelable {
     var bookOrder: Int = 1
     var chapterOrder: Int = 1
     var verses: HashSet<Int> = HashSet()
 
-    override fun describeContents(): Int {
-        return 0;
-    }
-
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeInt(bookOrder)
-        dest?.writeInt(chapterOrder)
-        dest?.writeIntArray(verses.toIntArray())
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(bookOrder)
+        writeInt(chapterOrder)
+        writeIntArray(verses.toIntArray())
     }
 
     companion object {
@@ -33,7 +27,6 @@ class BibleAddress : Parcelable {
                 val array: IntArray = intArrayOf()
                 source.readIntArray(array)
                 address.verses = array.toHashSet()
-
                 return address
             }
 

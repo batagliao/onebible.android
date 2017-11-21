@@ -1,9 +1,7 @@
 package com.claraboia.bibleandroid.infrastructure
 
-import java.util.*
-
 /**
- * Created by lucas.batagliao on 14/10/2016.
+ * Created by lucas.batagliao on 21/11/2017.
  */
 open class Event<eventArg : EventArg> {
     private val handlers = ArrayList<((eventArg) -> Unit)>()
