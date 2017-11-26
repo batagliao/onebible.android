@@ -1,8 +1,13 @@
 package com.claraboia.bibleandroid.infrastructure
 
+import android.app.Application
+import android.content.Context
 import android.content.ContextWrapper
 import com.claraboia.bibleandroid.models.BibleAddress
 import com.claraboia.bibleandroid.models.BibleTranslation
+import com.claraboia.bibleandroid.views.BooksSelectDisplay
+import com.claraboia.bibleandroid.views.BooksSelectSortOrder
+import com.claraboia.bibleandroid.views.BooksSelectSortType
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 
@@ -13,7 +18,7 @@ private const val BOOK_SELECTION_DISPLAY_TYPE = "BOOK_SELECTION_DISPLAY_TYPE"
 private const val BOOK_SELECTION_SORT_TYPE = "BOOK_SELECTION_SORT_TYPE"
 private const val BOOK_SELECTION_SORT_ORDER = "BOOK_SELECTION_SORT_ORDER"
 
-class Preferences {
+class Preferences(private val context: Context) {
     init {
         Prefs.Builder()
                 .setContext(context)

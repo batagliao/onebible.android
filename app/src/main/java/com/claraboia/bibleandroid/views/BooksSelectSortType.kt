@@ -1,36 +1,31 @@
 package com.claraboia.bibleandroid.views
 
-    import android.content.Context
-    import android.os.Parcel
-    import android.os.Parcelable
-    import android.util.AttributeSet
+import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
-    import com.claraboia.bibleandroid.bibleApplication
-    import com.claraboia.bibleandroid.helpers.CheatSheet
-    import com.claraboia.bibleandroid.infrastructure.Event
-    import com.claraboia.bibleandroid.infrastructure.EventArg
-    import kotlinx.android.synthetic.main.layout_books_selectsorttype.view.*
+import com.claraboia.bibleandroid.extensions.bibleApplication
+import com.claraboia.bibleandroid.helpers.CheatSheet
+import com.claraboia.bibleandroid.infrastructure.Event
+import com.claraboia.bibleandroid.infrastructure.EventArg
+import kotlinx.android.synthetic.main.layout_books_selectsorttype.view.*
 
-/**
- * Created by lucasbatagliao on 12/10/16.
- */
 class BooksSelectSortType : RelativeLayout, View.OnClickListener {
 
-    enum class BookSortType{
+    enum class BookSortType {
         NORMAL,
         ALPHA
     }
 
-    class ChangeSortTypeEventArgs(val sortType: BookSortType) : EventArg(){
+    class ChangeSortTypeEventArgs(val sortType: BookSortType) : EventArg()
 
-    }
+    val onChangeSortType: Event<ChangeSortTypeEventArgs> = Event()
 
-    val onChangeSortType : Event<ChangeSortTypeEventArgs> = Event()
-
-    var currentSortType : BookSortType = BookSortType.NORMAL
+    var currentSortType: BookSortType = BookSortType.NORMAL
 
     constructor(context: Context?) : super(context) {
         initLayout(context)
@@ -67,11 +62,11 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
         setButtons()
     }
 
-    private fun setButtons(){
-        if(currentSortType == BookSortType.NORMAL){
+    private fun setButtons() {
+        if (currentSortType == BookSortType.NORMAL) {
             btnSortNormal.isSelected = true
             btnSortAlpha.isSelected = false
-        }else{
+        } else {
             btnSortNormal.isSelected = false
             btnSortAlpha.isSelected = true
         }
@@ -92,15 +87,15 @@ class BooksSelectSortType : RelativeLayout, View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.btnSortNormal -> {
-                if(!btnSortNormal.isSelected) {
+                if (!btnSortNormal.isSelected) {
                     currentSortType = BookSortType.NORMAL
                     onChangeSortType.invoke(ChangeSortTypeEventArgs(currentSortType))
                 }
             }
             R.id.btnSortAlpha -> {
-                if(!btnSortAlpha.isSelected) {
+                if (!btnSortAlpha.isSelected) {
                     currentSortType = BookSortType.ALPHA
                     onChangeSortType.invoke(ChangeSortTypeEventArgs(currentSortType))
                 }

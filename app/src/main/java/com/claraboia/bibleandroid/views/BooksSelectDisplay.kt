@@ -9,15 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.infrastructure.Event
 import com.claraboia.bibleandroid.infrastructure.EventArg
 import kotlinx.android.synthetic.main.layout_books_selectdisplay.view.*
 
-/**
- * Created by lucasbatagliao on 12/10/16.
- */
 class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
 
     enum class BookLayoutDisplayType{
@@ -25,9 +22,7 @@ class BooksSelectDisplay : RelativeLayout, View.OnClickListener {
         LIST
     }
 
-    class ChangeDisplayTypeEventArgs(val displayType : BookLayoutDisplayType) : EventArg(){
-
-    }
+    class ChangeDisplayTypeEventArgs(val displayType : BookLayoutDisplayType) : EventArg()
 
     val onChangeDisplayType : Event<ChangeDisplayTypeEventArgs> = Event()
 

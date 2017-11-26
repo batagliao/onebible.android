@@ -1,23 +1,17 @@
 package com.claraboia.bibleandroid.activities
 
-import android.app.Activity
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.*
-import com.claraboia.bibleandroid.models.Bible
+import com.claraboia.bibleandroid.extensions.bibleApplication
+import com.claraboia.bibleandroid.helpers.getBookType
+import com.claraboia.bibleandroid.repositories.BibleRepository
 import com.claraboia.bibleandroid.viewmodels.BookForSort
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.concurrent.thread
 
 class DispatchActivity : AppCompatActivity() {
 
@@ -67,7 +61,7 @@ class DispatchActivity : AppCompatActivity() {
 
     private fun performStartupPath(){
 
-        bibleApplication.localBibles.addAll(getAvailableBiblesLocal())
+        bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
 
         if(bibleApplication.localBibles.size == 0 || bibleApplication.preferences.selectedTranslation.isEmpty()) {
 
@@ -92,24 +86,25 @@ class DispatchActivity : AppCompatActivity() {
     }
 
     private fun loadCurrentBible() {
-        bibleApplication.currentBible = loadBible(bibleApplication.preferences.selectedTranslation)
+        bibleApplication.currentBible = BibleRepository.loadBible(bibleApplication.preferences.selectedTranslation)
 
         //load last accessed address as current position
         val lastAddress = bibleApplication.preferences.lastAccessedAddress
         bibleApplication.currentBook = lastAddress.bookOrder
         bibleApplication.currentChapter = lastAddress.chapterOrder
 
-        //create a bookCollection to be able to sort, change without affect orignal list
-        bibleApplication.currentBible.books.forEach { b ->
-            val newbook = BookForSort(
-                    b.bookOrder,
-                    b.chapters.size,
-                    b.getBookName(),
-                    b.getBookAbbrev(),
-                    b.getBookType()
-            )
-            bibleApplication.booksForSelection.add(newbook)
-        }
+        //TODO: review later
+//        //create a bookCollection to be able to sort, change without affect orignal list
+//        bibleApplication.currentBible.books.forEach { b ->
+//            val newbook = BookForSort(
+//                    b.bookOrder,
+//                    b.chapters.size,
+//                    b.getBookName(),
+//                    b.getBookAbbrev(),
+//                    b.getBookType()
+//            )
+//            bibleApplication.booksForSelection.add(newbook)
+//        }
     }
 
 

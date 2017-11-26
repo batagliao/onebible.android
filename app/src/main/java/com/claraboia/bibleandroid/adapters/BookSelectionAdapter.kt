@@ -1,29 +1,18 @@
 package com.claraboia.bibleandroid.adapters
 
-import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.helpers.getBookAbbrev
-import com.claraboia.bibleandroid.helpers.getBookName
-import com.claraboia.bibleandroid.helpers.getBookType
-import com.claraboia.bibleandroid.models.Book
-import com.claraboia.bibleandroid.models.BookTypeEnum
+import com.claraboia.bibleandroid.extensions.color
 import com.claraboia.bibleandroid.viewmodels.BookForSort
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import com.claraboia.bibleandroid.views.BooksSelectSortOrder
-import kotlinx.android.synthetic.main.layout_books_grid_item.*
 import kotlinx.android.synthetic.main.layout_books_grid_item.view.*
 import java.util.*
-import java.util.Collections.sort
-import kotlin.comparisons.compareBy
-import kotlin.comparisons.compareByDescending
 
-/**
- * Created by lucas.batagliao on 13/10/2016.
- */
+
 class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item: BookForSort) -> Unit) : RecyclerView.Adapter<BookSelectionAdapter.BookSelectionViewHolder>() {
     private val booksCopy: List<BookForSort> = ArrayList(books)
 

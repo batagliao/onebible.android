@@ -3,21 +3,19 @@ package com.claraboia.bibleandroid.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.support.v4.view.WindowCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.CENTER
 import com.claraboia.bibleandroid.adapters.ReadViewPagerAdapter
-import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
-import com.claraboia.bibleandroid.helpers.asFullText
-import com.claraboia.bibleandroid.helpers.getAddressText
-import com.claraboia.bibleandroid.models.BibleAddress
+import com.claraboia.bibleandroid.repositories.BibleTextRepository
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_read.*
 import kotlinx.android.synthetic.main.app_bar_read.*
@@ -46,7 +44,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setShowHideAnimationEnabled(true)
 
-        val navigationView = findViewById(R.id.nav_view) as NavigationView
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
         //menu definition
@@ -58,7 +56,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val openChapterIntent = Intent(this, SelectChapterActivity::class.java)
         readTitle.setOnClickListener { startActivity(openChapterIntent) }
-        readTitle.text = bibleApplication.currentAddress.asFullText()
+        readTitle.text = BibleTextRepository.getAdressFullText(bibleApplication.currentAddress)
 
         btnTranslations.setOnClickListener { drawer.openDrawer(GravityCompat.END, true) }
 
@@ -133,7 +131,7 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val adapter = ReadViewPagerAdapter(viewpagerRead, supportFragmentManager)
 
         adapter.setPageChangedListener {
-            readTitle.text = it.asFullText()
+            readTitle.text =  BibleTextRepository.getAdressFullText(it)
         }
 
         viewpagerRead.adapter = adapter

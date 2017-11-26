@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "7163084579-2e77kcv32c8c3gae9ofm04r734cf0oso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.claraboia.bibleandroid",
+            "certificate_hash": "ac8f1bede89d84be70a366fb13a8156fcaef3062"
+          }
+        },
+        {
+          "client_id": "7163084579-05j9q9mg0aemijhvpbb0t0ankju5a82o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.claraboia.bibleandroid",
+            "certificate_hash": "a9955a8c7b3a4347b0447af02bdb236b297ff5b6"
+          }
+        },
+        {
           "client_id": "7163084579-r8rea9d9t4l612efpomnmb6vqoh6plnh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.claraboia.bibleandroid",
-            "certificate_hash": "2BCE29431E687D65054470053E1885D1935DC7A3"
+            "certificate_hash": "2bce29431e687d65054470053e1885d1935dc7a3"
           }
         },
         {

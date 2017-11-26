@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.helpers.getSummary
 import com.claraboia.bibleandroid.models.Book
 import com.claraboia.bibleandroid.models.Chapter
+import com.claraboia.bibleandroid.repositories.BibleTextRepository
 import kotlinx.android.synthetic.main.layout_chapter_item.view.*
 import kotlinx.android.synthetic.main.layout_chapter_summary.view.*
 
-/**
- * Created by lucas.batagliao on 18/10/2016.
- */
 class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>, val chapterClick: (Chapter) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val TYPE_ITEM: Int = 1
@@ -29,7 +26,7 @@ class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>, val chapt
 
     inner class ChapterSummaryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bind() {
-            itemView.item_book_summary.text = this@ChapterSelectionAdapter.book.getSummary()
+            itemView.item_book_summary.text = BibleTextRepository.getBookSummary(this@ChapterSelectionAdapter.book)
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.*
  * Created by lucasbatagliao on 04/12/16.
  */
 
-class ReadViewPager(context: Context?, attrs: AttributeSet?) : ViewPager(context, attrs) {
+class ReadViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
 
 
 }

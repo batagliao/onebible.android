@@ -14,10 +14,9 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
-import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import com.claraboia.bibleandroid.views.BooksSelectSortType
 import com.claraboia.bibleandroid.views.decorators.DividerItemDecoration

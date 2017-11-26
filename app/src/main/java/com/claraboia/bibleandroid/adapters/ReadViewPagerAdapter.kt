@@ -7,14 +7,9 @@ import android.support.v4.view.ViewPager
 import android.util.Log
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.fragments.ReadFragment
-import com.claraboia.bibleandroid.helpers.asFullText
-import com.claraboia.bibleandroid.helpers.next
-import com.claraboia.bibleandroid.helpers.previous
 import com.claraboia.bibleandroid.models.BibleAddress
+import com.claraboia.bibleandroid.repositories.BibleTextRepository
 
-/**
- * Created by lucasbatagliao on 03/12/16.
- */
 // FragmnetPagerAdapter does not destoy fragments, only detaches
 
 const val CENTER = Int.MAX_VALUE / 2
@@ -68,9 +63,9 @@ class ReadViewPagerAdapter(val viewpager: ViewPager, val fm: FragmentManager?) :
         }
 
         if (showingPosition > -1 && position > showingPosition) {
-            address = address.next()
+            address = BibleTextRepository.nextAddress(address)
         } else if (showingPosition > -1 && position < showingPosition) {
-            address = address.previous()
+            address = BibleTextRepository.previousAddress(address)
         }
 
 
@@ -85,7 +80,8 @@ class ReadViewPagerAdapter(val viewpager: ViewPager, val fm: FragmentManager?) :
             showingPosition = position
         }
 
-        Log.d("ADAPTER", "getItem position $position >> value >> ${item.address.asFullText()}")
+        val fulltext = BibleTextRepository.getAdressFullText(item.address)
+        Log.d("ADAPTER", "getItem position $position >> value >> ${fulltext}")
         return item
     }
 

@@ -8,15 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.bibleApplication
+import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
 import com.claraboia.bibleandroid.infrastructure.Event
 import com.claraboia.bibleandroid.infrastructure.EventArg
 import kotlinx.android.synthetic.main.layout_books_selectsortorder.view.*
 
-/**
- * Created by lucasbatagliao on 12/10/16.
- */
 class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
 
     enum class BookSortOrder {
@@ -24,9 +21,7 @@ class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
         DESC
     }
 
-    class ChangeSortOrderEventArgs(val sortOrder: BookSortOrder) : EventArg() {
-
-    }
+    class ChangeSortOrderEventArgs(val sortOrder: BookSortOrder) : EventArg()
 
     val onChangeSortOrder: Event<ChangeSortOrderEventArgs> = Event()
 

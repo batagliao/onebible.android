@@ -1,19 +1,14 @@
 package com.claraboia.bibleandroid.activities
 
 import android.content.Intent
-import android.graphics.Rect
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.ChapterSelectionAdapter
-import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.getBookName
+import com.claraboia.bibleandroid.extensions.bibleApplication
+import com.claraboia.bibleandroid.repositories.BibleTextRepository
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_select_chapter.*
 
@@ -37,7 +32,7 @@ class SelectChapterActivity : AppCompatActivity() {
         //TODO: short this code, maybe an extension method
         val book = bibleApplication.currentBible.books[bibleApplication.currentBook -1]
 
-        supportActionBar?.title = book.getBookName()
+        supportActionBar?.title = BibleTextRepository.getBookName(book)
 
         val chapters = listOf(Any()) + book.chapters
         chapterList.adapter = ChapterSelectionAdapter(book, chapters, chapterClick = { c ->

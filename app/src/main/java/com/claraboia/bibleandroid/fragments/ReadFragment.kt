@@ -9,11 +9,9 @@ import android.view.ViewGroup
 
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.activities.ReadActivity
-import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.asFullText
+import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.helpers.getAddressText
 import com.claraboia.bibleandroid.models.BibleAddress
-import kotlinx.android.synthetic.main.app_bar_read.*
 import kotlinx.android.synthetic.main.fragment_read.*
 
 
@@ -34,7 +32,7 @@ class ReadFragment : Fragment() {
 
     val address: BibleAddress
         get() {
-            return arguments.getParcelable<BibleAddress>(BIBLEADDRESS_FRAGMENT_KEY)
+            return arguments!!.getParcelable(BIBLEADDRESS_FRAGMENT_KEY)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +41,13 @@ class ReadFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_read, container, false)
+        val view = inflater.inflate(R.layout.fragment_read, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadText()
         txtview.setOnClickListener {
@@ -66,7 +64,7 @@ class ReadFragment : Fragment() {
 
 
         //loads corresponding text
-        val text = activity.bibleApplication.currentBible.getAddressText(activity, address)
+        val text = activity!!.bibleApplication.currentBible.getAddressText(activity!!, address)
 
         //set text to view
         txtview.text = text

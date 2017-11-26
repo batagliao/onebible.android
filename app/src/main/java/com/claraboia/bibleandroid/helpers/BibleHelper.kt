@@ -20,81 +20,9 @@ import java.util.*
  * Created by lucas.batagliao on 26/09/2016.
  */
 
-// storage consts
-const val BIB_FILE_EXTENSION: String = ".bib"
-const val BIB_FOLDER: String = "bibs"
-const val BIB_LOCAL_FILE = "bibles.local"
-
-fun loadBible(translation: BibleTranslation): Bible {
-    val filename = translation.getFileName()
-
-    val stream = getBibleStream(filename)
-    stream.use {
-        return BibleSaxParser().parse(it)
-    }
-}
-
-fun getBibleDir(): String {
-    val bibdir = File("/data/data/${BuildConfig.APPLICATION_ID}/files/$BIB_FOLDER/")
-
-    if (!bibdir.exists())
-        bibdir.mkdirs()
-
-    return bibdir.absolutePath
-}
-
-private fun getLocalBiblesFile(): File {
-    val biblefile = File("${getBibleDir()}/$BIB_LOCAL_FILE")
-    return biblefile
-}
-
-fun getBibleStream(name: String): FileInputStream {
-    val path = "${getBibleDir()}/$name"
-    val file = File(path)
-
-    return FileInputStream(file)
-}
-
-fun getAvailableBiblesLocal(): List<BibleTranslation> {
-
-    val biblefile = getLocalBiblesFile()
-    var bibles: ArrayList<BibleTranslation> = ArrayList()
-
-    if(!biblefile.exists()) return bibles
-
-    val gson = Gson()
-    val type = object: TypeToken<List<BibleTranslation>>(){}.type
-
-    val json = biblefile.readText()
-    bibles = gson.fromJson(json, type)
-
-//    dir.listFiles().forEach {
-//
-//        if(BIB_FILE_EXTENSION.endsWith(it.extension, true)) {
-//            val bible = BibleTranslation()
-//
-//            //TODO: improve
-//            //TODO: how to store name and language
-//            //{abbreviation}.{version}.bib
-//
-//            val namestrip = it.name.split(".")
-//            val abbreviation = namestrip[0]
-//            val version = namestrip[1]
-//
-//            bible.name = it.name
-//            bible.abbreviation = abbreviation
-//            bible.file = it.absolutePath
-//            bible.fileSize = it.length().toDouble()
-//            bible.format = "xml"
-//            bible.version = version
-//
-//            bibles.add(bible)
-//        }
-//    }
-    return bibles
-}
 
 //extension methods for Bible type
+//TODO: move to TextRepository
 fun Bible.getAddressText(context: Context, address: BibleAddress): SpannableStringBuilder {
     val chapter = this.books[address.bookOrder -1].chapters[address.chapterOrder -1]
 
@@ -128,27 +56,3 @@ fun Bible.getAddressText(context: Context, address: BibleAddress): SpannableStri
     return builder
 }
 
-
-
-
-fun BibleTranslation.getFileName() : String{
-    //return "${this.abbreviation}.${this.version}$BIB_FILE_EXTENSION"
-    return "${this.abbreviation}$BIB_FILE_EXTENSION"
-}
-
-fun BibleTranslation.addToLocalTranslations(){
-    BibleApplication.instance.localBibles.add(this)
-    saveLocalTranslations(BibleApplication.instance.localBibles)
-}
-
-fun BibleTranslation.removeFromLocalTranslations(){
-    BibleApplication.instance.localBibles.remove(this)
-    saveLocalTranslations(BibleApplication.instance.localBibles)
-}
-
-fun saveLocalTranslations(translations: List<BibleTranslation>){
-    val gson = Gson()
-    val json = gson.toJson(translations)
-    val biblefile = getLocalBiblesFile()
-    biblefile.writeText(json)
-}

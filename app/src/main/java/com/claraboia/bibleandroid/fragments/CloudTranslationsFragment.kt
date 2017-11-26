@@ -1,39 +1,32 @@
 package com.claraboia.bibleandroid.fragments
 
-import android.app.Activity
-import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.TranslationCloudRecyclerAdapter
-import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.getBibleDir
+import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.services.*
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_cloud_translations.*
-import kotlinx.android.synthetic.main.fragment_cloud_translations.view.*
-import kotlinx.android.synthetic.main.layout_translation_cloud_item.*
 import kotlinx.android.synthetic.main.layout_translation_cloud_item.view.*
 import java.util.*
 
-/**
- * Created by lucasbatagliao on 26/10/16.
- */
+
 class CloudTranslationsFragment : Fragment() {
 
     private val database by lazy { FirebaseDatabase.getInstance().reference }
@@ -45,12 +38,13 @@ class CloudTranslationsFragment : Fragment() {
 
     private val downloadIntentReceiver = intentReceiver()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_cloud_translations, container, false)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_cloud_translations, container, false)
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         translationCloudList.visibility = View.GONE
@@ -76,12 +70,12 @@ class CloudTranslationsFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(downloadIntentReceiver)
+        LocalBroadcastManager.getInstance(activity!!).unregisterReceiver(downloadIntentReceiver)
     }
 
     private fun downloadTranslationClick(translation: BibleTranslation) {
-        if (activity.bibleApplication.localBibles.size == 0) {
-            activity.bibleApplication.preferences.selectedTranslation = translation
+        if (activity!!.bibleApplication.localBibles.size == 0) {
+            activity!!.bibleApplication.preferences.selectedTranslation = translation
         }
 
         val position = adapter.getTranslationPosition(translation.abbreviation)
@@ -90,12 +84,12 @@ class CloudTranslationsFragment : Fragment() {
 
         val svcintent = Intent(activity, DownloadTranslationService::class.java)
         svcintent.putExtra(EXTRA_TRANSLATION, translation)
-        activity.startService(svcintent)
+        activity!!.startService(svcintent)
     }
 
     private fun registerReceiver() {
         val filter = IntentFilter(DOWNLOAD_TRANSLATION_PROGRESS_ACTION)
-        LocalBroadcastManager.getInstance(activity)
+        LocalBroadcastManager.getInstance(activity!!)
                 .registerReceiver(downloadIntentReceiver, filter)
     }
 
@@ -156,9 +150,9 @@ class CloudTranslationsFragment : Fragment() {
         override fun onDataChange(snapshot: DataSnapshot?) {
             translations.clear()
             for (translationsnapshot in snapshot!!.children) {
-                val translation = translationsnapshot.getValue(BibleTranslation::class.java)
+                val translation = translationsnapshot.getValue(BibleTranslation::class.java)!!
 
-                if (!activity.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation }) {
+                if (activity!!.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation }) {
                     //include only not downloaded translations
                     translations.add(translation)
                 }

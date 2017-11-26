@@ -1,23 +1,19 @@
 package com.claraboia.bibleandroid.services
 
 import android.app.IntentService
+import android.app.Notification
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.NotificationCompat
-import android.util.Log
 import com.claraboia.bibleandroid.R
-import com.claraboia.bibleandroid.bibleApplication
-import com.claraboia.bibleandroid.helpers.*
 import com.claraboia.bibleandroid.models.BibleTranslation
+import com.claraboia.bibleandroid.repositories.BibleRepository
 import java.io.BufferedInputStream
-import java.io.DataInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
-import java.net.URLConnection
 
 /**
  * Created by lucas.batagliao on 01-Nov-16.
@@ -33,17 +29,18 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
     var notificationId = 0
 
     override fun onHandleIntent(intent: Intent?) {
-        val translation = intent?.getParcelableExtra<BibleTranslation>(EXTRA_TRANSLATION)
-        val destfilepath = getBibleDir() + "/${translation?.getFileName()}"
-        translation?.localFile = destfilepath
+        val translation = intent?.getParcelableExtra<BibleTranslation>(EXTRA_TRANSLATION)!!
+        val destfilepath =BibleRepository.getBiblePath(translation)
+        translation.localFile = destfilepath
 
-        notify(translation!!)
+        notify(translation)
         try {
+            // TODO: maybe move download method to BibleRepository
             downloadFile(translation.file, destfilepath, translation)
-            translation.addToLocalTranslations()
+            BibleRepository.addLocalTranslation(translation)
 
             //TODO: increase download count on Firebase
-            postProgress(100, translation.abbreviation.toString())
+            postProgress(100, translation.abbreviation)
         }finally {
             endNotification()
         }
@@ -133,7 +130,8 @@ class DownloadTranslationService : IntentService("DownloadTranslationService") {
     private fun notify(translation : BibleTranslation){
         val text = resources.getText(R.string.notification_downloading).toString() + " ${translation.name}"
 
-        val builder = NotificationCompat.Builder(this)
+        //TODO replace deprecation
+        val builder = Notification.Builder(this)
             .setSmallIcon(R.drawable.ic_bible_notify)
             .setContentTitle(translation.abbreviation)
             .setContentText(text)

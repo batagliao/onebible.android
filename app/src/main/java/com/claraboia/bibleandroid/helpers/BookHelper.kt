@@ -8,37 +8,12 @@ import com.claraboia.bibleandroid.models.TestamentEnum
  * Created by lucasbatagliao on 25/10/16.
  */
 
-private const val BOOK_NAME_KEY : String = "Book%d"
-private const val BOOK_SUMMARY_KEY = "%sSummary"
+
 private const val BOOK_KEY : String = "KeyBook%d"
-private const val BOOK_ABBREV_KEY : String = "BookAbbrev%d"
 
 //extension methods for Book type
 fun Book.getKey(): String {
     val resourceName = String.format(BOOK_KEY, this.bookOrder)
-    return ResourceHelper.getStringByName(resourceName)
-}
-
-fun Book.getSummary(): String {
-    val resourceName = String.format(BOOK_SUMMARY_KEY, this.getKey())
-    return ResourceHelper.getStringByName(resourceName)
-}
-
-fun Book.getBookName(): String {
-    return getBookName(this.bookOrder)
-}
-
-fun getBookName(bookOrder: Int): String {
-    val resourceName = String.format(BOOK_NAME_KEY, bookOrder)
-    return ResourceHelper.getStringByName(resourceName)
-}
-
-fun Book.getBookAbbrev(): String {
-    return getBookAbbrev(this.bookOrder)
-}
-
-fun getBookAbbrev(bookOrder: Int): String {
-    val resourceName = String.format(BOOK_ABBREV_KEY, bookOrder)
     return ResourceHelper.getStringByName(resourceName)
 }
 
