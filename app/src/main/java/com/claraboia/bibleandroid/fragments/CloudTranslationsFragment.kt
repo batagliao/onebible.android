@@ -36,7 +36,7 @@ class CloudTranslationsFragment : Fragment() {
     private val adapter = TranslationCloudRecyclerAdapter(translations,
             click = { t -> downloadTranslationClick(t) })
 
-    private val downloadIntentReceiver = intentReceiver()
+    private val downloadIntentReceiver = IntentReceiver()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,11 +56,7 @@ class CloudTranslationsFragment : Fragment() {
         translationCloudList.addItemDecoration(GridSpacingItemDecoration(1, space, true, 0))
 
         val query = database.child("translations").orderByChild("abbreviation")
-        query.addListenerForSingleValueEvent(listenerForDatabase())
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        query.addListenerForSingleValueEvent(ListenerForDatabase())
     }
 
     override fun onResume() {
@@ -93,7 +89,7 @@ class CloudTranslationsFragment : Fragment() {
                 .registerReceiver(downloadIntentReceiver, filter)
     }
 
-    inner class intentReceiver : BroadcastReceiver() {
+    inner class IntentReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             //TODO: update adapter to mark the translation as downloading - show progress bar
             val translation = intent?.getStringExtra(DOWNLOAD_TRANSLATION_NAME_VALUE)
@@ -142,7 +138,7 @@ class CloudTranslationsFragment : Fragment() {
 
     }
 
-    inner class listenerForDatabase : ValueEventListener {
+    inner class ListenerForDatabase : ValueEventListener {
         override fun onCancelled(error: DatabaseError?) {
             Log.e("CloudTranslationsFragme", error.toString())
         }
@@ -152,7 +148,7 @@ class CloudTranslationsFragment : Fragment() {
             for (translationsnapshot in snapshot!!.children) {
                 val translation = translationsnapshot.getValue(BibleTranslation::class.java)!!
 
-                if (activity!!.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation }) {
+                if (!activity!!.bibleApplication.localBibles.any { b -> b.abbreviation == translation.abbreviation }) {
                     //include only not downloaded translations
                     translations.add(translation)
                 }
