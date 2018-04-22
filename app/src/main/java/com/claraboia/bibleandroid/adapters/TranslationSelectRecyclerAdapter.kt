@@ -28,15 +28,15 @@ class TranslationSelectRecyclerAdapter : RecyclerView.Adapter<TranslationSelectR
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SelectTranslationViewHolder {
-        val inflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectTranslationViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.layout_select_translation_item, parent, false)
         val viewholder = SelectTranslationViewHolder(view)
         return viewholder
     }
 
-    override fun onBindViewHolder(holder: SelectTranslationViewHolder?, position: Int) {
-        holder?.bind(bibles[position])
+    override fun onBindViewHolder(holder: SelectTranslationViewHolder, position: Int) {
+        holder.bind(bibles[position])
     }
 
     override fun getItemCount(): Int {

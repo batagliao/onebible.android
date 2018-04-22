@@ -17,7 +17,7 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item
     private val booksCopy: List<BookForSort> = ArrayList(books)
 
 
-    class BookSelectionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    class BookSelectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(book: BookForSort, click: (BookForSort) -> Unit) {
             val size = book.chapterCount
@@ -36,8 +36,8 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item
         return books.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BookSelectionViewHolder {
-        val inflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookSelectionViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
 
         val view: View
         if(displayType == BooksSelectDisplay.BookLayoutDisplayType.GRID) {
@@ -49,9 +49,9 @@ class BookSelectionAdapter(val books: MutableList<BookForSort>, val click: (item
         return holder
     }
 
-    override fun onBindViewHolder(holder: BookSelectionViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: BookSelectionViewHolder, position: Int) {
         val book = books[position]
-        holder?.bind(book, click)
+        holder.bind(book, click)
     }
 
     fun sortNormal(order: BooksSelectSortOrder.BookSortOrder){

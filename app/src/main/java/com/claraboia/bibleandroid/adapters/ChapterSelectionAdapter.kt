@@ -37,8 +37,8 @@ class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>, val chapt
         return TYPE_ITEM
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if(holder?.itemViewType == TYPE_ITEM){
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(holder.itemViewType == TYPE_ITEM){
             (holder as ChapterItemViewHolder).bind(chapters[position] as Chapter)
         }else{
             (holder as ChapterSummaryViewHolder).bind()
@@ -49,8 +49,8 @@ class ChapterSelectionAdapter(val book: Book, val chapters: List<Any>, val chapt
         return chapters.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
 
         val view: View
         val holder: RecyclerView.ViewHolder

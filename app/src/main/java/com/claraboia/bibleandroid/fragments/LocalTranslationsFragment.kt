@@ -3,10 +3,10 @@ package com.claraboia.bibleandroid.fragments;
 
 import android.content.*
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +45,8 @@ class LocalTranslationsFragment : Fragment() {
         val metrics = this.resources.displayMetrics
         val space = (metrics.density * 12).toInt()
         translationLocalList.addItemDecoration(GridSpacingItemDecoration(1, space, true, 0))
+        translationLocalList.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+
     }
 
     override fun onPause() {
@@ -60,7 +62,7 @@ class LocalTranslationsFragment : Fragment() {
     private fun deleteTranslationClick(translation: BibleTranslation) {
 
         //check if is the selected translation
-        if (translation.abbreviation == activity!!.bibleApplication.preferences.selectedTranslation.abbreviation) {
+        if (translation.abbreviation == activity!!  .bibleApplication.preferences.selectedTranslation.abbreviation) {
             AlertDialog.Builder(activity!!)
                     .setTitle(R.string.delete)
                     .setMessage(R.string.delete_unable_to_delete_active_translation)

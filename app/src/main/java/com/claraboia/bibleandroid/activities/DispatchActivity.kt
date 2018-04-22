@@ -1,5 +1,6 @@
 package com.claraboia.bibleandroid.activities
 
+import android.app.TaskStackBuilder
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -59,6 +60,13 @@ class DispatchActivity : AppCompatActivity() {
 //        }
 //    }
 
+    private fun openDownloadScreen(){
+        val intent = Intent(this, SelectTranslationActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.putExtra(SHOULD_OPEN_CLOUD_TAB_KEY, true)
+        startActivity(intent)
+    }
+
     private fun performStartupPath(){
 
         bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
@@ -68,11 +76,10 @@ class DispatchActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.translationNeededToStart)
             builder.setPositiveButton(R.string.ok) { dialog, button ->
-                val intent = Intent(this, SelectTranslationActivity::class.java)
-                intent.putExtra(SHOULD_OPEN_CLOUD_TAB_KEY, true)
-                startActivity(intent)
+                //openDownloadScreen()
                 finish()
             }
+            builder.setOnDismissListener { openDownloadScreen() }
 
             val dialog = builder.create()
             dialog.show()

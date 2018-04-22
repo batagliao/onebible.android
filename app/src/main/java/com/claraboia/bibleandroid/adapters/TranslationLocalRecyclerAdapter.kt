@@ -36,14 +36,14 @@ class TranslationLocalRecyclerAdapter(val click: (translation: BibleTranslation)
         return BibleApplication.instance.localBibles.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TranslationViewHolder {
-        val inflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TranslationViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.layout_translation_local_item, parent, false)
         return TranslationViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TranslationViewHolder?, position: Int) {
-        holder?.bind(BibleApplication.instance.localBibles[position])
+    override fun onBindViewHolder(holder: TranslationViewHolder, position: Int) {
+        holder.bind(BibleApplication.instance.localBibles[position])
     }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_translation_card"
@@ -17,14 +17,6 @@
         android:orientation="horizontal"
         android:rowCount="2">
 
-        <FrameLayout
-            android:id="@+id/item_translatiom_frame"
-            android:layout_width="10dp"
-            android:layout_height="80dp"
-            android:layout_column="0"
-            android:layout_rowSpan="2"
-            android:background="@color/colorAccent"></FrameLayout>
-
         <RelativeLayout
             android:layout_height="match_parent"
             android:layout_column="1"
@@ -38,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:text="ACF" />
 
             <TextView
@@ -47,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_translationAbbrev"
                 android:textColor="@color/colorSecundaryText"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 tools:text="Almeida Corrigida e Fiel" />
 
             <TextView
@@ -56,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_translationName"
                 android:textColor="@color/colorSecundaryText"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 tools:text="4.5MB" />
         </RelativeLayout>
 
@@ -71,7 +63,7 @@
                 android:id="@+id/item_translationDownload"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="60dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/download"
@@ -118,4 +110,4 @@
             tools:text="100%" />
     </GridLayout>
 
-</android.support.v7.widget.CardView>
+</FrameLayout>

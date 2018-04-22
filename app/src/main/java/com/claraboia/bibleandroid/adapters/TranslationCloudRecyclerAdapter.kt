@@ -57,14 +57,14 @@ class TranslationCloudRecyclerAdapter(var translations: MutableList<BibleTransla
         return translations.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TranslationViewHolder {
-        val inflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TranslationViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.layout_translation_cloud_item, parent, false)
         return TranslationViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TranslationViewHolder?, position: Int) {
-        holder?.bind(translations[position])
+    override fun onBindViewHolder(holder: TranslationViewHolder, position: Int) {
+        holder.bind(translations[position])
     }
 
 

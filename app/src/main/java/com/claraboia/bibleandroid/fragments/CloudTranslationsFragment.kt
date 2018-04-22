@@ -7,7 +7,10 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.DividerItemDecoration.VERTICAL
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -53,7 +56,9 @@ class CloudTranslationsFragment : Fragment() {
         translationCloudList.setHasFixedSize(true)
         val metrics = this.resources.displayMetrics
         val space = (metrics.density * 12).toInt()
+
         translationCloudList.addItemDecoration(GridSpacingItemDecoration(1, space, true, 0))
+        translationCloudList.addItemDecoration(DividerItemDecoration(this.context, VERTICAL))
 
         val query = database.child("translations").orderByChild("abbreviation")
         query.addListenerForSingleValueEvent(ListenerForDatabase())
