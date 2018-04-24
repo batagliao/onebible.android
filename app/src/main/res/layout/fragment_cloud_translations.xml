@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.claraboia.bibleandroid.fragments.LocalTranslationsFragment">
+    >
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -19,6 +19,8 @@
         android:id="@+id/translationCloudList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listItem="@layout/layout_translation_local_item"
+        tools:itemCount="5"
         tools:ignore="RtlSymmetry">
     </android.support.v7.widget.RecyclerView>
 
