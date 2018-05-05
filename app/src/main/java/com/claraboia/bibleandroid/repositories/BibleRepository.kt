@@ -12,7 +12,7 @@ import java.io.File
 import java.util.*
 
 // storage consts
-const val BIB_FILE_EXTENSION: String = ".vtd"
+const val BIB_FILE_EXTENSION: String = ".bib"
 const val BIB_FOLDER: String = "bibs"
 const val BIB_LOCAL_FILE = "bibles.local"
 
@@ -25,8 +25,8 @@ object BibleRepository {
 
         val stream = getBibleFile(filename).inputStream()
         stream.use {
-            return BibleVTDParser.parse(it)
-            // return BibleSaxParser().parse(it)
+            //return BibleVTDParser.parse(it)
+             return BibleSaxParser().parse(it)
         }
     }
 

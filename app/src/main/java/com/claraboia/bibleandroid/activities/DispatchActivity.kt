@@ -115,11 +115,26 @@ class DispatchActivity : AppCompatActivity() {
 //
 //            } else {
 
-        //val starttime = System.nanoTime()
-        loadCurrentBible()
-        //val endtime = System.nanoTime()
-        //val duration = endtime - starttime
-        //Log.d("DURATION:", duration.toString())
+
+        /// MEASURING TIME
+//        var durationSum : Long = 0
+//        var durationmax : Long = 0
+//        var durationmin = Long.MAX_VALUE
+//        for (i in 1..1000) {
+//            val starttime = System.nanoTime()
+            loadCurrentBible()
+//            val endtime = System.nanoTime()
+//            val duration = endtime - starttime
+//
+//            if(duration > durationmax) durationmax = duration
+//            if(duration < durationmin) durationmin = duration
+//            durationSum += duration
+//            Log.d("DURATION:", duration.toString())
+//        }
+//        Log.d("AVERAGE", (durationSum / 1000).toString())
+//        Log.d("MIN", durationmin.toString())
+//        Log.d("MAX", durationmax.toString())
+
 
         val intent = Intent(this, ReadActivity::class.java)
         // startActivity(intent)
@@ -161,6 +176,7 @@ class DispatchActivity : AppCompatActivity() {
     private fun copyDefaultBibleTranslation() {
         val defaultbible = getString(R.string.defaultbible)
         val filename = BibleRepository.getTranslationFileName(defaultbible)
+        Log.d("FILENAME", filename)
         //val list = assets.list("")
         assets.open(filename).use {
             val outfile = File(BibleRepository.getBiblePath(defaultbible))
