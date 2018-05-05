@@ -14,7 +14,7 @@ import com.claraboia.bibleandroid.infrastructure.Event
 import com.claraboia.bibleandroid.infrastructure.EventArg
 import kotlinx.android.synthetic.main.layout_books_selectsortorder.view.*
 
-class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
+    class BooksSelectSortOrder : RelativeLayout, View.OnClickListener {
 
     enum class BookSortOrder {
         ASC,

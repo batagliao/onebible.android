@@ -5,14 +5,14 @@ import com.claraboia.bibleandroid.BuildConfig
 import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.models.parsers.BibleSaxParser
+import com.claraboia.bibleandroid.models.parsers.BibleVTDParser
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
-import java.io.FileInputStream
 import java.util.*
 
 // storage consts
-const val BIB_FILE_EXTENSION: String = ".bib"
+const val BIB_FILE_EXTENSION: String = ".vtd"
 const val BIB_FOLDER: String = "bibs"
 const val BIB_LOCAL_FILE = "bibles.local"
 
@@ -23,9 +23,10 @@ object BibleRepository {
     fun loadBible(translation: BibleTranslation): Bible {
         val filename = getTranslationFileName(translation)
 
-        val stream = getBibleStream(filename)
+        val stream = getBibleFile(filename).inputStream()
         stream.use {
-            return BibleSaxParser().parse(it)
+            return BibleVTDParser.parse(it)
+            // return BibleSaxParser().parse(it)
         }
     }
 
@@ -43,16 +44,25 @@ object BibleRepository {
         return getBibleDir() + "/$fname"
     }
 
-    private fun getLocalBiblesFile(): File {
-        val biblefile = File("${getBibleDir()}/${BIB_LOCAL_FILE}")
-        return biblefile
+    fun getBiblePath(translation: String): String {
+        val fname = getTranslationFileName(translation)
+        return getBibleDir() + "/$fname"
     }
 
-    private fun getBibleStream(name: String): FileInputStream {
-        val path = "${getBibleDir()}/$name"
-        val file = File(path)
+    private fun getLocalBiblesFile(): File {
+        return File("${getBibleDir()}/$BIB_LOCAL_FILE")
+    }
 
-        return FileInputStream(file)
+//    private fun getBibleInputStream(name: String): FileInputStream {
+//        val path = "${getBibleDir()}/$name"
+//        val file = File(path)
+//
+//        return FileInputStream(file)
+//    }
+
+    private fun getBibleFile(translationfilename: String): File{
+        val path = "${getBibleDir()}/$translationfilename"
+        return File(path)
     }
 
     fun getAvailableBiblesLocal(): List<BibleTranslation> {
@@ -95,7 +105,11 @@ object BibleRepository {
     }
 
     fun getTranslationFileName(translastion: BibleTranslation): String {
-        return "${translastion.abbreviation}$BIB_FILE_EXTENSION"
+        return getTranslationFileName(translastion.abbreviation)
+    }
+
+    fun getTranslationFileName(translation: String): String{
+        return "$translation$BIB_FILE_EXTENSION"
     }
 
     fun addLocalTranslation(translation: BibleTranslation) {

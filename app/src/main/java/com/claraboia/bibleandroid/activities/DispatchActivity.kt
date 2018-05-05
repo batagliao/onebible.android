@@ -1,18 +1,24 @@
 package com.claraboia.bibleandroid.activities
 
-import android.app.TaskStackBuilder
 import android.content.Intent
 import android.os.Bundle
+import android.os.Trace
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.extensions.bibleApplication
-import com.claraboia.bibleandroid.helpers.getBookType
+import com.claraboia.bibleandroid.infrastructure.FirstRun
+import com.claraboia.bibleandroid.infrastructure.Preferences
+import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.repositories.BibleRepository
-import com.claraboia.bibleandroid.viewmodels.BookForSort
 import com.google.firebase.auth.FirebaseAuth
+import io.reactivex.Completable
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
+import java.io.File
 
 class DispatchActivity : AppCompatActivity() {
 
@@ -21,6 +27,7 @@ class DispatchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         //TODO: get this code back
         //verifyGooglePlay()
@@ -40,12 +47,14 @@ class DispatchActivity : AppCompatActivity() {
                     Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
 
-                performStartupPath()
+                // performStartupPath()
             }
-        }else{
+        } else {
             bibleApplication.currentUser = firebaseauth.currentUser
-            performStartupPath()
+            // performStartupPath()
         }
+
+        performStartupPath()
     }
 
 
@@ -60,36 +69,70 @@ class DispatchActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun openDownloadScreen(){
+    private fun openDownloadScreen() {
         val intent = Intent(this, SelectTranslationActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.putExtra(SHOULD_OPEN_CLOUD_TAB_KEY, true)
         startActivity(intent)
     }
 
-    private fun performStartupPath(){
+    private fun performStartupPath() {
 
-        bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
+        //Completable.fromAction {
+        // bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
+        // TODO: use SQLite to store the bibles
 
-        if(bibleApplication.localBibles.size == 0 || bibleApplication.preferences.selectedTranslation.isEmpty()) {
-
-            val builder = AlertDialog.Builder(this)
-            builder.setMessage(R.string.translationNeededToStart)
-            builder.setPositiveButton(R.string.ok) { dialog, button ->
-                //openDownloadScreen()
-                finish()
-            }
-            builder.setOnDismissListener { openDownloadScreen() }
-
-            val dialog = builder.create()
-            dialog.show()
-
-        }else{
-            loadCurrentBible()
-            val intent = Intent(this, ReadActivity::class.java)
-            startActivity(intent)
-            finish()
+        val firstRun = FirstRun.checkFirstRun()
+        if (firstRun == FirstRun.FIRST_RUN) {
+            // copy default bible
+            this.copyDefaultBibleTranslation()
+            // mark it as selected
+            val kjvTranslation = BibleTranslation()
+            kjvTranslation.abbreviation = "kjv"
+            kjvTranslation.active = true
+            kjvTranslation.format = "XML"
+            // kjvTranslation.file
+            kjvTranslation.localFile = BibleRepository.getBiblePath(kjvTranslation.abbreviation)
+            kjvTranslation.language = "en-US"
+            // kjvTranslation.fileSize =
+            kjvTranslation.name = "King James Version"
+            kjvTranslation.version = "1.0"
+            BibleApplication.instance.preferences.selectedTranslation = kjvTranslation
         }
+
+//            if (bibleApplication.localBibles.size == 0 || bibleApplication.preferences.selectedTranslation.isEmpty()) {
+//
+//                val builder = AlertDialog.Builder(this)
+//                builder.setMessage(R.string.translationNeededToStart)
+//                builder.setPositiveButton(R.string.ok) { dialog, button ->
+//                    //openDownloadScreen()
+//                    finish()
+//                }
+//                builder.setOnDismissListener { openDownloadScreen() }
+//
+//                val dialog = builder.create()
+//                dialog.show()
+//
+//            } else {
+
+        //val starttime = System.nanoTime()
+        loadCurrentBible()
+        //val endtime = System.nanoTime()
+        //val duration = endtime - starttime
+        //Log.d("DURATION:", duration.toString())
+
+        val intent = Intent(this, ReadActivity::class.java)
+        // startActivity(intent)
+        // finish()
+//            }
+//        }.observeOn(Schedulers.io())
+//        .subscribe {
+//            // move to another activity
+//            val intent = Intent(this, ReadActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
     private fun loadCurrentBible() {
@@ -115,4 +158,13 @@ class DispatchActivity : AppCompatActivity() {
     }
 
 
+    private fun copyDefaultBibleTranslation() {
+        val defaultbible = getString(R.string.defaultbible)
+        val filename = BibleRepository.getTranslationFileName(defaultbible)
+        //val list = assets.list("")
+        assets.open(filename).use {
+            val outfile = File(BibleRepository.getBiblePath(defaultbible))
+            it.copyTo(outfile.outputStream())
+        }
+    }
 }

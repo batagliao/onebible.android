@@ -33,6 +33,10 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'com.ximpleware:vtd-xml:2.13.4'
+    compile group: 'net.sourceforge.jchardet', name: 'jchardet', version: '1.0'
+
+
 }
 
 compileKotlin {

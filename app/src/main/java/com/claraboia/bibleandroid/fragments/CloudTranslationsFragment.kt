@@ -29,6 +29,8 @@ import kotlinx.android.synthetic.main.fragment_cloud_translations.*
 import kotlinx.android.synthetic.main.layout_translation_cloud_item.view.*
 import java.util.*
 
+//https://console.firebase.google.com/project/bible-2fb80/database/bible-2fb80/data
+//stopped at 25
 
 class CloudTranslationsFragment : Fragment() {
 

@@ -3,6 +3,9 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="defaultbible">kjv</string>
+    <string name="startup_message">Setting thing up for the first time</string>
+
     <string name="main_btnmenu">Show menu</string>
     <string name="main_btnbooks">Select book</string>
     <string name="main_btntranslations">Select bible translation</string>
