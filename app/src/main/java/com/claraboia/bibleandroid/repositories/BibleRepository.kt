@@ -4,6 +4,7 @@ import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.BuildConfig
 import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.models.BibleTranslation
+import com.claraboia.bibleandroid.models.parsers.BiblePullParser
 import com.claraboia.bibleandroid.models.parsers.BibleSaxParser
 import com.claraboia.bibleandroid.models.parsers.BibleVTDParser
 import com.google.gson.Gson
@@ -25,8 +26,8 @@ object BibleRepository {
 
         val stream = getBibleFile(filename).inputStream()
         stream.use {
-            //return BibleVTDParser.parse(it)
-             return BibleSaxParser().parse(it)
+            return BiblePullParser.parse(it)
+             //return BibleSaxParser().parse(it)
         }
     }
 
