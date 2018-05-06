@@ -17,7 +17,9 @@ import com.claraboia.bibleandroid.repositories.BibleRepository
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Completable
 import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class DispatchActivity : AppCompatActivity() {
@@ -25,12 +27,22 @@ class DispatchActivity : AppCompatActivity() {
     private lateinit var firebaseauth: FirebaseAuth
     private val REQUEST_GOOGLE_PLAY_SERVICES = 90909
 
+    private var firstRun: Int = FirstRun.NORMAL
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //TODO: get this code back
         //verifyGooglePlay()
+
+        firstRun = FirstRun.checkFirstRun()
+        // defining loading text
+        if(firstRun == FirstRun.FIRST_RUN){
+            this.txtloading.text = getString(R.string.startup_message_first_time)
+        }else{
+            this.txtloading.text = getString(R.string.startup_message)
+        }
 
         firebaseauth = FirebaseAuth.getInstance()
         if (firebaseauth.currentUser == null) {
@@ -78,27 +90,28 @@ class DispatchActivity : AppCompatActivity() {
 
     private fun performStartupPath() {
 
-        //Completable.fromAction {
-        // bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
-        // TODO: use SQLite to store the bibles
 
-        val firstRun = FirstRun.checkFirstRun()
-        if (firstRun == FirstRun.FIRST_RUN) {
-            // copy default bible
-            this.copyDefaultBibleTranslation()
-            // mark it as selected
-            val kjvTranslation = BibleTranslation()
-            kjvTranslation.abbreviation = "kjv"
-            kjvTranslation.active = true
-            kjvTranslation.format = "XML"
-            // kjvTranslation.file
-            kjvTranslation.localFile = BibleRepository.getBiblePath(kjvTranslation.abbreviation)
-            kjvTranslation.language = "en-US"
-            // kjvTranslation.fileSize =
-            kjvTranslation.name = "King James Version"
-            kjvTranslation.version = "1.0"
-            BibleApplication.instance.preferences.selectedTranslation = kjvTranslation
-        }
+
+        Completable.fromAction {
+            // bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
+            // TODO: use SQLite to store the bibles
+
+            if (firstRun == FirstRun.FIRST_RUN) {
+                // copy default bible
+                this.copyDefaultBibleTranslation()
+                // mark it as selected
+                val kjvTranslation = BibleTranslation()
+                kjvTranslation.abbreviation = "kjv"
+                kjvTranslation.active = true
+                kjvTranslation.format = "XML"
+                // kjvTranslation.file
+                kjvTranslation.localFile = BibleRepository.getBiblePath(kjvTranslation.abbreviation)
+                kjvTranslation.language = "en-US"
+                // kjvTranslation.fileSize =
+                kjvTranslation.name = "King James Version"
+                kjvTranslation.version = "1.0"
+                BibleApplication.instance.preferences.selectedTranslation = kjvTranslation
+            }
 
 //            if (bibleApplication.localBibles.size == 0 || bibleApplication.preferences.selectedTranslation.isEmpty()) {
 //
@@ -116,13 +129,14 @@ class DispatchActivity : AppCompatActivity() {
 //            } else {
 
 
-        /// MEASURING TIME
+            /// MEASURING TIME
 //        var durationSum : Long = 0
 //        var durationmax : Long = 0
 //        var durationmin = Long.MAX_VALUE
 //        for (i in 1..1000) {
 //            val starttime = System.nanoTime()
             loadCurrentBible()
+
 //            val endtime = System.nanoTime()
 //            val duration = endtime - starttime
 //
@@ -136,18 +150,19 @@ class DispatchActivity : AppCompatActivity() {
 //        Log.d("MAX", durationmax.toString())
 
 
-        val intent = Intent(this, ReadActivity::class.java)
-        // startActivity(intent)
-        // finish()
+//        val intent = Intent(this, ReadActivity::class.java)
+            // startActivity(intent)
+            // finish()
 //            }
-//        }.observeOn(Schedulers.io())
-//        .subscribe {
-//            // move to another activity
-//            val intent = Intent(this, ReadActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//            startActivity(intent)
-//            finish()
-//        }
+        }.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe {
+            // move to another activity
+            val intent = Intent(this, ReadActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun loadCurrentBible() {
