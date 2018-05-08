@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.ChapterSelectionAdapter
 import com.claraboia.bibleandroid.extensions.bibleApplication
+import com.claraboia.bibleandroid.helpers.setStatusIconsColor
 import com.claraboia.bibleandroid.repositories.BibleTextRepository
 import com.claraboia.bibleandroid.views.decorators.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_select_chapter.*
@@ -25,6 +26,8 @@ class SelectChapterActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setDisplayShowCustomEnabled(false)
         supportActionBar?.setHomeButtonEnabled(true)
+
+        this.setStatusIconsColor(false)
 
         chapterList.setHasFixedSize(true)
         chapterList.itemAnimator = DefaultItemAnimator()

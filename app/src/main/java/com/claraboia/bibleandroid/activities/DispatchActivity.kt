@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.extensions.bibleApplication
+import com.claraboia.bibleandroid.helpers.setStatusIconsColor
 import com.claraboia.bibleandroid.infrastructure.FirstRun
 import com.claraboia.bibleandroid.infrastructure.Preferences
 import com.claraboia.bibleandroid.models.BibleTranslation
@@ -21,6 +22,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import com.github.chenglei1986.statusbar.StatusBarColorManager
+
 
 class DispatchActivity : AppCompatActivity() {
 
@@ -33,14 +36,16 @@ class DispatchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        this.setStatusIconsColor(true)
+
         //TODO: get this code back
         //verifyGooglePlay()
 
         firstRun = FirstRun.checkFirstRun()
         // defining loading text
-        if(firstRun == FirstRun.FIRST_RUN){
+        if (firstRun == FirstRun.FIRST_RUN) {
             this.txtloading.text = getString(R.string.startup_message_first_time)
-        }else{
+        } else {
             this.txtloading.text = getString(R.string.startup_message)
         }
 
@@ -90,8 +95,6 @@ class DispatchActivity : AppCompatActivity() {
 
     private fun performStartupPath() {
 
-
-
         Completable.fromAction {
             // bibleApplication.localBibles.addAll(BibleRepository.getAvailableBiblesLocal())
             // TODO: use SQLite to store the bibles
@@ -111,7 +114,12 @@ class DispatchActivity : AppCompatActivity() {
                 kjvTranslation.name = "King James Version"
                 kjvTranslation.version = "1.0"
                 BibleApplication.instance.preferences.selectedTranslation = kjvTranslation
+
+                BibleRepository.addLocalTranslation(kjvTranslation)
+            } else {
+                BibleRepository.getAvailableBiblesLocal()?.let { bibleApplication.localBibles.addAll(it) }
             }
+
 
 //            if (bibleApplication.localBibles.size == 0 || bibleApplication.preferences.selectedTranslation.isEmpty()) {
 //
@@ -155,16 +163,16 @@ class DispatchActivity : AppCompatActivity() {
             // finish()
 //            }
         }.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            // move to another activity
-            val intent = Intent(this, ReadActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
-            finish()
-            overridePendingTransition(0,0)
-        }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    // move to another activity
+                    val intent = Intent(this, ReadActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
+                    overridePendingTransition(0, 0)
+                }
     }
 
     private fun loadCurrentBible() {

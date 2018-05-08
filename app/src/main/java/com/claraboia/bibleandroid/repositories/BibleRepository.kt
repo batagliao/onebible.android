@@ -2,15 +2,11 @@ package com.claraboia.bibleandroid.repositories
 
 import com.claraboia.bibleandroid.BibleApplication
 import com.claraboia.bibleandroid.BuildConfig
+import com.claraboia.bibleandroid.database.BibleDatabase
 import com.claraboia.bibleandroid.models.Bible
 import com.claraboia.bibleandroid.models.BibleTranslation
 import com.claraboia.bibleandroid.models.parsers.BiblePullParser
-import com.claraboia.bibleandroid.models.parsers.BibleSaxParser
-import com.claraboia.bibleandroid.models.parsers.BibleVTDParser
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.io.File
-import java.util.*
 
 // storage consts
 const val BIB_FILE_EXTENSION: String = ".bib"
@@ -66,18 +62,18 @@ object BibleRepository {
         return File(path)
     }
 
-    fun getAvailableBiblesLocal(): List<BibleTranslation> {
+    fun getAvailableBiblesLocal(): List<BibleTranslation>? {
 
-        val biblefile = getLocalBiblesFile()
-        var bibles: ArrayList<BibleTranslation> = ArrayList()
-
-        if (!biblefile.exists()) return bibles
-
-        val gson = Gson()
-        val type = object : TypeToken<List<BibleTranslation>>() {}.type
-
-        val json = biblefile.readText()
-        bibles = gson.fromJson(json, type)
+//        val biblefile = getLocalBiblesFile()
+//        var bibles: ArrayList<BibleTranslation> = ArrayList()
+//
+//        if (!biblefile.exists()) return bibles
+//
+//        val gson = Gson()
+//        val type = object : TypeToken<List<BibleTranslation>>() {}.type
+//
+//        val json = biblefile.readText()
+//        bibles = gson.fromJson(json, type)
 
 //    dir.listFiles().forEach {
 //
@@ -102,7 +98,8 @@ object BibleRepository {
 //            bibles.add(bible)
 //        }
 //    }
-        return bibles
+        return BibleDatabase.getInstance(BibleApplication.instance.applicationContext)
+                ?.translationsDao()?.getAll()
     }
 
     fun getTranslationFileName(translastion: BibleTranslation): String {
@@ -114,19 +111,23 @@ object BibleRepository {
     }
 
     fun addLocalTranslation(translation: BibleTranslation) {
+        BibleDatabase.getInstance(BibleApplication.instance.applicationContext)
+                ?.translationsDao()?.insert(translation)
         BibleApplication.instance.localBibles.add(translation)
-        saveLocalTranslations(BibleApplication.instance.localBibles)
+        //saveLocalTranslations(BibleApplication.instance.localBibles)
     }
 
     fun removeLocalTranslation(translation: BibleTranslation) {
-        BibleApplication.instance.localBibles.remove(translation)
-        saveLocalTranslations(BibleApplication.instance.localBibles)
+        BibleDatabase.getInstance(BibleApplication.instance.applicationContext)
+                ?.translationsDao()?.delete(translation)
+//        BibleApplication.instance.localBibles.remove(translation)
+//        saveLocalTranslations(BibleApplication.instance.localBibles)
     }
 
-    private fun saveLocalTranslations(translations: List<BibleTranslation>) {
-        val gson = Gson()
-        val json = gson.toJson(translations)
-        val biblefile = getLocalBiblesFile()
-        biblefile.writeText(json)
-    }
+//    private fun saveLocalTranslations(translations: List<BibleTranslation>) {
+//        val gson = Gson()
+//        val json = gson.toJson(translations)
+//        val biblefile = getLocalBiblesFile()
+//        biblefile.writeText(json)
+//    }
 }

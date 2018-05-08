@@ -10,7 +10,7 @@
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/colorTextPrimary</item>
         <item name="colorControlNormal">@color/colorTextPrimary</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="isLightTheme">true</item>
     </style>
 
 

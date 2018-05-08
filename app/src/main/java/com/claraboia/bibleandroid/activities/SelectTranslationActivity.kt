@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.TranslationsPagerAdapter
+import com.claraboia.bibleandroid.helpers.setStatusIconsColor
 import kotlinx.android.synthetic.main.activity_select_translation.*
 
 const val SHOULD_OPEN_CLOUD_TAB_KEY = "OpenToCloudTab"
@@ -22,6 +23,8 @@ class SelectTranslationActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setDisplayShowCustomEnabled(false)
         supportActionBar?.setHomeButtonEnabled(true)
+
+        this.setStatusIconsColor(false)
 
         translationViewPager.adapter = TranslationsPagerAdapter(supportFragmentManager, this)
         translationTabLayout.setupWithViewPager(translationViewPager)

@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import com.claraboia.bibleandroid.R
 import com.claraboia.bibleandroid.adapters.BookSelectionAdapter
 import com.claraboia.bibleandroid.extensions.bibleApplication
+import com.claraboia.bibleandroid.helpers.setStatusIconsColor
 import com.claraboia.bibleandroid.views.BooksSelectDisplay
 import com.claraboia.bibleandroid.views.BooksSelectSortType
 import com.claraboia.bibleandroid.views.decorators.DividerItemDecoration
@@ -39,6 +40,8 @@ class SelectBooksActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setDisplayShowCustomEnabled(false)
+
+        this.setStatusIconsColor(false)
 
         // Calculate ActionBar height
         val tv = TypedValue()

@@ -15,6 +15,7 @@ import com.claraboia.bibleandroid.adapters.CENTER
 import com.claraboia.bibleandroid.adapters.ReadViewPagerAdapter
 import com.claraboia.bibleandroid.extensions.bibleApplication
 import com.claraboia.bibleandroid.helpers.CheatSheet
+import com.claraboia.bibleandroid.helpers.setStatusIconsColor
 import com.claraboia.bibleandroid.repositories.BibleTextRepository
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_read.*
@@ -36,13 +37,13 @@ class ReadActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(R.layout.activity_read)
 
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setShowHideAnimationEnabled(true)
+
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)

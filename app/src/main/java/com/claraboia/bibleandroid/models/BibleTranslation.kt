@@ -1,5 +1,8 @@
 package com.claraboia.bibleandroid.models
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.claraboia.bibleandroid.infrastructure.KParcelable
@@ -7,15 +10,33 @@ import com.claraboia.bibleandroid.infrastructure.KParcelable
 /**
  * Created by lucas.batagliao on 21/11/2017.
  */
+@Entity(tableName = "translation")
 class BibleTranslation : KParcelable {
+    @PrimaryKey(autoGenerate = false)
     var abbreviation = ""
+
+    @ColumnInfo()
     var active = true
+
+    @ColumnInfo()
     var file = ""
+
+    @ColumnInfo()
     var localFile = ""
+
+    @ColumnInfo()
     var fileSize = 0.0
+
+    @ColumnInfo()
     var format = "xml"
+
+    @ColumnInfo()
     var language = ""
+
+    @ColumnInfo()
     var name = ""
+
+    @ColumnInfo()
     var version = "1.0"
 
     fun isEmpty() : Boolean = abbreviation == ""

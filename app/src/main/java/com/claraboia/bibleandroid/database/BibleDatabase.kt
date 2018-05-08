@@ -4,12 +4,12 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.claraboia.bibleandroid.models.BibleAppSettings
+import com.claraboia.bibleandroid.models.BibleTranslation
 
-@Database(entities = arrayOf(BibleAppSettings::class), version = 1)
+@Database(entities = arrayOf(BibleTranslation::class), version = 1)
 abstract class  BibleDatabase: RoomDatabase() {
 
-//    abstract fun BibleSettingsRepository(): SettingsRepository
+   abstract fun translationsDao(): TranslationsDao
 
     companion object {
         private var INSTANCE: BibleDatabase? = null
@@ -17,8 +17,8 @@ abstract class  BibleDatabase: RoomDatabase() {
         fun getInstance(context: Context): BibleDatabase? {
             if (INSTANCE == null) {
                 synchronized(BibleDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            BibleDatabase::class.java, "weather.db")
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,
+                            BibleDatabase::class.java, "bibles-metadata.db")
                             .build()
                 }
             }
