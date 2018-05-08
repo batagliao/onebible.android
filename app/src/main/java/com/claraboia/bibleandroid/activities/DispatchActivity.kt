@@ -159,9 +159,11 @@ class DispatchActivity : AppCompatActivity() {
         .subscribe {
             // move to another activity
             val intent = Intent(this, ReadActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
             finish()
+            overridePendingTransition(0,0)
         }
     }
 
