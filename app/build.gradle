@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -46,10 +47,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     // implementation 'android.arch.lifecycle:common-java8:1.1.1'
-    implementation 'android.arch.persistence.room:runtime:1.0.0'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
-    kapt 'android.arch.persistence.room:compiler:1.0.0'
-    implementation 'android.arch.persistence.room:rxjava2:1.0.0'
+    implementation 'android.arch.persistence.room:runtime:1.1.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.0'
+    kapt 'android.arch.persistence.room:compiler:1.1.0'
+    implementation 'android.arch.persistence.room:rxjava2:1.1.0'
     implementation 'com.ximpleware:vtd-xml:2.13.4'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 // Because RxAndroid releases are few and far between, it is recommended you also
@@ -57,7 +58,6 @@ dependencies {
 // (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-
     implementation 'com.github.chenglei1986.statusbar:library:1.1.0'
 
     testImplementation 'junit:junit:4.12'
